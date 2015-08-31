@@ -8,6 +8,9 @@ This object reads, writes, and administrates XYmath task
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import next
+from builtins import map
+from builtins import object
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -156,7 +159,7 @@ class XY_Job(object):
                                 val = val.replace(',',' ') # if comma delimited, change
                                 vL = val.split()
                                 #print '%10s'%pname,'val=',val
-                                val = array( map(float, vL), dtype=double)
+                                val = array( list(map(float, vL)), dtype=double)
                             else:
                                 if is_number(val):
                                     val = float(val)

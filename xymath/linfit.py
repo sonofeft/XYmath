@@ -8,6 +8,9 @@ Uses the scipy.linalg.lstsq method to do a least squares curve fit.
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
+from builtins import object
+from past.utils import old_div
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -115,7 +118,7 @@ class LinCurveFit(object):
                             return self.ds.wtArr * (yCalcArr - self.ds.yArr)
                     else:
                         if  fit_best_pcent:
-                            return (yCalcArr - self.ds.yArr)/self.ds.yPcentDivArr
+                            return old_div((yCalcArr - self.ds.yArr),self.ds.yPcentDivArr)
                         else:
                             return yCalcArr - self.ds.yArr
                 
@@ -157,7 +160,7 @@ class LinCurveFit(object):
             self.std = INFINITY
         
         try:
-            self.pcent_std = 100.0 * std( errArr/self.ds.yPcentDivArr )
+            self.pcent_std = 100.0 * std( old_div(errArr,self.ds.yPcentDivArr) )
             if not isfinite( self.pcent_std ):
                 self.pcent_std = INFINITY
         except:

@@ -7,6 +7,7 @@ Support routines for exhaustive equation search in curve fit routines.
 Uses itertools to find all combinations.
 """
 from __future__ import print_function
+from builtins import str
 
 
 from itertools import combinations

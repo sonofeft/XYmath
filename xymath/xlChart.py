@@ -1,5 +1,10 @@
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
+from builtins import str
+from builtins import range
+from builtins import object
+from past.utils import old_div
 from win32com.client import Dispatch
 from .excel_const import constants
 import string
@@ -100,7 +105,7 @@ def combineRS( rs1, rs2 ):
     
     
 
-class xlChart:
+class xlChart(object):
     numWkBooks = 0
     def __init__(self,xlsFile="", Visible=1):
         self.xlApp = Dispatch("Excel.Application")
@@ -442,7 +447,7 @@ class xlChart:
                 xLabels[self.getCellValue( cell=self.formula.labelLoc )] = 1
         except:
             pass
-        for k in xLabels.keys():
+        for k in list(xLabels.keys()):
             if len(allXNames)>0:allXNames = allXNames + ', '
             allXNames = allXNames + k
         return allXNames
@@ -635,8 +640,8 @@ class xlChart:
             w = self.chart.PlotArea.Width
             h = self.chart.PlotArea.Height
         
-            tb.Left = int( w/4)
-            tb.Top = int( h/4 )
+            tb.Left = int( old_div(w,4))
+            tb.Top = int( old_div(h,4) )
             
         tb.ShapeRange.Fill.Transparency = transparency
         
@@ -749,7 +754,7 @@ class xlChart:
                     NColumn = i+1
                     if NColumn>26:
                         r = NColumn % 26 - 1
-                        q = NColumn / 26 - 1
+                        q = old_div(NColumn, 26) - 1
                         colStr = string.uppercase[q] + string.uppercase[r]
                     else:
                         colStr = string.uppercase[NColumn-1]

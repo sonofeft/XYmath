@@ -8,6 +8,9 @@ Uses the scipy.optimize.leastsq method to do a least squares curve fit.
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
+from builtins import object
+from past.utils import old_div
 
 import re
 from numpy import dot, std, array, double, isfinite, corrcoef, ones, linspace, logspace, log10, column_stack
@@ -63,7 +66,7 @@ class NonLinCurveFit(object):
         # ONLY continue if there is no errorStr
         if not self.errorStr:
             # put constants in equation into self.constD for use by numexpr
-            for cname in self.tokenD.keys():
+            for cname in list(self.tokenD.keys()):
                 if cname in ['pi','x']:
                     if cname=='x':
                         self.eqn_has_an_x = True
@@ -72,7 +75,7 @@ class NonLinCurveFit(object):
                     if cname not in self.constD:
                         self.constD[cname] = 1.0
                         
-            self.orderedConstL = self.constD.keys()
+            self.orderedConstL = list(self.constD.keys())
             self.orderedConstL.sort(key=str.lower) # put in alphabetical order
             
             self.fit_to_data()
@@ -102,7 +105,7 @@ class NonLinCurveFit(object):
                 return self.ds.wtArr*(self.ds.yArr - self.eval_xrange( self.ds.xArr ))
         else:
             if self.fit_best_pcent:
-                return (self.ds.yArr - self.eval_xrange( self.ds.xArr )) / self.ds.yPcentDivArr
+                return old_div((self.ds.yArr - self.eval_xrange( self.ds.xArr )), self.ds.yPcentDivArr)
             else:
                 return self.ds.yArr - self.eval_xrange( self.ds.xArr )
 
@@ -110,13 +113,13 @@ class NonLinCurveFit(object):
         
         if 'x' not in self.tokenD: # trick numexpr if there's no x in eqn
             cD = {'x':zeros(len(xArr)), 'pi':pi} # dictionary for evaluation
-            for key,value in self.constD.items(): # build local_dict to execute numexpr in
+            for key,value in list(self.constD.items()): # build local_dict to execute numexpr in
                 cD[key] = value
             #print 'in eval:',cD
             return numexpr.evaluate( self.rhs_eqnStr+'+x', local_dict=cD ) # add zeros via dummy "x"
         else:
             cD = {'x':xArr, 'pi':pi} # dictionary for evaluation
-            for key,value in self.constD.items(): # build local_dict to execute numexpr in
+            for key,value in list(self.constD.items()): # build local_dict to execute numexpr in
                 cD[key] = value
             #print 'in eval:',cD
             return numexpr.evaluate( self.rhs_eqnStr, local_dict=cD )
@@ -162,7 +165,7 @@ class NonLinCurveFit(object):
             self.std = INFINITY
         
         try:
-            self.pcent_std = 100.0 * std( errArr/self.ds.yPcentDivArr )
+            self.pcent_std = 100.0 * std( old_div(errArr,self.ds.yPcentDivArr) )
             if not isfinite( self.pcent_std ):
                 self.pcent_std = INFINITY
         except:
@@ -173,7 +176,7 @@ class NonLinCurveFit(object):
 
     def get_fortran_eqn_str_w_numbs(self):
         s = ' ' + self.rhs_eqnStr + ' ' # make word boundaries apparent
-        for c,val in self.constD.items():
+        for c,val in list(self.constD.items()):
             val = fortran_doubleStr( val ) # convert to FORTRAN double precision literal
             s = re.sub(r'\b%s\b'%c, '%s'%val, s)
         
@@ -183,7 +186,7 @@ class NonLinCurveFit(object):
 
     def get_eqn_str_w_numbs(self):
         s = ' ' + self.rhs_eqnStr + ' ' # make word boundaries apparent
-        for c,val in self.constD.items():
+        for c,val in list(self.constD.items()):
             s = re.sub(r'\b%s\b'%c, '%s'%val, s)
         
         s = s.replace('+ -','- ')

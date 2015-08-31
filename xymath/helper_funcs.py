@@ -5,6 +5,9 @@ r"""
 this file contains helper functions for XYmath
 """
 from __future__ import print_function
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 
 
 #
@@ -33,7 +36,7 @@ def nextColor(): # color iterator for plots
         if g>0.0:
             b = f
         g = f
-        f = f/2.
+        f = old_div(f,2.)
 
 
 def about_equal(v1, v2, NdecPts=7):
@@ -134,7 +137,7 @@ if __name__=='__main__':
         print('for %15s bestFloatStr=%s'%(val, vStr))
         
     call_best( 1.11000 )
-    call_best( 1.0/9.0 )
+    call_best( old_div(1.0,9.0) )
     call_best( 100.0 )
     call_best( 100 )
     call_best( '100x' )

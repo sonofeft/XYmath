@@ -8,6 +8,9 @@ Uses the scipy.interpolate.UnivariateSpline method to do spline fit.
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
+from builtins import object
+from past.utils import old_div
 
 from scipy.interpolate import UnivariateSpline
 from numpy import linspace, corrcoef, isfinite, std, isnan, logspace, log10
@@ -91,7 +94,7 @@ class Spline(object):
             self.std = INFINITY
         
         try:
-            self.pcent_std = 100.0 * std( errArr/self.ds.yPcentDivArr )
+            self.pcent_std = 100.0 * std( old_div(errArr,self.ds.yPcentDivArr) )
             if not isfinite( self.pcent_std ):
                 self.pcent_std = INFINITY
         except:

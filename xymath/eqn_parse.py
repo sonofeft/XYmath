@@ -66,12 +66,12 @@ def get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2"):
 if __name__=='__main__':
     
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*pi*x)*x**2")
-    print(tokenD.keys())
-    print(functionD.keys())
+    print(list(tokenD.keys()))
+    print(list(functionD.keys()))
     print(errorStr)
     print('='*44)
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2)")
-    print(tokenD.keys())
-    print(functionD.keys())
+    print(list(tokenD.keys()))
+    print(list(functionD.keys()))
     print(errorStr)
     

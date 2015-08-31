@@ -1,4 +1,10 @@
 from __future__ import absolute_import
+from __future__ import division
+from builtins import zip
+from builtins import map
+from builtins import range
+from builtins import object
+from past.utils import old_div
 
 import bisect
         
@@ -13,9 +19,9 @@ class cubicNG(object):  # cubic Newton-Gregory Interpolation
     def __init__(self, xInp, yInp):
         
         # make sure that x values are monotonically increasing
-        x = map(float, xInp)
-        y = map(float, yInp)
-        c = zip(x,y)
+        x = list(map(float, xInp))
+        y = list(map(float, yInp))
+        c = list(zip(x,y))
         c.sort()
         x = []
         y = []
@@ -38,15 +44,15 @@ class cubicNG(object):  # cubic Newton-Gregory Interpolation
             
         dif1 = []
         for i in range( len(x) - 1 ):
-            dif1.append( (y[i+1]-y[i]) / (x[i+1]-x[i]) )
+            dif1.append( old_div((y[i+1]-y[i]), (x[i+1]-x[i])) )
 
         dif2 = []
         for i in range( len(x) - 2 ):
-            dif2.append( (dif1[i+1]-dif1[i]) / (x[i+2]-x[i]) )
+            dif2.append( old_div((dif1[i+1]-dif1[i]), (x[i+2]-x[i])) )
 
         dif3 = []
         for i in range( len(x) - 3 ):
-            dif3.append( (dif2[i+1]-dif2[i]) / (x[i+3]-x[i]) )
+            dif3.append( old_div((dif2[i+1]-dif2[i]), (x[i+3]-x[i])) )
 
         for i in range( len(x)-3):
             self.a.append( y[i] )
@@ -120,7 +126,7 @@ class cubicNG_compInd(cubicNG):  # cubic Newton-Gregory Interpolation
         
         self.Npts = len(yInp)
         self.Nintervals = self.Npts-1
-        self.h = (xEnd-xBeg) / float( self.Nintervals ) # constant step size
+        self.h = old_div((xEnd-xBeg), float( self.Nintervals )) # constant step size
         
         self.xBeg = xBeg
         self.xEnd = xEnd
@@ -144,7 +150,7 @@ class cubicNG_compInd(cubicNG):  # cubic Newton-Gregory Interpolation
            profiling for lists of about 200 entries was about 20% faster
         '''
         
-        i = int(  (xval-self.xBeg) / self.h  )
+        i = int(  old_div((xval-self.xBeg), self.h)  )
         
         if i<0:
             return 0

@@ -8,6 +8,9 @@ Includes: Min/Max finding, root finding, integration over an interval,
 and numerical derivatives
 """
 from __future__ import print_function
+from __future__ import division
+from builtins import range
+from past.utils import old_div
 
 from numpy import linspace, array, argmin, argmax 
 from scipy import optimize, integrate, misc
@@ -15,7 +18,7 @@ from scipy import optimize, integrate, misc
 def find_values_at_x(obj, xval, xlo=0.0, xhi=10.0, nhi=2):
     '''Find value of obj at val as well as derivatives. n=1 is 1st derivative, etc.'''
     
-    dx = (xhi-xlo) / 1000.0 # make dx appropriate for range
+    dx = old_div((xhi-xlo), 1000.0) # make dx appropriate for range
     
     def f( xval ):
         return obj.eval_xrange( xval )
@@ -67,7 +70,7 @@ def find_min_max(obj, xlo=0.0, xhi=10.0, xtol=1.0e-12):
     imax = argmax( yArr )
     print('imin=',imin,'imax=',imax)
     
-    dx = (xhi-xlo)/990.0
+    dx = old_div((xhi-xlo),990.0)
     
     xlo_min = max(xlo, xArr[imin]-dx)
     xhi_min = min(xhi, xArr[imin]+dx)

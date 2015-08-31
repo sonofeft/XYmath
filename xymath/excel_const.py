@@ -4,11 +4,12 @@
 # From type library 'EXCEL.EXE'
 # On Tue Jan 04 16:33:47 2005
 """Microsoft Excel 11.0 Object Library"""
+from builtins import object
 #makepy_version = '0.4.91'
 #python_version = 0x20304f0
 
 
-class constants:
+class constants(object):
 	xl3DBar                       =-4099      # from enum Constants
 	xl3DEffects1                  =0xd        # from enum Constants
 	xl3DEffects2                  =0xe        # from enum Constants

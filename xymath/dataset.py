@@ -19,6 +19,10 @@ to calculate the selected curve fits.
 
 """
 from __future__ import print_function
+from __future__ import division
+from builtins import zip
+from builtins import object
+from past.utils import old_div
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -83,14 +87,14 @@ class DataSet(object):
                 xD[s] = [x]
                 yD[s] = [y]
         
-        keyL = xD.keys()
+        keyL = list(xD.keys())
         keyL.sort( key=float )
         xL = []
         yL = []
         for s in keyL:
             if len(xD[s])>1:
-                xL.append( sum(xD[s]) / float(len(xD[s])) )
-                yL.append( sum(yD[s]) / float(len(yD[s])) )
+                xL.append( old_div(sum(xD[s]), float(len(xD[s]))) )
+                yL.append( old_div(sum(yD[s]), float(len(yD[s]))) )
             else:
                 xL.append( xD[s][0] )
                 yL.append( yD[s][0] )
@@ -224,8 +228,8 @@ class DataSet(object):
     
     def get_pcent_std_A_matrix(self, xtranL=None, ytran=None): # e.g. ['const', 'x', 'x**2'] and 'y' or '1/y' 
         '''Get A matrix for fitting to "pcent_std".  Ignore wtArr for now.'''
-        A = column_stack([ self.getTransXArr(name)/self.yPcentDivArr for name in xtranL ])
-        y = self.getTransYArr( ytran )/self.yPcentDivArr
+        A = column_stack([ old_div(self.getTransXArr(name),self.yPcentDivArr) for name in xtranL ])
+        y = old_div(self.getTransYArr( ytran ),self.yPcentDivArr)
         return A,y
     
     def summary_print(self):
@@ -304,10 +308,10 @@ if __name__=='__main__':
     C.getTransYArr(name='y')
     C.getTransYArr(name='1/y')
     
-    for item in C.transXArrD.items():
+    for item in list(C.transXArrD.items()):
         print(item)
     print()
-    for item in C.transYArrD.items():
+    for item in list(C.transYArrD.items()):
         print(item)
     
     print()
@@ -324,7 +328,7 @@ if __name__=='__main__':
     print('sArr=',['%g'%v for v in sArr])
     print('yCalcArr=',['%g'%v for v in yCalcArr])
     print('errArr=',['%g'%v for v in errArr])
-    print('std=',std( errArr ), 'sqrt(resid/C.N)=',sqrt(resid/C.N))
+    print('std=',std( errArr ), 'sqrt(resid/C.N)=',sqrt(old_div(resid,C.N)))
     
     print('='*66)
     C.replace_all_xy_data( xArr=array([2,7,1,4]), yArr=array([22.2,0.7,11.1,4.4]), wtArr=None)

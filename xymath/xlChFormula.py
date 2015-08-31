@@ -1,3 +1,7 @@
+from __future__ import division
+from builtins import str
+from builtins import object
+from past.utils import old_div
 import string
 
 def getNcolFromLetter( colLet ):
@@ -34,7 +38,7 @@ def getNcolumnsNrowsFromRange( crange="$A$1:$D$8" ):
         pass
     return Ncolumns, Nrows  
 
-class xlChFormula:
+class xlChFormula(object):
     '''excel spreadsheet chart formulas for XY Series'''
 
     def setLabel(self, col=1, row=1, Sheet=''):
@@ -63,7 +67,7 @@ class xlChFormula:
         '''return the letter representation of excel columns'''
         if NColumn>26:
             r = (NColumn-1) % 26
-            q = int( (NColumn-1) / 26 ) - 1
+            q = int( old_div((NColumn-1), 26) ) - 1
             return string.uppercase[q] + string.uppercase[r]
         else:
             return string.uppercase[NColumn-1]

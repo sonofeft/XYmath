@@ -6,6 +6,7 @@ Save into Excel the curve fit calculation from XYmath
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import range
 
 import time
 import re
