@@ -6,6 +6,7 @@ Support routines for exhaustive equation search in curve fit routines.
 
 Uses itertools to find all combinations.
 """
+from __future__ import print_function
 
 
 from itertools import combinations
@@ -49,16 +50,16 @@ def num_combinations(iterable, r):
 if __name__ == "__main__":        
     
     for nt in next_term(func='x', xtranL=full_xtranL):
-        print nt
-    print
+        print(nt)
+    print()
     funcL=['const','x','x**2','exp(x)']
     xtranL=['x','(1/x)','exp(x)']
-    print "termL for funcL=%s\n and xtranL=%s\n"%(str(funcL), str(xtranL))
+    print("termL for funcL=%s\n and xtranL=%s\n"%(str(funcL), str(xtranL)))
     
     termL = build_xterms( funcL=funcL, xtranL=xtranL )
-    print termL
-    print
-    print '# 3 Term equations =',num_combinations(termL, 3)
+    print(termL)
+    print()
+    print('# 3 Term equations =',num_combinations(termL, 3))
     for i,rhs in enumerate(combinations(termL, 3)):
-        print '%3i)'%(i+1,),rhs
+        print('%3i)'%(i+1,),rhs)
     

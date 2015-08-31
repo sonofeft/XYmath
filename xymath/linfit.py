@@ -6,6 +6,8 @@ LinCurveFit fits a DataSet object to a linear sum of functions in x.
 
 Uses the scipy.linalg.lstsq method to do a least squares curve fit.
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -15,7 +17,7 @@ from scipy import linalg
 from scipy.optimize import leastsq
 import numexpr
 
-from helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
+from .helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
 
 inverseD = {'y':'y', '1/y':'1/(y)', 'log(y)':'exp(y)', 'exp(y)':'log(y)', 
     'log(1/y)':'1/exp(y)', 'exp(1/y)':'1/log(y)', 
@@ -131,7 +133,7 @@ class LinCurveFit(object):
             
     def calc_std_values_from_cArr(self):
         if self.dsTimeStamp == self.ds.timeStamp:
-            print 'std and pcent_std left unchanged'
+            print('std and pcent_std left unchanged')
             return
         
         # First set LinCurveFit timeStamp to ds.timeStamp
@@ -273,7 +275,7 @@ class LinCurveFit(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from dataset import DataSet
+    from .dataset import DataSet
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [10,5.49,0.89,-.14,-1.07,0.84], dtype=double)
@@ -281,22 +283,22 @@ if __name__=='__main__':
     C = DataSet(xArr, yArr, xName='fiddle', yName='faddle')
     lf = LinCurveFit( C, ['const', 'x', 'x**2'])
     
-    print lf.get_full_description()
-    print
+    print(lf.get_full_description())
+    print()
     #print "INFINITY =", bestFloatStr(INFINITY)
-    print
+    print()
     
     
     lf2 = LinCurveFit( C, ['1/x', 'x'], ytran='1/y')
     
-    print lf2.get_full_description()
-    print
+    print(lf2.get_full_description())
+    print()
     
     #  y = 3.3888 + 0.3725*x
     xArr3 = array( [1, 3, 5, 7, 10, 12, 13, 16, 18, 20], dtype=double)
     yArr3 = array( [4, 5, 6, 5,  8,  7,  6,  9, 12, 11], dtype=double)
     C3 = DataSet(xArr3, yArr3, xName='LaDee', yName='Daa', xUnits='inches', yUnits='degF')
     lf3 = LinCurveFit( C3, ['const', 'x'])
-    print lf3.get_full_description()
-    print
+    print(lf3.get_full_description())
+    print()
 

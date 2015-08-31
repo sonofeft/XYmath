@@ -4,11 +4,13 @@
 r"""
 Save into Excel the curve fit calculation from XYmath
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 import time
 import re
-from eqn_parse import get_const_list
-from xlChart import addColumnToRS, xlChart
+from .eqn_parse import get_const_list
+from .xlChart import addColumnToRS, xlChart
 
 def replace_word(eqnStr, s_old, s_new):
     s = ' ' + eqnStr + ' ' # make word boundaries apparent
@@ -42,7 +44,7 @@ def make_fit_excel( eqnObj ):
         xl_eqnStr = rhs_eqnStr.replace( '**', '^')
         xl_eqnStr = replace_word(xl_eqnStr, 'pi', 'pi()')   # pi is func in Excel
         xl_eqnStr = "=" + replace_word(xl_eqnStr, 'log', 'ln')   # log is base 10 in Excel
-        print 'xl_eqnStr =',xl_eqnStr
+        print('xl_eqnStr =',xl_eqnStr)
         
         irow = 2
         eL = []
@@ -87,10 +89,10 @@ def make_fit_excel( eqnObj ):
 
 if __name__=='__main__':
     from numpy import array, double
-    from dataset import DataSet
-    from linfit import LinCurveFit
-    from nonlinfit import NonLinCurveFit
-    from splines import Spline
+    from .dataset import DataSet
+    from .linfit import LinCurveFit
+    from .nonlinfit import NonLinCurveFit
+    from .splines import Spline
     import sys
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
@@ -102,25 +104,25 @@ if __name__=='__main__':
     src = make_fit_excel( lf )
     sys.exit()
     
-    print src
-    print '='*44
+    print(src)
+    print('='*44)
     
     lf = LinCurveFit( DS, ['const', 'x'], ytran='log(y)')
     src = make_fit_excel( lf )
-    print src
+    print(src)
     
-    print '='*44
+    print('='*44)
     nlf = NonLinCurveFit(DS, rhs_eqnStr='A * exp(c*x/pi)')
     src = make_fit_excel( nlf )
-    print src
+    print(src)
         
-    print '='*44
+    print('='*44)
     nlf = NonLinCurveFit(DS, rhs_eqnStr='A * pi*x + c')
     src = make_fit_excel( nlf )
-    print src
+    print(src)
         
-    print '='*44, ' Spline'
+    print('='*44, ' Spline')
     sp = Spline(DS, order=2, smoothing=0.0)
     src = make_fit_excel( sp )
-    print src
+    print(src)
     

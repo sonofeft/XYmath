@@ -6,6 +6,8 @@ XY_Job holds all data related to one XYmath task.
 
 This object reads, writes, and administrates XYmath task
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -13,12 +15,12 @@ from numpy import array, double
 import os
 from itertools import combinations
 
-from dataset import DataSet
-from linfit import LinCurveFit
-from nonlinfit import NonLinCurveFit
-from eqn_defs import common_eqn_defL
-from helper_funcs import INFINITY, is_number
-from exhaustive import build_xterms
+from .dataset import DataSet
+from .linfit import LinCurveFit
+from .nonlinfit import NonLinCurveFit
+from .eqn_defs import common_eqn_defL
+from .helper_funcs import INFINITY, is_number
+from .exhaustive import build_xterms
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -88,7 +90,7 @@ class XY_Job(object):
         self.set_file_name( fname )
             
         if not self.file_name:
-            print 'ERROR... no file name specified in "write_job_to_file".'
+            print('ERROR... no file name specified in "write_job_to_file".')
             return
         
         fOut = open( self.file_name, 'w' )
@@ -120,7 +122,7 @@ class XY_Job(object):
         else:
             self.set_file_name( fname )        
             if not os.path.isfile( self.file_name ):
-                print 'ERROR... file does not exist in "read_job_from_file".'
+                print('ERROR... file does not exist in "read_job_from_file".')
                 return
             fileObj = open( self.file_name, 'r' )
         
@@ -174,8 +176,8 @@ class XY_Job(object):
         D = allD.get('DataSet', {})
         if D:
             self.define_dataset(**D)
-            print 'xArr =',self.dataset.xArr
-            print 'yArr =',self.dataset.yArr
+            print('xArr =',self.dataset.xArr)
+            print('yArr =',self.dataset.yArr)
             
                     
         fileObj.close()
@@ -284,21 +286,21 @@ class XY_Job(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from dataset import DataSet
+    from .dataset import DataSet
     from pylab import *
-    from helper_funcs import nextColor # to make color iterator
+    from .helper_funcs import nextColor # to make color iterator
     
     XY = XY_Job(file_prefix='tube_socks')
 
     XY.read_job_from_file()
     
-    print '*'*60
+    print('*'*60)
     for linfit in XY.fit_dataset_to_exhaustive_search( run_best_pcent=0, 
         num_terms=3, funcL=None, xtranL=None,  ytranL=None):
-        print linfit.get_eqn_str_w_consts()
+        print(linfit.get_eqn_str_w_consts())
         
     XY.write_job_to_file()
-    print 'Stop at sys.exit()'
+    print('Stop at sys.exit()')
     sys.exit()
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
@@ -308,8 +310,8 @@ if __name__=='__main__':
     XY.define_dataset(xArr, yArr, wtArr=wtArr, xName='LaDee', yName='Daa', xUnits='inches', yUnits='degF')
     Lfit = XY.make_linear_fit(['const','x'], ytran='log(y)', fit_best_pcent=1)
     XY.save_linear_fit( Lfit )
-    print Lfit.get_full_description()
-    print
+    print(Lfit.get_full_description())
+    print()
     #Lfit.refine_the_fit_v2( min_pcent=0 )
     #print Lfit.get_full_description()
     #print
@@ -319,23 +321,23 @@ if __name__=='__main__':
         ordered_resultL = XY.fit_dataset_to_common_eqns(run_both=0, sort_by_pcent=0)
         for lf in ordered_resultL:
             #print lf.get_full_description()
-            print  '%-36s'%lf.get_eqn_str_w_consts(), '%10.3f'%lf.std, \
-                '%10.5f'%lf.pcent_std, {0:'STD',1:'%std'}[lf.fit_best_pcent]
-        print ordered_resultL[0].get_full_description()
+            print('%-36s'%lf.get_eqn_str_w_consts(), '%10.3f'%lf.std, \
+                '%10.5f'%lf.pcent_std, {0:'STD',1:'%std'}[lf.fit_best_pcent])
+        print(ordered_resultL[0].get_full_description())
     
     XY.write_job_to_file()
     
     ncolor = nextColor() # make color iterator
     
     xPlotArr = XY.linfit.get_x_plot_array(Npoints=100, logScale=0)
-    mfc=ncolor.next()
+    mfc=next(ncolor)
     plot(xPlotArr, XY.linfit.eval_xrange(xPlotArr), '-+', mfc=mfc,color=mfc,  
         label=XY.linfit.get_eqn_str_w_consts(), linewidth=3)
     #mfc=ncolor.next()
     plot(XY.dataset.xArr, XY.dataset.yArr, 'o',markersize=10, mfc=mfc,color=mfc, label='Data Points')
     
     for lf in ordered_resultL[1:4]:
-        mfc=ncolor.next()
+        mfc=next(ncolor)
         plot(xPlotArr, lf.eval_xrange(xPlotArr), mfc=mfc,color=mfc, 
             label=lf.get_eqn_str_w_consts(), linewidth=1)
         

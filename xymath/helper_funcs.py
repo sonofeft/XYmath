@@ -4,6 +4,7 @@
 r"""
 this file contains helper functions for XYmath
 """
+from __future__ import print_function
 
 
 #
@@ -127,10 +128,10 @@ def fortran_doubleStr(sInp):
             
 
 if __name__=='__main__':
-    print
+    print()
     def call_best( val ):
         vStr = bestFloatStr(val)
-        print 'for %15s bestFloatStr=%s'%(val, vStr)
+        print('for %15s bestFloatStr=%s'%(val, vStr))
         
     call_best( 1.11000 )
     call_best( 1.0/9.0 )

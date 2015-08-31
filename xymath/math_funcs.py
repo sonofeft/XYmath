@@ -7,6 +7,7 @@ Math functions to support XYmath
 Includes: Min/Max finding, root finding, integration over an interval, 
 and numerical derivatives
 """
+from __future__ import print_function
 
 from numpy import linspace, array, argmin, argmax 
 from scipy import optimize, integrate, misc
@@ -64,7 +65,7 @@ def find_min_max(obj, xlo=0.0, xhi=10.0, xtol=1.0e-12):
     # find index of min and max y value in array over range
     imin = argmin( yArr )
     imax = argmax( yArr )
-    print 'imin=',imin,'imax=',imax
+    print('imin=',imin,'imax=',imax)
     
     dx = (xhi-xlo)/990.0
     

@@ -18,6 +18,7 @@ An added feature is the generation of code (python or FORTRAN) functions
 to calculate the selected curve fits.
 
 """
+from __future__ import print_function
 
 #
 # import statements here. (built-in first, then 3rd party, then yours)
@@ -75,7 +76,7 @@ class DataSet(object):
         yD = {}
         for x,y in zip(self.xArr, self.yArr):
             s = '%.7g'%x
-            if xD.has_key(s):
+            if s in xD:
                 xD[s].append(x)
                 yD[s].append(y)
             else:
@@ -180,7 +181,7 @@ class DataSet(object):
     def getTransXArr(self, name='const'): # can be 'x', '1/x', etc.
         """Returns and perhaps creates/adds transformed xArr to transXArrD."""
         
-        if self.transXArrD.has_key( name ):
+        if name in self.transXArrD:
             return self.transXArrD[name]
         
         if name=='const':
@@ -201,7 +202,7 @@ class DataSet(object):
     def getTransYArr(self, name='y'): # can be 'y', '1/y', etc.
         """Returns and perhaps creates/adds transformed yArr to transYArrD."""
         
-        if self.transYArrD.has_key( name ):
+        if name in self.transYArrD:
             return self.transYArrD[name]
         
         # Don't bother with numexpr if just returning yArr
@@ -228,19 +229,19 @@ class DataSet(object):
         return A,y
     
     def summary_print(self):
-        print 'N =',self.N
-        print 'xArr =',self.xArr
-        print 'yArr =',self.yArr
-        print 'wtArr =',self.wtArr
-        print 'xName =',self.xName
-        print 'yName =',self.yName
-        print 'xUnits =',self.xUnits
-        print 'yUnits =',self.yUnits
-        print 'timeStamp =',self.timeStamp
-        print 'xmin =',self.xmin
-        print 'xmax =',self.xmax
-        print 'ymin_abs =',self.ymin_abs
-        print 'yPcentDivArr=',self.yPcentDivArr
+        print('N =',self.N)
+        print('xArr =',self.xArr)
+        print('yArr =',self.yArr)
+        print('wtArr =',self.wtArr)
+        print('xName =',self.xName)
+        print('yName =',self.yName)
+        print('xUnits =',self.xUnits)
+        print('yUnits =',self.yUnits)
+        print('timeStamp =',self.timeStamp)
+        print('xmin =',self.xmin)
+        print('xmax =',self.xmax)
+        print('ymin_abs =',self.ymin_abs)
+        print('yPcentDivArr=',self.yPcentDivArr)
         
     def get_data_pair_comment_lines(self, com_char='#', len_max=80, sepChar=','):
         '''Return dataset in a format consistent with a comment block'''
@@ -304,28 +305,28 @@ if __name__=='__main__':
     C.getTransYArr(name='1/y')
     
     for item in C.transXArrD.items():
-        print item
-    print
+        print(item)
+    print()
     for item in C.transYArrD.items():
-        print item
+        print(item)
     
-    print
+    print()
     A,y = C.get_A_matrix( ['const', 'x', 'x**2'], 'y' )
-    print 'A =',A
+    print('A =',A)
     
     cArr, resid, rank, sArr = linalg.lstsq(A, yArr)
     yCalcArr = dot( A, cArr )
     errArr = yArr - yCalcArr
 
-    print 'cArr=',['%g'%v for v in cArr]
-    print 'resid=', resid
-    print 'rank=',rank
-    print 'sArr=',['%g'%v for v in sArr]
-    print 'yCalcArr=',['%g'%v for v in yCalcArr]
-    print 'errArr=',['%g'%v for v in errArr]
-    print 'std=',std( errArr ), 'sqrt(resid/C.N)=',sqrt(resid/C.N)
+    print('cArr=',['%g'%v for v in cArr])
+    print('resid=', resid)
+    print('rank=',rank)
+    print('sArr=',['%g'%v for v in sArr])
+    print('yCalcArr=',['%g'%v for v in yCalcArr])
+    print('errArr=',['%g'%v for v in errArr])
+    print('std=',std( errArr ), 'sqrt(resid/C.N)=',sqrt(resid/C.N))
     
-    print '='*66
+    print('='*66)
     C.replace_all_xy_data( xArr=array([2,7,1,4]), yArr=array([22.2,0.7,11.1,4.4]), wtArr=None)
     C.sort_by_x()
     

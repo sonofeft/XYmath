@@ -4,11 +4,13 @@
 r"""
 Generate FORTRAN code to perform the curve fit calculation from XYmath
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 import time
-from eqn_parse import get_const_list
-from helper_funcs import fortran_doubleStr
-from newtGreg2 import quadNG
+from .eqn_parse import get_const_list
+from .helper_funcs import fortran_doubleStr
+from .newtGreg2 import quadNG
 
 def make_line_legal(srcLine, sepChar=' '):
     '''Assume that line is NOT numbered and that sepChar separates elements'''
@@ -236,10 +238,10 @@ C  If input value of x is out of range, print warning
 
 if __name__=='__main__':
     from numpy import array, double
-    from dataset import DataSet
-    from linfit import LinCurveFit
-    from nonlinfit import NonLinCurveFit
-    from splines import Spline
+    from .dataset import DataSet
+    from .linfit import LinCurveFit
+    from .nonlinfit import NonLinCurveFit
+    from .splines import Spline
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [1.2,3.1,9.2,15.8,24.6,36.5], dtype=double)
@@ -248,25 +250,25 @@ if __name__=='__main__':
     lf = LinCurveFit( DS, ['const', 'x', 'x**2'])
     
     src = make_fit_func_src( lf )
-    print src
-    print '='*44
+    print(src)
+    print('='*44)
     
     lf = LinCurveFit( DS, ['const', 'x'], ytran='log(y)')
     src = make_fit_func_src( lf )
-    print src
+    print(src)
     
-    print '='*44
+    print('='*44)
     nlf = NonLinCurveFit(DS, rhs_eqnStr='A * exp(c*x/pi)')
     src = make_fit_func_src( nlf )
-    print src
+    print(src)
         
-    print '='*44
+    print('='*44)
     nlf = NonLinCurveFit(DS, rhs_eqnStr='A * pi*x + c')
     src = make_fit_func_src( nlf )
-    print src
+    print(src)
         
-    print '='*44, ' Spline'
+    print('='*44, ' Spline')
     sp = Spline(DS, order=2, smoothing=0.0)
     src = make_fit_func_src( sp )
-    print src
+    print(src)
     

@@ -1,4 +1,6 @@
-from helper_funcs import is_number
+from __future__ import print_function
+from __future__ import absolute_import
+from .helper_funcs import is_number
 
 '''Interpret input string as either 2 rows or 2 columns of numbers.'''
 
@@ -19,7 +21,7 @@ def get_xy_lists( sInp ):
     numBadPairs = 0
     
     if len(rowL)==2:
-        print 'Interpret as 2 rows'
+        print('Interpret as 2 rows')
         val = rowL[0].replace(',',' ') # if comma delimited, change to space
         topL = val.split()
         val = rowL[1].replace(',',' ') # if comma delimited, change to space
@@ -37,7 +39,7 @@ def get_xy_lists( sInp ):
             else:
                 numBadPairs += 1
     else:
-        print 'Interpret as 2 columns'
+        print('Interpret as 2 columns')
         for row in rowL:
             val = row.replace(',',' ') # if comma delimited, change to space
             vL = val.split()
@@ -64,7 +66,7 @@ def get_xy_lists( sInp ):
 
 if __name__ == '__main__':
     
-    print 'Testing Column Pasting'
+    print('Testing Column Pasting')
     sInp = '''
 XName   YName
 1.00	10.20
@@ -78,13 +80,13 @@ XName   YName
 9.00	226.20
 '''
     xL, yL, xName, yName, numBadPairs = get_xy_lists( sInp )
-    print '                      numBadPairs =',numBadPairs
-    print 'xName=%s, yName=%s'%(xName, yName)    
-    print 'xL=',xL
-    print 'yL=',yL
+    print('                      numBadPairs =',numBadPairs)
+    print('xName=%s, yName=%s'%(xName, yName))    
+    print('xL=',xL)
+    print('yL=',yL)
     # =========================================
-    print '='*44
-    print 'Testing Row Pasting'
+    print('='*44)
+    print('Testing Row Pasting')
     sInp = '''
     
 Xname, 2	4	6	8	10	12	14
@@ -92,21 +94,21 @@ Yname, 14	42	86	146	222	314	422
 
 '''
     xL, yL, xName, yName, numBadPairs = get_xy_lists( sInp )
-    print '                      numBadPairs =',numBadPairs
-    print 'xName=%s, yName=%s'%(xName, yName)
-    print 'xL=',xL
-    print 'yL=',yL
+    print('                      numBadPairs =',numBadPairs)
+    print('xName=%s, yName=%s'%(xName, yName))
+    print('xL=',xL)
+    print('yL=',yL)
 
     # =========================================
-    print '='*44
-    print 'Testing Bad Data'
+    print('='*44)
+    print('Testing Bad Data')
     sInp = '''
     
 Xname, 2	4	6	8	10	12	14
 Yname, 14	42	86a b c d e f g h i j kkk lmnop
 '''
     xL, yL, xName, yName, numBadPairs = get_xy_lists( sInp )
-    print '                      numBadPairs =',numBadPairs
-    print 'xName=%s, yName=%s'%(xName, yName)
-    print 'xL=',xL
-    print 'yL=',yL
+    print('                      numBadPairs =',numBadPairs)
+    print('xName=%s, yName=%s'%(xName, yName))
+    print('xL=',xL)
+    print('yL=',yL)

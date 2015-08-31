@@ -6,15 +6,17 @@ NonLinCurveFit fits a DataSet object to a non-linear function of x.
 
 Uses the scipy.optimize.leastsq method to do a least squares curve fit.
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 import re
 from numpy import dot, std, array, double, isfinite, corrcoef, ones, linspace, logspace, log10, column_stack
 from numpy import absolute, zeros, pi, isnan
 from scipy.optimize import leastsq
 import numexpr
-from helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
+from .helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
 
-from eqn_parse import get_const_list
+from .eqn_parse import get_const_list
  
 class NonLinCurveFit(object):
     """NonLinCurveFit fits a DataSet object to a non-linear functions of x."""
@@ -55,7 +57,7 @@ class NonLinCurveFit(object):
         
         self.tokenD, self.functionD, self.errorStr = get_const_list( rhs_eqnStr=rhs_eqnStr )
         
-        if self.tokenD.has_key('y'):
+        if 'y' in self.tokenD:
             self.errorStr += '\nEquation must NOT contain a "y".'
         
         # ONLY continue if there is no errorStr
@@ -106,7 +108,7 @@ class NonLinCurveFit(object):
 
     def eval_xrange(self, xArr ):# assume that equation startswith "y = " 
         
-        if not self.tokenD.has_key('x'): # trick numexpr if there's no x in eqn
+        if 'x' not in self.tokenD: # trick numexpr if there's no x in eqn
             cD = {'x':zeros(len(xArr)), 'pi':pi} # dictionary for evaluation
             for key,value in self.constD.items(): # build local_dict to execute numexpr in
                 cD[key] = value
@@ -220,7 +222,7 @@ class NonLinCurveFit(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from dataset import DataSet
+    from .dataset import DataSet
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [5,14.14,25.98,40,55.9,73.485], dtype=double) # 5 * x ** 1.5
@@ -229,8 +231,8 @@ if __name__=='__main__':
     #constDinp = {'A':1.0, 'b':1.0}
     C = NonLinCurveFit(DS, rhs_eqnStr='A*x**b')#, constDinp=constDinp)
     
-    print C.eval_xrange( xArr ) - yArr
-    print
-    print C.get_full_description()
+    print(C.eval_xrange( xArr ) - yArr)
+    print()
+    print(C.get_full_description())
     #C.fit_to_data()
     #print C.get_full_description()

@@ -4,6 +4,7 @@
 r"""
 Parse the right hand side of a user-defined equation y=f(x)
 """
+from __future__ import print_function
 
 
 import parser
@@ -65,12 +66,12 @@ def get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2"):
 if __name__=='__main__':
     
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*pi*x)*x**2")
-    print tokenD.keys()
-    print functionD.keys()
-    print errorStr
-    print '='*44
+    print(tokenD.keys())
+    print(functionD.keys())
+    print(errorStr)
+    print('='*44)
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2)")
-    print tokenD.keys()
-    print functionD.keys()
-    print errorStr
+    print(tokenD.keys())
+    print(functionD.keys())
+    print(errorStr)
     

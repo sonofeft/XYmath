@@ -6,10 +6,12 @@ Splines fits a DataSet object to a spline function in x, with or w/o smoothing.
 
 Uses the scipy.interpolate.UnivariateSpline method to do spline fit.
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 from scipy.interpolate import UnivariateSpline
 from numpy import linspace, corrcoef, isfinite, std, isnan, logspace, log10
-from helper_funcs import intCast, floatCast, INFINITY, bestFloatStr
+from .helper_funcs import intCast, floatCast, INFINITY, bestFloatStr
 
 splineNameD = { 1:"Linear Interpolation",
             2:"Quadratic Spline",
@@ -72,7 +74,7 @@ class Spline(object):
             
     def calc_std_values(self):
         if self.dsTimeStamp == self.ds.timeStamp:
-            print 'std and pcent_std left unchanged'
+            print('std and pcent_std left unchanged')
             return
         
         # First set LinCurveFit timeStamp to ds.timeStamp
