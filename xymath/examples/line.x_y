@@ -1,0 +1,11 @@
+[XY_Job]
+job_name = XYmath Task
+[DataSet]
+xArr = 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+yArr = -3.0, -2.0, -1.0, 1.0, 2.0, 3.0
+wtArr = None
+xName = Uvula
+yName = Air Temp
+xUnits = inches
+yUnits = degF
+timeStamp = 1371347212.11

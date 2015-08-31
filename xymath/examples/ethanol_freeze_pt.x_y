@@ -1,0 +1,11 @@
+[XY_Job]
+job_name = XYmath Task
+[DataSet]
+xArr = 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0
+yArr = 32.0, 25.0, 15.0, 5.0, -10.0, -25.0, -35.0, -55.0, -75.0, -110.0, -175.0
+wtArr = None
+xName = Ethanol Concentration
+yName = Freeze Pt
+xUnits = % Volume
+yUnits = degF
+timeStamp = 1371595757.71

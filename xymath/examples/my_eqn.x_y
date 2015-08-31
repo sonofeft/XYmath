@@ -1,0 +1,11 @@
+[XY_Job]
+job_name = XYmath Task
+[DataSet]
+xArr = [ 1.  2.  3.  4.  5.  6.]
+yArr = [  20 120 273.33 485 756 1086.67]
+wtArr = None
+xName = LaDee
+yName = 10-20/x+30x^2
+xUnits = inches
+yUnits = degF
+timeStamp = 1371160979.96

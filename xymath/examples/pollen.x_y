@@ -1,0 +1,11 @@
+[XY_Job]
+job_name = XYmath Task
+[DataSet]
+xArr = 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+yArr = 0.0, 2.0, 5.0, 7.0, 8.0, 7.0, 5.0
+wtArr = None
+xName = Altitude
+yName = Pollen
+xUnits = km
+yUnits = #/m^3
+timeStamp = 1371347740.52

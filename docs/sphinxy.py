@@ -37,8 +37,13 @@ This is heavily adapted from nosy by Mike Steder at:
 https://gist.github.com/steder/1220683
 """
 
-
+__author__ = 'Charlie Taylor'
+__copyright__ = 'Copyright (c) 2015 Charlie Taylor'
+__license__ = 'GPL-3'
 __version__ = 1.0
+__email__ = "charlietaylor@users.sourceforge.net"
+__status__ = "4 - Beta" # "3 - Alpha", "4 - Beta", "5 - Production/Stable"
+
 
 import os
 import subprocess
