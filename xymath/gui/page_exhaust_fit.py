@@ -3,7 +3,7 @@ from math import factorial
 from Tkinter import *
 # Make sure that local version of xymath is imported
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from exhaustive import full_funcL, full_xtranL, full_ytranL, build_xterms, num_combinations
+from xymath.exhaustive import full_funcL, full_xtranL, full_ytranL, build_xterms, num_combinations
 
 class ExhaustPage(object):
     

@@ -4,9 +4,9 @@ from Tkinter import *
 # Make sure that local version of xymath is imported
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-import source_python
-import source_fortran
-import source_excel
+import xymath.source_python
+import xymath.source_fortran
+import xymath.source_excel
 
 class CodeGenPage(object):
     
@@ -155,11 +155,11 @@ class CodeGenPage(object):
             
             language = self.RadioGroup1_StringVar.get()
             if language.startswith('Python'):
-                src = source_python.make_fit_func_src(obj)
+                src = xymath.source_python.make_fit_func_src(obj)
             elif language.startswith('FORTRAN'):
-                src = source_fortran.make_fit_func_src(obj)
+                src = xymath.source_fortran.make_fit_func_src(obj)
             else:
-                did_good = source_excel.make_fit_excel(obj)
+                did_good = xymath.source_excel.make_fit_excel(obj)
                 if did_good:
                     src = 'Excel launched...'
                 else:

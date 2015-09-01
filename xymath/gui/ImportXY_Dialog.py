@@ -7,7 +7,7 @@ import sys
 import os
 # Make sure that local version of xymath is imported
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from two_row_col import get_xy_lists
+from xymath.two_row_col import get_xy_lists
 
 class _Dialog(Dialog):
     # use dialogOptions dictionary to set any values in the dialog

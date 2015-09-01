@@ -4,7 +4,7 @@ from scipy.interpolate import UnivariateSpline
 import os, sys
 # Make sure that local version of xymath is imported
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from splines import Spline
+from xymath.splines import Spline
 
 class SplinePage(object):
     

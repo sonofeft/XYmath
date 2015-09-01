@@ -14,7 +14,7 @@ from past.utils import old_div
 
 from scipy.interpolate import UnivariateSpline
 from numpy import linspace, corrcoef, isfinite, std, isnan, logspace, log10
-from .helper_funcs import intCast, floatCast, INFINITY, bestFloatStr
+from xymath.helper_funcs import intCast, floatCast, INFINITY, bestFloatStr
 
 splineNameD = { 1:"Linear Interpolation",
             2:"Quadratic Spline",

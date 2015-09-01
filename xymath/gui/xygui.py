@@ -26,7 +26,7 @@ from ImportXY_Dialog import _Importxy
 
 # Make sure that local version of xymath is imported
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from xy_job import XY_Job
+from xymath.xy_job import XY_Job
 
 LICENSE = '''
 XYmath  Copyright (C) 2013  Charlie Taylor
