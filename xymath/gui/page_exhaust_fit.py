@@ -1,19 +1,23 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
+from builtins import map
+from builtins import object
 import os, sys
 from math import factorial
-from Tkinter import *
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from tkinter import *
 from xymath.exhaustive import full_funcL, full_xtranL, full_ytranL, build_xterms, num_combinations
 
 class ExhaustPage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any XYjob issues.'''
-        print 'Leaving ExhaustPage'
+        print('Leaving ExhaustPage')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering ExhaustPage'
+        print('Entering ExhaustPage')
 
     #def __init__(self, master, pageFrame):
     def __init__(self, guiObj, pageFrame):
@@ -236,7 +240,7 @@ class ExhaustPage(object):
                 if n>0:
                     self.doc_text.insert(END, '\n'+'='*60+'\n')
                 lf = self.guiObj.linear_fitL[i]
-                print 'Summary for... ',lf.get_eqn_str_w_consts()
+                print('Summary for... ',lf.get_eqn_str_w_consts())
                 self.doc_text.insert(END, lf.get_full_description() )
         self.ShowHelpButton.configure(state=NORMAL,text="Show Help",width="18",relief=RAISED)
     
@@ -324,7 +328,7 @@ class ExhaustPage(object):
             #print lf.get_full_description()
             #print  '%-36s'%lf.get_eqn_str_w_consts(), '%10g'%lf.std, \
             #    '%10.5f'%lf.pcent_std, {0:'STD',1:'%std'}[lf.fit_best_pcent]
-        print self.guiObj.linear_fitL[0].get_full_description()
+        print(self.guiObj.linear_fitL[0].get_full_description())
         
         
         if self.guiObj.linear_fitL:
@@ -335,19 +339,19 @@ class ExhaustPage(object):
             
 
     def Equations_Listbox_Click(self, event): 
-        print 'self.Equations_Listbox.curselection()=',self.Equations_Listbox.curselection()
-        self.selected_linfitL = map(int, self.Equations_Listbox.curselection())
-        print 'self.selected_linfitL=',self.selected_linfitL
+        print('self.Equations_Listbox.curselection()=',self.Equations_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Equations_Listbox.curselection()))
+        print('self.selected_linfitL=',self.selected_linfitL)
         self.put_summaries_into_text_box()
         self.put_curve_fit_on_plot()
 
     def Pcentstddev_Listbox_Click(self, event): #click method for component ID=3
-        self.selected_linfitL = map(int, self.Pcentstddev_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Pcentstddev_Listbox.curselection()))
         self.put_summaries_into_text_box()
         self.put_curve_fit_on_plot()
 
     def Stddev_Listbox_Click(self, event): #click method for component ID=2
-        self.selected_linfitL = map(int, self.Stddev_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Stddev_Listbox.curselection()))
         self.put_summaries_into_text_box()
         self.put_curve_fit_on_plot()
 
@@ -355,27 +359,27 @@ class ExhaustPage(object):
         pass
         # >>>>>>insert any user code below this comment for section "RadioGroup1_StringVar_Callback"
         # replace, delete, or comment-out the following
-        print "RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.RadioGroup1_StringVar.get()
+        print("RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.RadioGroup1_StringVar.get())
 
     def NSavedEqnsStringVar_Callback(self, varName, index, mode):
         pass
         # >>>>>>insert any user code below this comment for section "NSavedEqnsStringVar_Callback"
         # replace, delete, or comment-out the following
-        print "NSavedEqnsStringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.NSavedEqnsStringVar.get()
+        print("NSavedEqnsStringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.NSavedEqnsStringVar.get())
         try:
             max_saved_eqns = int( self.NSavedEqnsStringVar.get() )
             self.max_saved_eqns = max_saved_eqns
         except:
-            print 'Error in spinbox for Saved Equations',self.NSavedEqnsStringVar.get(),'!= integer'
+            print('Error in spinbox for Saved Equations',self.NSavedEqnsStringVar.get(),'!= integer')
 
     def NTermsStringVar_Callback(self, varName, index, mode):
         pass
         # >>>>>>insert any user code below this comment for section "NTermsStringVar_Callback"
         # replace, delete, or comment-out the following
-        print "NTermsStringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.NTermsStringVar.get()
+        print("NTermsStringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.NTermsStringVar.get())
         self.calc_number_of_search_eqns()
 
     def calc_possibel_terms_in_eqn(self):
@@ -404,7 +408,7 @@ class ExhaustPage(object):
 
 
     def Checkbutton_IntVar_Callback(self):
-        print "Checkbutton_StringVar_Callback"
+        print("Checkbutton_StringVar_Callback")
         self.calc_number_of_search_eqns()
         
         

@@ -1,31 +1,39 @@
 #!/usr/bin/env python
 
 
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
+if sys.version_info < (3,):
+    from future import standard_library
+    standard_library.install_aliases()
+    import tkFileDialog
+    import tkMessageBox
+else:
+    import tkinter.filedialog as tkFileDialog
+    import tkinter.messagebox as tkMessageBox
+from builtins import str
+from builtins import range
+from builtins import object
 import time
 from numpy import array, double
-from Tkinter import *
-import tkMessageBox
-import tkFileDialog
-import tkColorChooser
+from tkinter import *
 
-from tabframes import TabFrames
-from pagedata import PageData
-from page_simple_fit import SimplePage
-from page_spline import SplinePage
-from page_math import  MathPage
-from page_exhaust_fit import ExhaustPage
-from page_nonlin_fit import NonLinFitPage
-from page_plot import PagePlot # sets plot attributes
-from page_codegen import CodeGenPage
+from xymath.gui.tabframes import TabFrames
+from xymath.gui.pagedata import PageData
+from xymath.gui.page_simple_fit import SimplePage
+from xymath.gui.page_spline import SplinePage
+from xymath.gui.page_math import  MathPage
+from xymath.gui.page_exhaust_fit import ExhaustPage
+from xymath.gui.page_nonlin_fit import NonLinFitPage
+from xymath.gui.page_plot import PagePlot # sets plot attributes
+from xymath.gui.page_codegen import CodeGenPage
 
-from plot_window import PlotWindow
-from About_Dialog import _About
-from ImportXY_Dialog import _Importxy
+from xymath.gui.plot_window import PlotWindow
+from xymath.gui.About_Dialog import _About
+from xymath.gui.ImportXY_Dialog import _Importxy
 
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xymath.xy_job import XY_Job
 
 LICENSE = '''
@@ -34,7 +42,7 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions.'''
 
-class _Xygui:
+class _Xygui(object):
     
         
     def cleanupOnQuit(self):
@@ -42,7 +50,7 @@ class _Xygui:
             self.AskYesNo( title='Data Saved Before Quitting?', \
             message='Do you want to exit XYmath?\nHave you saved your data?'):
             
-            print 'Doing final cleanup before quitting'
+            print('Doing final cleanup before quitting')
             
             
             self.allow_subWindows_to_close = 1
@@ -134,11 +142,11 @@ class _Xygui:
         # check for input file on command line
         if len( sys.argv ) == 2:
             fName = sys.argv[1]
-            if fName.find('.')<0:
+            if not fName.endswith('.x_y'):
                 fName += '.x_y'
             self.pathopen = os.path.abspath(fName)
             if os.path.isfile( self.pathopen ): # if file exists, read it as a definition file
-                fInp = file( os.path.abspath(fName), 'rb' )
+                fInp = open( os.path.abspath(fName), 'rb' )
                 self.read_xyjob_from_file(fInp)
             else:
                 # For erroneous file names, change status bar
@@ -151,7 +159,7 @@ class _Xygui:
         milliseconds=100
         self.master.after( milliseconds, self.littleInits )
         
-        print LICENSE
+        print(LICENSE)
 
     def littleInits(self):
         self.PlotWin = PlotWindow(self.master, self)
@@ -167,55 +175,55 @@ class _Xygui:
         # >>>>>>insert any user code below this comment for section "menu_Program_Exit"
         # replace, delete, or comment-out the following
         self.statusMessage.set("called menu_Program_Exit")
-        print "called menu_Program_Exit"
+        print("called menu_Program_Exit")
         
         self.cleanupOnQuit()
 
     def has_some_data(self):
         '''Return True if there is some data or curve fit being held in memory.'''
-        print 'Entering MathPage'
+        print('Entering MathPage')
         XY = self.XYjob
         got_data = False
         
         if XY.nonlin_fit:
-            print 'Has a Non-Linear Fit'
+            print('Has a Non-Linear Fit')
             got_data = True
         
         for pagename in ['Simple Fit','Exhaustive Fit']:
             selected_linfitL = self.pageD[pagename].selected_linfitL
             for n,i in enumerate(selected_linfitL):
-                print 'Has a %s'%pagename
+                print('Has a %s'%pagename)
                 got_data = True
         
         for spline in self.selected_spline_objL:
-            print 'Has a Spline Fit'
+            print('Has a Spline Fit')
             got_data = True
         
         DataPage = self.pageD['Data']
         if DataPage.Xname_Entry_StringVar.get() != 'x':
-            print 'Has x Name'
+            print('Has x Name')
             got_data = True
         if DataPage.Xunits_Entry_StringVar.get() != '':
-            print 'Has x Units'
+            print('Has x Units')
             got_data = True
         if DataPage.Yname_Entry_StringVar.get() != 'y':
-            print 'Has y Name'
+            print('Has y Name')
             got_data = True
         if DataPage.Yunits_Entry_StringVar.get() != '':
-            print 'Has Y Units'
+            print('Has Y Units')
             got_data = True
             
         if DataPage.eg.num_active_wtfactors:
-            print 'Has Weight Factors'
+            print('Has Weight Factors')
             got_data = True
         
         for i in range(DataPage.eg.Nrows):
             if DataPage.eg.entryL[i][0].is_float() or DataPage.eg.entryL[i][1].is_float():
-                print 'Has Data in Entry Box'
+                print('Has Data in Entry Box')
                 got_data = True
         
         if self.XYjob.dataset!=None or self.XYjob.linfit!=None or self.XYjob.nonlin_fit!=None:
-            print 'Has Initialized XYjob'
+            print('Has Initialized XYjob')
             got_data = True
             
         
@@ -266,9 +274,9 @@ class _Xygui:
         # >>>>>>insert any user code below this comment for section "menu_File_New"
         # replace, delete, or comment-out the following
         self.statusMessage.set("called menu_File_New")
-        print "called menu_File_New"
+        print("called menu_File_New")
         if self.has_some_data():
-            print 'Has Some Data to be Cleared'
+            print('Has Some Data to be Cleared')
             if self.AskYesNo( title='Clear All Data', message='Do you want to clear all data from memory?'):
                 self.clear_all_data()
 
@@ -277,7 +285,7 @@ class _Xygui:
         # >>>>>>insert any user code below this comment for section "menu_File_Open"
         # replace, delete, or comment-out the following
         self.statusMessage.set("called menu_File_Open")
-        print "called menu_File_Open"
+        print("called menu_File_Open")
         
         fInp = self.AskOpenFile(title='Open XYmath File', mode='rb', initialdir='.')
         if fInp:
@@ -285,7 +293,7 @@ class _Xygui:
             self.read_xyjob_from_file(fInp)
             
     def read_xyjob_from_file(self, fInp):
-        print 'Opened file', os.path.basename( fInp.name )
+        print('Opened file', os.path.basename( fInp.name ))
         # fInp will be closed by read_job_from_file
         self.XYjob.read_job_from_file(fileObj=fInp)
         #self.pageD['Data'].place_xyjob_data()
@@ -302,7 +310,7 @@ class _Xygui:
         # >>>>>>insert any user code below this comment for section "menu_File_Save"
         # replace, delete, or comment-out the following
         self.statusMessage.set("called menu_File_Save")
-        print "called menu_File_Save"
+        print("called menu_File_Save")
         
         if self.XYjob.file_prefix:
             initialfile = self.XYjob.file_prefix + '.x_y'
@@ -318,7 +326,7 @@ class _Xygui:
             self.pageD['Data'].put_entry_values_on_plot()
             
             self.XYjob.write_job_to_file( fname=fsave )
-            print 'Saving XYmath to:',fsave
+            print('Saving XYmath to:',fsave)
             prefix = os.path.basename(self.XYjob.file_prefix)
             self.master.title("XYmath - %s"%prefix)
             name = os.path.basename(self.XYjob.file_name)
@@ -343,7 +351,7 @@ class _Xygui:
 
 
         if self.w!=w or self.h!=h:
-            print "Master reconfigured... make resize adjustments"
+            print("Master reconfigured... make resize adjustments")
             self.w=w
             self.h=h
             
@@ -414,13 +422,13 @@ class _Xygui:
         pass
 
         # >>>>>>insert any user code below this comment for section "standard_alarm"
-        print "Alarm called"
+        print("Alarm called")
         
     def menu_File_Import(self):
         dialog = _Importxy(self.master, "Import X,Y Data")
         if dialog.result:
             wtArr = None
-            print 'place_entries_into_dataset with wtArr = None'
+            print('place_entries_into_dataset with wtArr = None')
             xL = dialog.result["xL"]
             yL = dialog.result["yL"]
             

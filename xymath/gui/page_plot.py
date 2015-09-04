@@ -1,17 +1,22 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 
-from Tkinter import *
-import tkFont
-from dropdown import Dropdown
+from tkinter import *
+import tkinter.font
+from xymath.gui.dropdown import Dropdown
 
 class PagePlot(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any issues.'''
-        print 'Leaving PagePlot'
+        print('Leaving PagePlot')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering PagePlot'
+        print('Entering PagePlot')
             
     def __init__(self, guiObj, pageFrame):
         
@@ -181,7 +186,7 @@ class PagePlot(object):
         self.set_init_dropdown_value( self.TypeDataPoints_DD )
 
         #  Clipboard button
-        self.customFont = tkFont.Font(family="Helvetica", size=14)        
+        self.customFont = tkinter.font.Font(family="Helvetica", size=14)        
         self.Clipboard_Button = Button(self.cc_frame,text="Put Plot on Clipboard")#,  font=self.customFont)
         self.Clipboard_Button.bind("<ButtonRelease-1>", self.Clipboard_Button_Click)
         
@@ -235,12 +240,12 @@ class PagePlot(object):
         
         #print self.plotOptionD
     def PlotToFile_Button_Click(self, event):
-        print 'Save Plot to File'
+        print('Save Plot to File')
         self.guiObj.PlotWin.toolbar.save_figure()
 
 
     def Clipboard_Button_Click(self, event):
-        print 'put plot on clipboard'
+        print('put plot on clipboard')
         self.guiObj.PlotWin.put_plot_on_clipboard()
 
     def refresh_last_plot(self):
@@ -251,7 +256,7 @@ class PagePlot(object):
         self.plotOptionD[DD_obj.label] = DD_obj.get_choice()
 
     def dd_callback(self, label, newvalue):
-        print 'From callback "%s"'%label,'=',newvalue
+        print('From callback "%s"'%label,'=',newvalue)
         self.plotOptionD[label] = newvalue
         self.refresh_last_plot()
 

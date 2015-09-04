@@ -100,7 +100,7 @@ class XY_Job(object):
         def write_property(obj, header, propL ):
             fOut.write( '[%s]\n'%header )
             for pname in propL:
-                if pname.endswith('Arr'):
+                if pname.endswith(b'Arr'):
                     try:
                         valL = ['%s'%val for val in getattr(obj, pname)]
                         fOut.write( '%s = %s\n'%(pname, ', '.join(valL)) )
@@ -130,7 +130,7 @@ class XY_Job(object):
             fileObj = open( self.file_name, 'r' )
         
         def strip_square_brackets( s ):
-            if s.startswith('[') and s.endswith(']'):
+            if s.startswith(b'[') and s.endswith(b']'):
                 return s[1:-1]
             else:
                 return s
@@ -140,25 +140,25 @@ class XY_Job(object):
             header = ''
             for line in fileObj: # Headers look like [HeaderName]
                 line = line.strip()
-                if line.startswith('[') and line.endswith(']'):
+                if line.startswith(b'[') and line.endswith(b']'):
                     header = line[1:-1]
                     allD[header] = {} # dict for header
                 else:
                     # data lines within a Header look like: param = all the param data
                     # split at the 1st equal sign for name/data pairs
-                    sL = line.split(' = ', 1)
+                    sL = line.split(b' = ', 1)
                     if len(sL) == 2:
                         pname = sL[0].strip()
                         # strip any enclosing square brackets from data 
                         val = strip_square_brackets( sL[1].strip() )
                         
                         # Maybe change val for special circumstances
-                        if val!='None':
-                            if pname.endswith('Arr'):
+                        if val!=b'None':
+                            if pname.endswith(b'Arr'):
                                 # arrays should be space delimited numbers
-                                val = val.replace(',',' ') # if comma delimited, change
+                                val = val.replace(b',',b' ') # if comma delimited, change
                                 vL = val.split()
-                                #print '%10s'%pname,'val=',val
+                                print( '---> %10s'%pname,'val=',val )
                                 val = array( list(map(float, vL)), dtype=double)
                             else:
                                 if is_number(val):

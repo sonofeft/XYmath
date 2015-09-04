@@ -5,7 +5,12 @@ from builtins import str
 from builtins import range
 from builtins import object
 from past.utils import old_div
-from win32com.client import Dispatch
+
+try:
+    from win32com.client import Dispatch
+except:
+    print('WARNING... win32com.client.Dispatch did NOT import properly.')
+
 from .excel_const import constants
 import string
 from . import xlChFormula

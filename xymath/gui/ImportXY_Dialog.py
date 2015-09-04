@@ -1,12 +1,26 @@
 #!/usr/bin/env python
 
-from Tkinter import *
-import tkMessageBox
-from tkSimpleDialog import Dialog
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
+from builtins import str
+from builtins import object
+from tkinter import *
+import tkinter.messagebox
+
 import sys
 import os
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+if sys.version_info < (3,):
+    from future import standard_library
+    standard_library.install_aliases()
+    from tkSimpleDialog import Dialog
+else:
+    # this is only called incorrectly by pylint using python2
+    from tkinter.simpledialog import Dialog
+
+
 from xymath.two_row_col import get_xy_lists
 
 class _Dialog(Dialog):
@@ -97,9 +111,9 @@ class _Importxy(_Dialog):
         self.XData_Listbox.delete(0, END)
         self.YData_Listbox.delete(0, END)
         
-        print "executed method Paste_Button_Click"
-        print '   on clip board:'
-        print self.dialogframe.clipboard_get()
+        print("executed method Paste_Button_Click")
+        print('   on clip board:')
+        print(self.dialogframe.clipboard_get())
         self.xL, self.yL, self.xName, self.yName, self.numBadPairs = \
             get_xy_lists( self.dialogframe.clipboard_get() )
         
@@ -110,12 +124,12 @@ class _Importxy(_Dialog):
             
 
     def XData_Listbox_Click(self, event):
-        print "executed method XData_Listbox_Click"
-        print "current selection(s) =",self.XData_Listbox.curselection()
+        print("executed method XData_Listbox_Click")
+        print("current selection(s) =",self.XData_Listbox.curselection())
         labelL = []
         for i in self.XData_Listbox.curselection():
             labelL.append( self.XData_Listbox.get(i))
-        print "current label(s) =",labelL
+        print("current label(s) =",labelL)
         # use self.XData_Listbox.insert(0, "item zero")
         #     self.XData_Listbox.insert(index, "item i")
         #            OR
@@ -123,12 +137,12 @@ class _Importxy(_Dialog):
         #   to insert items into the list box
 
     def YData_Listbox_Click(self, event):
-        print "executed method YData_Listbox_Click"
-        print "current selection(s) =",self.YData_Listbox.curselection()
+        print("executed method YData_Listbox_Click")
+        print("current selection(s) =",self.YData_Listbox.curselection())
         labelL = []
         for i in self.YData_Listbox.curselection():
             labelL.append( self.YData_Listbox.get(i))
-        print "current label(s) =",labelL
+        print("current label(s) =",labelL)
         # use self.YData_Listbox.insert(0, "item zero")
         #     self.YData_Listbox.insert(index, "item i")
         #            OR
@@ -137,27 +151,27 @@ class _Importxy(_Dialog):
 
     # standard message dialogs... showinfo, showwarning, showerror
     def ShowInfo(self, title='Title', message='your message here.'):
-        tkMessageBox.showinfo( title, message )
+        tkinter.messagebox.showinfo( title, message )
         return
     def ShowWarning(self, title='Title', message='your message here.'):
-        tkMessageBox.showwarning( title, message )
+        tkinter.messagebox.showwarning( title, message )
         return
     def ShowError(self, title='Title', message='your message here.'):
-        tkMessageBox.showerror( title, message )
+        tkinter.messagebox.showerror( title, message )
         return
         
     # standard question dialogs... askquestion, askokcancel, askyesno, or askretrycancel
     # return True for OK, Yes, Retry, False for Cancel or No
     def AskYesNo(self, title='Title', message='your question here.'):
-        return tkMessageBox.askyesno( title, message )
+        return tkinter.messagebox.askyesno( title, message )
     def AskOK_Cancel(self, title='Title', message='your question here.'):
-        return tkMessageBox.askokcancel( title, message )
+        return tkinter.messagebox.askokcancel( title, message )
     def AskRetryCancel(self, title='Title', message='your question here.'):
-        return tkMessageBox.askretrycancel( title, message )
+        return tkinter.messagebox.askretrycancel( title, message )
         
     # return "yes" for Yes, "no" for No
     def AskQuestion(self, title='Title', message='your question here.'):
-        return tkMessageBox.askquestion( title, message )
+        return tkinter.messagebox.askquestion( title, message )
     # END of standard message dialogs
 
     def validate(self):
@@ -176,9 +190,9 @@ class _Importxy(_Dialog):
         return 1
 
     def apply(self):
-        print 'apply called'
+        print('apply called')
 
-class _Testdialog:
+class _Testdialog(object):
     def __init__(self, master):
         frame = Frame(master, width=300, height=300)
         frame.pack()
@@ -191,9 +205,9 @@ class _Testdialog:
 
     def Button_1_Click(self, event):
         dialog = _Importxy(self.master, "Import X,Y Data")
-        print '===============Result from Dialog===================='
-        print dialog.result
-        print '====================================================='
+        print('===============Result from Dialog====================')
+        print(dialog.result)
+        print('=====================================================')
 
 def main():
     root = Tk()

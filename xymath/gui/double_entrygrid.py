@@ -1,12 +1,17 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 
-from Tkinter import *
+from tkinter import *
 import time
 
 class FloatEntry(Entry):
     # base class for validating entry widgets
 
     def __init__(self, master, i, j, grid_callback, value="", bg='', **kw):
-        apply(Entry.__init__, (self, master), kw)
+        Entry.__init__(*(self, master), **kw)
         
         if bg:
             self.configure(bg=bg)
@@ -229,7 +234,7 @@ class EntryGrid(Frame):
 
     def ArrowKeyHandler(self, event,   i, j ):
         
-        print event.keysym,'at i,j=',i,j
+        print(event.keysym,'at i,j=',i,j)
         
         if event.keysym not in ['Up','Down','Left','Right']:
             return

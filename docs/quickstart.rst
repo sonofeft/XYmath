@@ -4,6 +4,55 @@
 QuickStart
 ==========
 
+.. _Python(x,y): http://python-xy.github.io/
+.. _Anaconda: https://store.continuum.io/cshop/anaconda/
+
+
+Prerequisites
+-------------
+
+XYmath dependencies include matplotlib, numpy, scipy, numexpr, imaging-tk (and win32com on Windows).
+Installing these can be problematic on both Windows and Linux.
+The easiest solution is to use Anaconda_ or `Python(x,y)`_.
+If you are interested in XYmath, you probably want Anaconda_ or `Python(x,y)`_ for many other reasons anyway.
+
+Without Anaconda or Python(x,y)
+-------------------------------
+
+
+
+w/o On Windows
+~~~~~~~~~~~~~~
+
+If you insist on "going it alone" without Anaconda_ or `Python(x,y)`_, on Windows, then I can't help you, I don't know how to install XYmath without one or the other of those environments.
+
+I'm a Windows person with years of experience with python on Windows and I still find the process too daunting.
+
+You really can't go wrong with either Anaconda_ or `Python(x,y)`_, I have used them both and think they are both excellent.  
+`Python(x,y)`_ is only on Windows, Anaconda_ supports both Windows and Linux.
+
+
+w/o On Linux
+~~~~~~~~~~~~
+
+Without Anaconda_ on Linux, note that pip will not install some packages.
+You may get messages like: "the following required packages cannot be built * freetype png"
+OR "i686-linux-gnu-gcc: error trying to exec 'cc1plus'".
+
+You may need to do the following::
+
+    Use the ``Software Manager`` to install matplotlib, numpy, scipy, numexpr, imaging-tk
+    
+    Or Try,
+    
+    sudo apt-get install python-matplotlib
+    sudo apt-get install python-numpy
+    sudo apt-get install python-scipy
+    sudo apt-get install python-numexpr
+    sudo apt-get install python-imaging-tk
+    
+
+
 Install XYmath
 --------------
 
@@ -17,6 +66,7 @@ The easiest way to install XYmath is::
     pip install --user xymath
 
 In case of error, see :ref:`internal_pip_error`
+    
 
 .. _internal_source_install:
 

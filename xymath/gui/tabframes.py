@@ -1,5 +1,8 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
 
-from Tkinter import *
+from tkinter import *
 
 class TabFrames(Frame):
     

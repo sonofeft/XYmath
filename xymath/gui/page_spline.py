@@ -1,20 +1,22 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 
-from Tkinter import *
+from tkinter import *
 from scipy.interpolate import UnivariateSpline
 import os, sys
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xymath.splines import Spline
 
 class SplinePage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any issues.'''
-        print 'Leaving SplinePage'
+        print('Leaving SplinePage')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering SplinePage'
+        print('Entering SplinePage')
             
     def __init__(self, guiObj, pageFrame):
         

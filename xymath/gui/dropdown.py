@@ -1,5 +1,9 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 
-from Tkinter import *
+from tkinter import *
 
 class Dropdown( Frame ):
 
@@ -8,7 +12,7 @@ class Dropdown( Frame ):
         if self.callback:
             self.callback( self.label, this_choice )
         else:
-            print this_choice
+            print(this_choice)
     
     def __init__(self, master, label, choiceL, label_width=None, callback=None, default_val=None,
         **kw):
@@ -17,7 +21,7 @@ class Dropdown( Frame ):
         choiceL is a list of strings to be selected.
         Default is choiceL[0] unless default_val is specified
         '''
-        apply(Frame.__init__, (self, master), kw)
+        Frame.__init__(*(self, master), **kw)
         self.master = master
         self.callback = callback # if supplied, called from make_choice
         self.label = label
@@ -41,7 +45,7 @@ class Dropdown( Frame ):
         return self.var.get()
             
 
-class _Testdropdown:
+class _Testdropdown(object):
     def __init__(self, master):
         frame = Frame(master, width=300, height=300)
         self.master = master
@@ -62,8 +66,8 @@ class _Testdropdown:
         
         frame.pack()
     def dd_callback(self, label, newvalue):
-        print 'From callback "%s"'%label,'=',newvalue
-        print 'DD_1 choice is',self.DD_1.get_choice()
+        print('From callback "%s"'%label,'=',newvalue)
+        print('DD_1 choice is',self.DD_1.get_choice())
 
 def main():
     root = Tk()

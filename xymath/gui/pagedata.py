@@ -1,6 +1,12 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
 import time
-from Tkinter import *
-from double_wt_entrygrid import EntryGrid
+from tkinter import *
+from xymath.gui.double_wt_entrygrid import EntryGrid
 from numpy import array, double
 
 def get_time_str( tstamp, label ):
@@ -72,7 +78,7 @@ class PageData(object):
                 yL.append( self.eg.entryL[i][1].get_float_val() )
                 if self.eg.num_active_wtfactors:
                     wL.append( self.eg.entryL[i][2].get_wt_val() )
-                    print 'adding',xL[-1],yL[-1],wL[-1]
+                    print('adding',xL[-1],yL[-1],wL[-1])
                 #else:
                 #    print 'adding',xL[-1],yL[-1]
         
@@ -83,7 +89,7 @@ class PageData(object):
                 wtArr = array(wL, dtype=double)
             else:
                 wtArr = None
-                print 'place_entries_into_dataset with wtArr = None'
+                print('place_entries_into_dataset with wtArr = None')
             
             XY.define_dataset( array(xL, dtype=double), array(yL, dtype=double), wtArr=wtArr, 
                 xName=self.Xname_Entry_StringVar.get(), yName=self.Yname_Entry_StringVar.get(),
@@ -110,7 +116,7 @@ class PageData(object):
         
         # put data into entry grid
         self.eg.focus_on(0,0)
-        N = XY.dataset.N
+        N = int( XY.dataset.N )
         # Add enough rows to hold data, if required
         if self.eg.Nrows <= N:
             for i in range( self.eg.Nrows, N+2):
@@ -170,7 +176,7 @@ class PageData(object):
         
         for i in range(self.eg.Nrows):
             # clear all the entry locations
-            if i < N: # only inserts value into entry for existing values
+            if 1: #i < N: # only inserts value into entry for existing values
                 self.eg.entryL[i][0].set_float_val('')
                 self.eg.entryL[i][1].set_float_val('')
                 self.eg.entryL[i][2].set_float_val( 1.0 ) # do not impact num_active_wtfactors

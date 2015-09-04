@@ -2,3 +2,4 @@ future
 numpy
 numexpr
 scipy
+matplotlib

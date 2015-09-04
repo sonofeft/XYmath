@@ -2,7 +2,12 @@
 # -*- coding: ascii -*-
 
 
-from Tkinter import *
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+from tkinter import *
         
 def str_is_float( val ):
     try:
@@ -16,11 +21,11 @@ class NonLinFitPage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any issues.'''
-        print 'Leaving NonLinFitPage'
+        print('Leaving NonLinFitPage')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering NonLinFitPage'
+        print('Entering NonLinFitPage')
             
     def __init__(self, guiObj, pageFrame):
         
@@ -117,8 +122,8 @@ class NonLinFitPage(object):
         pass
         # >>>>>>insert any user code below this comment for section "EqnStr_Entry_StringVar_Callback"
         # replace, delete, or comment-out the following
-        print "EqnStr_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.EqnStr_Entry_StringVar.get()
+        print("EqnStr_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.EqnStr_Entry_StringVar.get())
 
     
     def put_nonlin_fit_on_plot(self):
@@ -169,7 +174,7 @@ Note that for some equations, divide by zero is allowed if it results in (1/infi
         self.ShowHelp_Button.configure(state=DISABLED,text="",width="1",relief=FLAT)
 
     def Curvefit_Button_Click(self, event): 
-        print 'Pressed Curvefit Button'
+        print('Pressed Curvefit Button')
         
         rhs_eqnStr = str( self.EqnStr_Text.get(1.0, END) ).strip()
         XY = self.guiObj.XYjob
@@ -218,7 +223,7 @@ Note that for some equations, divide by zero is allowed if it results in (1/infi
                     
 
     def ImproveFit_Button_Click(self, event): 
-        print 'Pressed ImproveFit Button'
+        print('Pressed ImproveFit Button')
         
         XY = self.guiObj.XYjob
         self.set_nonlin_obj_constants()
@@ -241,7 +246,7 @@ Note that for some equations, divide by zero is allowed if it results in (1/infi
 
 
     def SetConst_Button_Click(self, event): 
-        print 'Pressed Set Constants Button'
+        print('Pressed Set Constants Button')
         self.new_message("Defining New Constant Values.\n\n")
         
         XY = self.guiObj.XYjob
@@ -255,8 +260,8 @@ Note that for some equations, divide by zero is allowed if it results in (1/infi
         pass
         # >>>>>>insert any user code below this comment for section "RadioGroup1_StringVar_Callback"
         # replace, delete, or comment-out the following
-        print "RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.RadioGroup1_StringVar.get()
+        print("RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.RadioGroup1_StringVar.get())
     
     def clear_messages(self):
         self.Messages_Text.delete(1.0, END)

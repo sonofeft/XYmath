@@ -1,12 +1,18 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 
-from Tkinter import *
+from tkinter import *
 import time
-from WtEntry_Dialog import _Wtentry
+from xymath.gui.WtEntry_Dialog import _Wtentry
 
 class WeightButton(Button):
 
     def __init__(self, master, i, wt_value=1.0, **kw):
-        apply(Button.__init__, (self, master), kw)
+        Button.__init__(*(self, master), **kw)
         
         self.set_float_val( wt_value )
         self.__i = i
@@ -38,7 +44,7 @@ class FloatEntry(Entry):
     # base class for validating entry widgets
 
     def __init__(self, master, i, j, grid_callback, value="", bg='', **kw):
-        apply(Entry.__init__, (self, master), kw)
+        Entry.__init__(*(self, master), **kw)
         
         if bg:
             self.configure(bg=bg)
@@ -293,30 +299,30 @@ class EntryGrid(Frame):
         #print 'Number of Weighted Points =',self.num_active_wtfactors
 
     def WeightButtonHandler(self, event,   i):
-        print 'Clicked WeightButtonHandler for row',i
+        print('Clicked WeightButtonHandler for row',i)
         if self.is_a_good_row( i ):
             x,y = self.getValue(i,0), self.getValue(i,1)
             w = self.entryL[i][2].get_wt_val()
             
             dialog = _Wtentry(self.master, title="Point #%i Weighting Factor"%(i+1,), dialogOptions={'x':x, 'y':y,'w':w})
-            print '===============Result from Dialog===================='
-            print dialog.result
-            print '====================================================='
-            if dialog.result.has_key('Weight'):
+            print('===============Result from Dialog====================')
+            print(dialog.result)
+            print('=====================================================')
+            if 'Weight' in dialog.result:
                 try:
                     newval = float( dialog.result['Weight'] )
                     self.update_num_active_wtfactors(i, newval)
                 except:
-                    print 'Return Value Error'
+                    print('Return Value Error')
             
         else:
-            print 'No weighting of empty rows or rows with errors'
+            print('No weighting of empty rows or rows with errors')
 
 
 
     def ArrowKeyHandler(self, event,   i, j ):
         
-        print event.keysym,'at i,j=',i,j
+        print(event.keysym,'at i,j=',i,j)
         
         if event.keysym not in ['Up','Down','Left','Right']:
             return

@@ -1,0 +1,23 @@
+
+futurize -1 -w About_Dialog.py
+futurize -1 -w double_entrygrid.py
+futurize -1 -w double_wt_entrygrid.py
+futurize -1 -w dropdown.py
+futurize -1 -w entrygrid.py
+futurize -1 -w ImportXY_Dialog.py
+futurize -1 -w logo.py
+futurize -1 -w page.py
+futurize -1 -w pagedata.py
+futurize -1 -w page_codegen.py
+futurize -1 -w page_exhaust_fit.py
+futurize -1 -w page_math.py
+futurize -1 -w page_nonlin_fit.py
+futurize -1 -w page_plot.py
+futurize -1 -w page_simple_fit.py
+futurize -1 -w page_spline.py
+futurize -1 -w plot_window.py
+futurize -1 -w tabframes.py
+futurize -1 -w WtEntry_Dialog.py
+futurize -1 -w xygui.py
+
+

@@ -1,12 +1,18 @@
+from __future__ import print_function
+from __future__ import division
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from builtins import object
+from past.utils import old_div
 import os, sys
-from Tkinter import *
+from tkinter import *
 import numpy
 from scipy import optimize
 
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from math_funcs import find_min_max, find_root, find_integral, find_values_at_x
-from helper_funcs import is_number
+from xymath.math_funcs import find_min_max, find_root, find_integral, find_values_at_x
+from xymath.helper_funcs import is_number
         
 def floatCast( val=0.0 ):
     try:
@@ -18,11 +24,11 @@ class MathPage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any issues.'''
-        print 'Leaving MathPage'
+        print('Leaving MathPage')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering MathPage'
+        print('Entering MathPage')
         XY = self.guiObj.XYjob
         
         if XY.dataset:
@@ -250,23 +256,23 @@ Select the equation of interest in the list box. Equations are generated in "Sim
         self.put_equation_on_plot()
 
     def At_X_Entry_StringVar_Callback(self, varName, index, mode):
-        print "At_X_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.At_X_Entry_StringVar.get()
+        print("At_X_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.At_X_Entry_StringVar.get())
 
 
     def At_Yval_Entry_StringVar_Callback(self, varName, index, mode):
-        print "At_Yval_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.At_Yval_Entry_StringVar.get()
+        print("At_Yval_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.At_Yval_Entry_StringVar.get())
 
 
     def Xmax_Entry_StringVar_Callback(self, varName, index, mode):
-        print "Xmax_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.Xmax_Entry_StringVar.get()
+        print("Xmax_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.Xmax_Entry_StringVar.get())
 
 
     def Xmin_Entry_StringVar_Callback(self, varName, index, mode):
-        print "Xmin_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.Xmin_Entry_StringVar.get()
+        print("Xmin_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.Xmin_Entry_StringVar.get())
     
     def put_equation_on_plot(self, integFill=None):
         
@@ -308,7 +314,7 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             
             resultL = find_values_at_x(obj, self.xval, xlo=self.xlo, xhi=self.xhi)
             
-            dx = (self.xhi-self.xlo) / 1000.0
+            dx = old_div((self.xhi-self.xlo), 1000.0)
             s = 'of %s \nusing range x=%g to %g for dx=%g\n'%(str(self.equationL[i].name),self.xlo, self.xhi, dx)
             self.add_to_messages( s )
             

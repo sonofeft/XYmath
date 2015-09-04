@@ -1,8 +1,9 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import sys, os
-from Tkinter import *
-
-# Make sure that local version of xymath is imported
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from tkinter import *
 
 import xymath.source_python
 import xymath.source_fortran
@@ -12,11 +13,11 @@ class CodeGenPage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any issues.'''
-        print 'Leaving CodeGenPage'
+        print('Leaving CodeGenPage')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering CodeGenPage'
+        print('Entering CodeGenPage')
         XY = self.guiObj.XYjob
             
         self.Listbox_1.delete(0, END)
@@ -146,7 +147,7 @@ class CodeGenPage(object):
 
 
     def GenCode_Button_Click(self, event=None): 
-        print 'Pressed GenCode Button'
+        print('Pressed GenCode Button')
         self.new_message('')
         
         if self.equationL:
@@ -154,9 +155,9 @@ class CodeGenPage(object):
             obj = self.equationL[i]
             
             language = self.RadioGroup1_StringVar.get()
-            if language.startswith('Python'):
+            if language.startswith(b'Python'):
                 src = xymath.source_python.make_fit_func_src(obj)
-            elif language.startswith('FORTRAN'):
+            elif language.startswith(b'FORTRAN'):
                 src = xymath.source_fortran.make_fit_func_src(obj)
             else:
                 did_good = xymath.source_excel.make_fit_excel(obj)
@@ -225,12 +226,12 @@ See the f2py documentation for generating pyf and pyd files. Your machine may ne
         self.Clipboard_Button.configure(state=NORMAL,text="Put Source on\nClipboard",width="15",relief=RAISED)
 
     def Listbox_1_Click(self, event): #click method for component ID=2
-        print "executed method Listbox_1_Click"
-        print "current selection(s) =",self.Listbox_1.curselection()
+        print("executed method Listbox_1_Click")
+        print("current selection(s) =",self.Listbox_1.curselection())
         labelL = []
         for i in self.Listbox_1.curselection():
             labelL.append( self.Listbox_1.get(i))
-        print "current label(s) =",labelL
+        print("current label(s) =",labelL)
         self.put_equation_on_plot()
 
     
@@ -251,5 +252,5 @@ See the f2py documentation for generating pyf and pyd files. Your machine may ne
         pass
         # >>>>>>insert any user code below this comment for section "RadioGroup1_StringVar_Callback"
         # replace, delete, or comment-out the following
-        print "RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.RadioGroup1_StringVar.get()
+        print("RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.RadioGroup1_StringVar.get())

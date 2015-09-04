@@ -1,15 +1,20 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
+from builtins import object
 
-from Tkinter import *
+from tkinter import *
 
 class SimplePage(object):
     
     def leavePageCallback(self):
         '''When leaving page, tidy up any XYjob issues.'''
-        print 'Leaving Simple Fit'
+        print('Leaving Simple Fit')
         
     def selectPageCallback(self):
         '''When entering page, do a little setup'''
-        print 'Entering Simple Fit'
+        print('Entering Simple Fit')
 
     #def __init__(self, master, pageFrame):
     def __init__(self, guiObj, pageFrame):
@@ -158,7 +163,7 @@ class SimplePage(object):
                 if n>0:
                     self.doc_text.insert(END, '\n'+'='*60+'\n')
                 lf = self.guiObj.linear_fitL[i]
-                print 'Summary for... ',lf.get_eqn_str_w_consts()
+                print('Summary for... ',lf.get_eqn_str_w_consts())
                 self.doc_text.insert(END, lf.get_full_description() )
                 
         self.ShowHelpButton.configure(state=NORMAL,text="Show Help",width="18",relief=RAISED)
@@ -198,9 +203,9 @@ class SimplePage(object):
             self.Stddev_Listbox.insert(END, '%10g'%lf.std)
             
             #print lf.get_full_description()
-            print  '%-36s'%lf.get_eqn_str_w_consts(), '%10g'%lf.std, \
-                '%10.5f'%lf.pcent_std, {0:'STD',1:'%std'}[lf.fit_best_pcent]
-        print ordered_resultL[0].get_full_description()
+            print('%-36s'%lf.get_eqn_str_w_consts(), '%10g'%lf.std, \
+                '%10.5f'%lf.pcent_std, {0:'STD',1:'%std'}[lf.fit_best_pcent])
+        print(ordered_resultL[0].get_full_description())
         
         self.guiObj.linear_fitL = ordered_resultL
         
@@ -213,19 +218,19 @@ class SimplePage(object):
             
 
     def Equations_Listbox_Click(self, event): 
-        print 'self.Equations_Listbox.curselection()=',self.Equations_Listbox.curselection()
-        self.selected_linfitL = map(int, self.Equations_Listbox.curselection())
-        print 'self.selected_linfitL=',self.selected_linfitL
+        print('self.Equations_Listbox.curselection()=',self.Equations_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Equations_Listbox.curselection()))
+        print('self.selected_linfitL=',self.selected_linfitL)
         self.put_summaries_into_text_box()
         self.put_simple_fit_on_plot()
 
     def Pcentstddev_Listbox_Click(self, event): #click method for component ID=3
-        self.selected_linfitL = map(int, self.Pcentstddev_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Pcentstddev_Listbox.curselection()))
         self.put_summaries_into_text_box()
         self.put_simple_fit_on_plot()
 
     def Stddev_Listbox_Click(self, event): #click method for component ID=2
-        self.selected_linfitL = map(int, self.Stddev_Listbox.curselection())
+        self.selected_linfitL = list(map(int, self.Stddev_Listbox.curselection()))
         self.put_summaries_into_text_box()
         self.put_simple_fit_on_plot()
 
@@ -233,8 +238,8 @@ class SimplePage(object):
         pass
         # >>>>>>insert any user code below this comment for section "RadioGroup1_StringVar_Callback"
         # replace, delete, or comment-out the following
-        print "RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.RadioGroup1_StringVar.get()
+        print("RadioGroup1_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.RadioGroup1_StringVar.get())
 
         
     def ShowHelp_Button_Click(self, event):

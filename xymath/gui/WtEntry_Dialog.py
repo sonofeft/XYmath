@@ -1,8 +1,20 @@
 #!/usr/bin/env python
 
-from Tkinter import *
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+from tkinter import *
 
-from tkSimpleDialog import Dialog
+import sys
+if sys.version_info < (3,):
+    from future import standard_library
+    standard_library.install_aliases()
+    from tkSimpleDialog import Dialog
+else:
+    # this is only called incorrectly by pylint using python2
+    from tkinter.simpledialog import Dialog
+
 
 class _Dialog(Dialog):
     # use dialogOptions dictionary to set any values in the dialog
@@ -38,7 +50,8 @@ class _Wtentry(_Dialog):
         self.Wtvalue_Entry_StringVar = StringVar()
         self.Wtvalue_Entry.configure(textvariable=self.Wtvalue_Entry_StringVar)
         self.Wtvalue_Entry_StringVar.set( self.dialogOptions['w'] )
-        self.Wtvalue_Entry_StringVar_traceName = self.Wtvalue_Entry_StringVar.trace_variable("w", self.Wtvalue_Entry_StringVar_Callback)
+        self.Wtvalue_Entry_StringVar_traceName = \
+            self.Wtvalue_Entry_StringVar.trace_variable("w", self.Wtvalue_Entry_StringVar_Callback)
         
         self.e_frame.pack(anchor=NW, side=TOP)
         
@@ -49,8 +62,8 @@ class _Wtentry(_Dialog):
 
 
     def Wtvalue_Entry_StringVar_Callback(self, varName, index, mode):
-        print "Wtvalue_Entry_StringVar_Callback varName, index, mode",varName, index, mode
-        print "    new StringVar value =",self.Wtvalue_Entry_StringVar.get()
+        print("Wtvalue_Entry_StringVar_Callback varName, index, mode",varName, index, mode)
+        print("    new StringVar value =",self.Wtvalue_Entry_StringVar.get())
 
 
     def validate(self):
@@ -64,9 +77,9 @@ class _Wtentry(_Dialog):
 
 
     def apply(self):
-        print 'apply called'
+        print('apply called')
 
-class _Testdialog:
+class _Testdialog(object):
     def __init__(self, master):
         frame = Frame(master, width=300, height=300)
         frame.pack()
@@ -78,10 +91,11 @@ class _Testdialog:
         self.Button_1.bind("<ButtonRelease-1>", self.Button_1_Click)
 
     def Button_1_Click(self, event):
-        dialog = _Wtentry(self.master, title="Point #3 Weighting Factor", dialogOptions={'x':2.345, 'y':7.89})
-        print '===============Result from Dialog===================='
-        print dialog.result
-        print '====================================================='
+        dialog = _Wtentry(self.master, title="Point #3 Weighting Factor", 
+                          dialogOptions={'x':2.345, 'y':7.89, 'w':2.2})
+        print('===============Result from Dialog====================')
+        print(dialog.result)
+        print('=====================================================')
 
 def main():
     root = Tk()

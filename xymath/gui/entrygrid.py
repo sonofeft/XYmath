@@ -1,5 +1,9 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
 
-from Tkinter import *
+from tkinter import *
 
 class EntryGrid(Frame):
     
@@ -144,7 +148,7 @@ class EntryGrid(Frame):
 
     def ArrowKeyHandler(self, event,   i, j ):
         
-        print event.keysym,'at i,j=',i,j
+        print(event.keysym,'at i,j=',i,j)
         
         if event.keysym not in ['Up','Down','Left','Right']:
             return

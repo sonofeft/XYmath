@@ -1,13 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
 
-from Tkinter import *
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+from tkinter import *
 from PIL import Image, ImageTk
-from logo import logo_data
-import StringIO
-import webbrowser
+from xymath.gui.logo import logo_data
 
-from tkSimpleDialog import Dialog
+import webbrowser
+import os
+
+import sys
+if sys.version_info < (3,):
+    from future import standard_library
+    standard_library.install_aliases()
+    from tkSimpleDialog import Dialog
+else:
+    # this is only called incorrectly by pylint using python2
+    from tkinter.simpledialog import Dialog
+
+here = os.path.abspath(os.path.dirname(__file__))
+up_one = os.path.split( here )[0]  # Needed to find xymath development version
+exec( open(os.path.join( up_one,'_version.py' )).read() )  # creates local __version__ variable
 
 class _Dialog(Dialog):
     # use dialogOptions dictionary to set any values in the dialog
@@ -27,19 +44,15 @@ class _About(_Dialog):
         self.Canvas_1 = Canvas(dialogframe, width=643, height=157)
         self.Canvas_1.pack(anchor=N,side=TOP)
         
-        buf = StringIO.StringIO()
-        buf.write( logo_data )
-        buf.seek(0)
-
-        img =  Image.open(buf)
-        self.photo = ImageTk.PhotoImage(img)
+        self.photo = PhotoImage(format="gif", data=logo_data)
         self.Canvas_1.create_image(0, 0, image=self.photo, anchor=NW)
 
 
         all_about = 'XYmath is an update of a Turbo Pascal project from my youth.\n' +\
           'The above image is a screen shot of that original code.\n' +\
-          '\nAuthor: ' +__author__ + '\n' + __copyright__ + '\nLicense:' + \
-          __license__+ '\nVersion: ' + __version__+ '\nEmail: ' + __email__+ '\nStatus: ' + __status__
+          '\nAuthor: Charlie Taylor' + '\n' + 'Copyright (c) 2013 Charlie Taylor' + '\nLicense:' + \
+          'GPLv3'+ '\nVersion: ' + __version__+ '\nEmail: ' + \
+          "charlietaylor@users.sourceforge.net"+ '\nStatus: ' + "4 - Beta"
 
         self.Label_1 = Label(dialogframe,text=all_about, font=("Helvetica bold", 16))
         self.Label_1.pack(anchor=NW, side=TOP, expand=1, fill=BOTH)
@@ -63,9 +76,9 @@ class _About(_Dialog):
         return 1
 
     def apply(self):
-        print 'apply called'
+        print('apply called')
 
-class _Testdialog:
+class _Testdialog(object):
     def __init__(self, master):
         frame = Frame(master, width=300, height=300)
         frame.pack()
@@ -78,9 +91,9 @@ class _Testdialog:
 
     def Button_1_Click(self, event): #click method for component ID=1
         dialog = _About(self.master, "Test Dialog")
-        print '===============Result from Dialog===================='
-        print dialog.result
-        print '====================================================='
+        print('===============Result from Dialog====================')
+        print(dialog.result)
+        print('=====================================================')
 
 def main():
     root = Tk()

@@ -1,16 +1,27 @@
 #!/usr/bin/env python
-from Tkinter import *
+from __future__ import print_function
+from __future__ import division
+from future import standard_library
+standard_library.install_aliases()
+from builtins import next
+from builtins import zip
+from builtins import object
+from past.utils import old_div
+from tkinter import *
 import time
-# see book examples in C:\Python23\Doc\TK_Examples
-from pylab import *
+
+import matplotlib
+matplotlib.use('TkAgg')
+
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from pylab import *
 
 from PIL import Image
-import StringIO
+import io
 try:
     import win32clipboard
 except:
-    print 'WARNING... win32clipboard did NOT import properly.'
+    print('WARNING... win32clipboard did NOT import properly.')
 
 #colorL = ['red','green','blue','cyan','magenta','olive','brown','coral','gold']
 
@@ -32,7 +43,7 @@ def nextColor(): # color iterator for plots
         if g>0.0:
             b = f
         g = f
-        f = f/2.
+        f = old_div(f,2.)
 
 
 class BoxMessage(object):
@@ -75,8 +86,8 @@ class Annotation(BoxMessage):
             else:
                 vaStr = 'top'
             
-            print '(self.xpt, self.ypt)=',(self.xpt, self.ypt)
-            print '(self.xmess, self.ymess)=',(self.xmess, self.ymess)
+            print('(self.xpt, self.ypt)=',(self.xpt, self.ypt))
+            print('(self.xmess, self.ymess)=',(self.xmess, self.ymess))
             
             ax.annotate(self.message, 
                 xy=(self.xpt, self.ypt),  #xycoords=ax.transData,
@@ -191,14 +202,14 @@ class PlotWindow( Toplevel ):
                         wwloL.append( w )
                         
                 if xwL:
-                    print 'Adding Weighted Points to Plot.'
+                    print('Adding Weighted Points to Plot.')
                     self.add_curve( xwL, ywL, label='Weighted High', show_pts=1,
                         show_line=0, markersize=markersize+5, marker='s', marker_alpha=0.5)
                     for x,y,w in zip(xwL,ywL,wwL):
                         self.ax.text(x,y,'  x%g'%w, va='center', ha='left')
                         
                 if xwloL:
-                    print 'Adding Weighted Points to Plot.'
+                    print('Adding Weighted Points to Plot.')
                     self.add_curve( xwloL, ywloL, label='Weighted Low', show_pts=1,
                         show_line=0, markersize=markersize+5, marker='d', marker_alpha=0.5)
                     for x,y,w in zip(xwloL,ywloL,wwloL):
@@ -216,7 +227,7 @@ class PlotWindow( Toplevel ):
                 xPlotArr, yPlotArr = c.get_xy_plot_arrays( Npoints=Npoints, logScale=self.logx)
                 
                 if fat_lines:
-                    lw = curve_lw + int((len(curveL) - i)/2)
+                    lw = curve_lw + int(old_div((len(curveL) - i),2))
                 else:
                     lw = curve_lw
                     
@@ -331,7 +342,7 @@ class PlotWindow( Toplevel ):
         markersize=10, integFill=None, marker='o', linetype='-', marker_alpha=1.0):
         
         if color==None:
-            mfc=self.ncolor.next()
+            mfc=next(self.ncolor)
         else:
             mfc = color
             
@@ -346,7 +357,7 @@ class PlotWindow( Toplevel ):
                 marker = (list( zip([-.05,.05,.05,-.05,-.05], [-1.,-1.,1.,1.,-1.]) ), 0)
                 mfc = 'black'
                 #marker_alpha = marker_alpha / 2.0
-                markersize = markersize / 2.0
+                markersize = old_div(markersize, 2.0)
             plot(xL,yL,mfc=mfc,color=mfc, linewidth=0,label=label, markersize=markersize, 
                 alpha=marker_alpha, marker=marker)
         else:
@@ -378,12 +389,12 @@ class PlotWindow( Toplevel ):
         self.dx = 1.0
         self.dy = 1.0
         if self.xmin < 1.0E98:
-            self.dx = (self.xmax - self.xmin)/20.0
+            self.dx = old_div((self.xmax - self.xmin),20.0)
             xlim(self.xmin-self.dx, self.xmax+self.dx)
-            self.dy = (self.ymax - self.ymin)/20.0
+            self.dy = old_div((self.ymax - self.ymin),20.0)
             ylim(self.ymin-self.dy, self.ymax+self.dy)
-        self.xmid = (self.xmin+self.xmax)/2.0
-        self.ymid = (self.ymin+self.ymax)/2.0
+        self.xmid = old_div((self.xmin+self.xmax),2.0)
+        self.ymid = old_div((self.ymin+self.ymax),2.0)
             
             
         self.f.text(0.99, 0.02, ' ' + time.strftime('%m/%d/%Y'),
@@ -444,7 +455,7 @@ class PlotWindow( Toplevel ):
         self.toolbar.update()
         self.toolbar.pack()#side=TOP, fill=BOTH, expand=1)
         
-        if 1:
+        if hasattr(self.guiWin, 'tab_frames'):
             self.guiWin.tab_frames.ReConfigure(None)
             #self.guiWin.tab_frames.activeTab.event_generate('<Enter>', x=0, y=0)
             #self.guiWin.tab_frames.activeTab.event_generate('<Button-1>', x=0, y=0)
@@ -453,7 +464,7 @@ class PlotWindow( Toplevel ):
     
     def clearAll(self):
         
-        for k,i in self.children.items():
+        for k,i in list(self.children.items()):
             i.destroy()
             
 
@@ -467,20 +478,69 @@ class PlotWindow( Toplevel ):
         w = int(self.frame3.winfo_width())
         h = int(self.frame3.winfo_height())
         
-        print 'w=%s, h=%s'%(w,h)
+        print('w=%s, h=%s'%(w,h))
         if w>10 and h>10:
-            iofile = StringIO.StringIO()
+            iofile = io.BytesIO()
             
             self.toolbar.canvas.print_figure( iofile )
             iofile.seek(0)
             img = Image.open( iofile )
             #iofile.close() not req'd, closed by PIL
             
-            iofile = StringIO.StringIO() # reinitialize
+            iofile = io.BytesIO() # reinitialize
             img.convert("RGB").save(iofile, "BMP")
             data = iofile.getvalue()[14:]
             iofile.close()
             
             send_to_clipboard(win32clipboard.CF_DIB, data)
         
+import tkinter
+
+class DummyObject(object):
+    pass
+
+
+class _Testdialog(object):
+    def __init__(self, master):
+        frame = Frame(master, width=300, height=300)
+        frame.pack()
+        self.master = master
+        self.x, self.y, self.w, self.h = -1,-1,-1,-1
+        
+        self.pageD = {}
+        self.pageD['Plot'] = DummyObject()
+        plotOptionD = {}
+        plotOptionD['XAxis'] = 'Linear'
+        plotOptionD['YAxis'] = 'Linear'
+        plotOptionD['ShowTitle'] = 'yes'
+        plotOptionD['ShowGrid'] = 'yes'
+        plotOptionD['ShowLegend'] = 'yes'
+        plotOptionD['Weights'] = 'no'
+        plotOptionD['ShowPoints'] = 'yes'
+        plotOptionD['FatLines'] = 'yes'
+        plotOptionD['Legend Font Size'] = '14'
+        plotOptionD['Legend Location'] = 'best'
+        plotOptionD['Legend Opacity'] = '0.5'
+        self.pageD['Plot'].plotOptionD = plotOptionD
+        
+        
+        
+        self.pageD['Plot'].pointStyleD =  {'circle':'o','square':'s','star':'*',
+            'triangle':'^','diamond':'D','octagon':'8','pentagon':'p','hexagon':'H'}
+
+        
+        self.Button_1 = tkinter.Button(text="Test Plot Window", relief="raised", width="15")
+        self.Button_1.place(x=84, y=36)
+        self.Button_1.bind("<ButtonRelease-1>", self.Button_1_Click)
+
+    def Button_1_Click(self, event): #click method for component ID=1
+        PlotWin = PlotWindow(self.master, self)
+
+def main():
+    root = Tk()
+    app = _Testdialog(root)
+    root.mainloop()
+
+if __name__ == '__main__':
+    main()
         
