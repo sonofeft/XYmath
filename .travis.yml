@@ -3,13 +3,12 @@ python:
     - "2.7"
     
 before_install:
-    - sudo apt-get install python-future
     - sudo apt-get install python-matplotlib
     - sudo apt-get install python-numpy
     - sudo apt-get install python-scipy
     - sudo apt-get install python-numexpr
     - sudo apt-get install python-imaging-tk
 install:
-    - pip install  --use-mirrors
+    - pip install future --use-mirrors
 script:
     - nosetests
