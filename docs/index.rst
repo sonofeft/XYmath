@@ -15,7 +15,6 @@ Contents:
    :maxdepth: 2
 
    quickstart
-   functions
    copyright
    authors
    history
