@@ -3,6 +3,5 @@ future
 coverage
 numpy
 numexpr
-pillow
 scipy
 matplotlib
