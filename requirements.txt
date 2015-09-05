@@ -4,4 +4,6 @@ coverage
 numpy
 numexpr
 scipy
+freetype
+png
 matplotlib
