@@ -4,4 +4,4 @@ coverage
 numpy
 numexpr
 scipy
-matplotlib
+matplotlib-dev
