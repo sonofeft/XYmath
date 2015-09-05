@@ -34,6 +34,11 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 # Place install_requires into the text file "requirements.txt"
 with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
     requires = f2.read().strip().splitlines()
+# -- Special RTD configuration -------------------------------------------------
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    requires = []
+
 
 target_file = os.path.join( here, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable

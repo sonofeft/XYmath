@@ -31,7 +31,6 @@ target_file = os.path.join( up_one, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable
 
 # -- Special RTD configuration -------------------------------------------------
-
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
     MOCK_MODULES = [ 'numpy',  'scipy', 'scipy.interpolate', 'scipy.optimize', 
