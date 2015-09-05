@@ -1,9 +1,0 @@
-mock
-future
-coverage
-numpy
-numexpr
-scipy
-freetype
-png
-matplotlib

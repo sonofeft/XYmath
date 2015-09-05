@@ -32,12 +32,14 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 # Place install_requires into the text file "requirements.txt"
-with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
-    requires = f2.read().strip().splitlines()
+#with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
+#    requires = f2.read().strip().splitlines()
+    
+requires = ['mock','future','coverage','numpy','numexpr','scipy','matplotlib']
 # -- Special RTD configuration -------------------------------------------------
-#on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-#if on_rtd:
-#    requires = []
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    requires = []
 
 
 target_file = os.path.join( here, 'xymath','_version.py')
