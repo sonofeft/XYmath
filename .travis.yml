@@ -10,5 +10,6 @@ before_install:
     - sudo apt-get install python-imaging-tk
 install:
     - pip install future --use-mirrors
+    - pip install coverage --use-mirrors
 script:
     - nosetests
