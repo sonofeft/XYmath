@@ -33,11 +33,11 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
+    requires = ['mock']
+else:
     # Place install_requires into the text file "requirements.txt"
     with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
         requires = f2.read().strip().splitlines()
-else:
-    requires = ['mock']
 
 target_file = os.path.join( here, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable
