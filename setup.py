@@ -31,18 +31,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-# If on the ReadTheDocs build site, simply mock the dependencies
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-if on_rtd:
-    if sys.version_info < (3,3):
-        requires = ['mock']   # for python2 and python < 3.3
-    else:
-        requires = []  # for >= python3.3
-    
-else:
-    # Place install_requires into the text file "requirements.txt"
-    with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
-        requires = f2.read().strip().splitlines()
+# Place install_requires into the text file "requirements.txt"
+with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
+    requires = f2.read().strip().splitlines()
 
 target_file = os.path.join( here, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable
