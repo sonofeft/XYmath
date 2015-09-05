@@ -30,6 +30,18 @@ target_file = os.path.join( up_one, 'xymath','_version.py')
 #  execfile( target_file ) # creates local __version__ variable
 exec( open( target_file ).read() )  # creates local __version__ variable
 
+# Need to mock certain imports in order for sphinx to build the project 
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+            return Mock()
+
+MOCK_MODULES = ['scipy', 'numexpr', 'matplotlib', 'numpy']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.

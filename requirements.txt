@@ -1,4 +1,5 @@
 future
+coverage
 numpy
 numexpr
 scipy
