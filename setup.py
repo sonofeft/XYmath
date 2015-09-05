@@ -23,7 +23,7 @@ except ImportError:
 
 # To use a consistent encoding
 from codecs import open
-import os
+import os, sys
 
 here = os.path.abspath(os.path.dirname(__file__))
 
