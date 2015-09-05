@@ -15,7 +15,16 @@ Contents:
    :maxdepth: 2
 
    quickstart
+   functions
    copyright
    authors
    history
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 

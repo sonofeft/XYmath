@@ -18,7 +18,7 @@ A Gui And Api That Creates, Documents And Explores Y=F(X) Curve Fits
 
 .. warning::
 
-    The code is not too stable yet. I'm battling the forces of ReadTheDocs right now.
+    The code is **not** too stable yet. I'm battling the forces of ReadTheDocs right now.
 
 See the Code at: `<https://github.com/sonofeft/XYmath>`_
 
