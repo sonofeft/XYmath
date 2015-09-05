@@ -31,7 +31,7 @@ target_file = os.path.join( up_one, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable
 
 # Need to mock certain imports in order for sphinx to build the project 
-from unittest.mock import MagicMock
+from mock import Mock as MagicMock
 
 class Mock(MagicMock):
     @classmethod

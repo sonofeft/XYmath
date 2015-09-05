@@ -23,19 +23,23 @@ except ImportError:
 
 # To use a consistent encoding
 from codecs import open
-from os import path
+import os
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the relevant file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 # Place install_requires into the text file "requirements.txt"
-with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
-    requires = f2.read().strip().splitlines()
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
+        requires = f2.read().strip().splitlines()
+else:
+    requires = ['mock']
 
-target_file = path.join( here, 'xymath','_version.py')
+target_file = os.path.join( here, 'xymath','_version.py')
 exec( open( target_file ).read() )  # creates local __version__ variable
 
 
