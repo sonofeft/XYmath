@@ -4,4 +4,4 @@ coverage
 numpy
 numexpr
 scipy
-matplotlib-dev
+matplotlib == 1.3.1
