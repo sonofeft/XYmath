@@ -3,5 +3,6 @@ future
 coverage
 numpy
 numexpr
+imaging-tk
 scipy
 matplotlib
