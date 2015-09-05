@@ -1,10 +1,10 @@
 
 .. functions
 
-PyHatch Main Function
-=====================
+XYmath XY_Job Object
+====================
 
-.. automodule:: xymath.xy_job
+.. automodule:: xymath.xy_job.XY_Job
    :members:
 
 
