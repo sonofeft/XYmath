@@ -9,7 +9,7 @@ before_install:
     - sudo apt-get install python-numexpr
     - sudo apt-get install python-imaging-tk
 install:
-    - pip install future --use-mirrors
-    - pip install coverage --use-mirrors
+    - pip install future 
+    - pip install coverage 
 script:
     - nosetests
