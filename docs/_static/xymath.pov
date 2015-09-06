@@ -8,7 +8,8 @@
 
 #version 3.7;      
 
-#include "glass.inc"                       
+#include "glass.inc"       
+#include "colors.inc"                   
 
 #declare BackColv1 = rgb <.1255,.29,.5294>;
 #declare BackCol = rgb <1,1,1>;
@@ -54,16 +55,16 @@ light_source {
 // ----------------------------------------
 
 #declare Text_Tex = texture {
-  pigment { Col_Ruby  }
+  pigment { OrangeRed  }
   finish { specular 0.5 ambient 0.4 + 0.1*clock*(clock-1)  }        
 }
 
 
 text {
-  ttf "snap____.ttf", "XYmath",       //beesknee.ttf Pristina.ttf  matisse_.ttf harlowsi.ttf
+  ttf "ravie.ttf", "XYmath",       //beesknee.ttf Pristina.ttf  matisse_.ttf harlowsi.ttf snap____.ttf
   1, // depth
   0  // spacing
-  scale <0.75, 2.5, 1> // stretch it taller
+  scale <0.65, 2.5, 1> // stretch it taller
   texture { Text_Tex }
   translate <-1, 0, 0>
   //rotate <30*sin(clock*4*pi), 20*sin(clock*2*pi), 0>
