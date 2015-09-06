@@ -56,7 +56,8 @@ You may need to do the following::
 Install XYmath
 --------------
 
-The easiest way to install XYmath is::
+Once the above prerequisites are met,
+the easiest way to install XYmath is::
 
     pip install xymath
     

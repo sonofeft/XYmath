@@ -2,6 +2,8 @@
 TODO
 ====
 
+* Make past HISTORY.rst entries hand-editable
+
 * Figure out if mock logic does anything for ReadTheDocs failures
 
 * Code gen option for python 2 & 3

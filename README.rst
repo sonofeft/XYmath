@@ -13,7 +13,7 @@
     :target: https://pypi.python.org/pypi/xymath
 
 
-A Gui And Api That Creates, Documents And Explores Y=F(X) Curve Fits
+A Gui And API That Creates, Documents And Explores Y=F(X) Curve Fits
 ====================================================================
 
 .. warning::
