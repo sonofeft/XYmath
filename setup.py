@@ -101,7 +101,7 @@ setup(
     keywords = 'xymath setuptools development',
 
     packages = find_packages(exclude=['.tox', '.hg', 'docs']),
-    package_data = {'xymath':['gui/*.ico',]},
+    package_data = {'xymath':['gui/*.ico','examples/*.*']},
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed.
