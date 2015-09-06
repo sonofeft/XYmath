@@ -18,7 +18,11 @@ A Gui And API That Creates, Documents And Explores Y=F(X) Curve Fits
 
 .. warning::
 
-    The code is **NOT** too stable yet. I'm battling the forces of ReadTheDocs right now.
+    There is an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg in python 3.x
+    that causes XYmath to crash and burn.
+    
+    XYmath python source is configured for python 3.x, but until
+    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7
 
 See the Code at: `<https://github.com/sonofeft/XYmath>`_
 

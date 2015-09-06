@@ -2,6 +2,8 @@
 TODO
 ====
 
+* Add XYmath to system menu
+
 * Make past HISTORY.rst entries hand-editable
 
 * Figure out if mock logic does anything for ReadTheDocs failures
