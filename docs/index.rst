@@ -15,6 +15,7 @@ Contents:
    :maxdepth: 2
 
    quickstart
+   upgrade
    overview
    data_entry
    curve_fit
