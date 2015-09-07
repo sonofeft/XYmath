@@ -15,6 +15,13 @@ Contents:
    :maxdepth: 2
 
    quickstart
+   overview
+   data_entry
+   curve_fit
+   math_ops
+   plot
+   code_gen
+   functions
    copyright
    authors
    history

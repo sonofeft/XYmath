@@ -13,12 +13,12 @@
     :target: https://pypi.python.org/pypi/xymath
 
 
-A Gui And API That Creates, Documents And Explores Y=F(X) Curve Fits
-====================================================================
+XYmath Creates, Documents And Explores Y=f(X) Curve Fits
+========================================================
 
 .. warning::
 
-    There is an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg in python 3.x
+    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
     that causes XYmath to crash and burn.
     
     XYmath python source is configured for python 3.x, but until
@@ -33,10 +33,13 @@ See PyPI page at:`<https://pypi.python.org/pypi/xymath>`_
 
 
 XYmath will find the "best" curve fit using either
-minimum percent error or minimum total error. It can search through
+minimum percent error or minimum total error. 
+
+It can search through
 common equations, an exhaustive search through thousands of equations,
-splines, smoothed splines, or non-linear equations input by the user.
+splines, smoothed splines, or fit non-linear equations input by the user.
+
 After fitting, XYmath will find roots, minima, maxima, derivatives or
-integrals of the curve. It will generate source code that documents and
+integrals of the fitted curve. It will generate source code that documents and
 evaluates the fit in python, FORTRAN or EXCEL. Configurable plots are
 created using matplotlib that are of publication quality.

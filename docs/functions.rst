@@ -1,10 +1,10 @@
 
 .. functions
 
-XYmath XY_Job Object
-====================
+XY_Job Class
+============
 
-.. automodule:: xymath.xy_job.XY_Job
+.. automodule:: xymath.xy_job
    :members:
 
 

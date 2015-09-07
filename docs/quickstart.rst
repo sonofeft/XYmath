@@ -16,6 +16,27 @@ Installing these can be problematic on both Windows and Linux.
 The easiest solution is to use Anaconda_ or `Python(x,y)`_.
 If you are interested in XYmath, you probably want Anaconda_ or `Python(x,y)`_ for many other reasons anyway.
 
+I recommend you go to either
+
+Python(x,y): `<http://python-xy.github.io/>`_
+
+Or
+
+Anaconda: `<https://store.continuum.io/cshop/anaconda/>`_
+
+and install the python 2.7 package of your choice
+
+.. warning::
+
+    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
+    that causes XYmath to crash and burn.
+    
+    XYmath python source is configured for python 3.x, but until
+    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7
+
+XYmath itself is a pure python package, all modules are written in python with no compiled extension modules of its own.
+
+
 Without Anaconda or Python(x,y)
 -------------------------------
 
@@ -92,11 +113,24 @@ This will execute the local ``setup.py`` file and insure that the pip-specific c
 Running XYmath
 --------------
 
-After installing with ``pip``, there will be a launch command line program called **xymath** or, on Windows, **xymath.exe**. From a terminal or command prompt window simply type::
+After installing with ``pip``, there will be a launch command line program called **xymath** or, on Windows, **xymath.exe** installed on your system. From a terminal or command prompt window simply type::
 
     xymath
+    
+      OR
+      
+    xymath <dataset name>
 
-and XYmath will start. If not, then there may be an issue with your system path.
+and XYmath will start. If a dataset name is given (e.g. mydata.x_y) then XYmath will look for the dataset and load it upon launch.  For example::
+
+    xymath mydata
+    xymath mydata.x_y
+    xymath C:\long\path\to\sample\data\mydata
+    xymath ~/xy_data/mydata.x_y
+    
+
+
+If XYmath does not start with the above command, then there may be an issue with your system path.
 The path for the xymath executable might be something like::
 
     /usr/local/bin/xymath             (if installed with sudo pip install -e .)
