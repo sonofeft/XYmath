@@ -113,7 +113,9 @@ By default, only the top 100 equations are listed, however, that can be changed 
 Note that for some equations, divide by zero is allowed if it results in (1/infinity) which is equal to 0.0
 
 .. image:: ./_static/exhaust_fit_page.png
-    :width: 70%    
+    :width: 52%    
+.. image:: ./_static/exhaust_fit_graph.png
+    :width: 41%
     
 
 Non-Linear Fit
@@ -144,5 +146,7 @@ As in "Simple Fit" and "Exhaustive Fit", be sure to select either Percent or Tot
 Note that for some equations, divide by zero is allowed if it results in (1/infinity) which is equal to 0.0
 
 .. image:: ./_static/nonlinear_page.png
-    :width: 70%    
+    :width: 52%    
+.. image:: ./_static/non_linear_graph.png
+    :width: 41%
         
