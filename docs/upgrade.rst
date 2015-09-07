@@ -17,6 +17,9 @@ I **Strongly Recommend** using::
         <followed by>
     pip install xymath
 
+Warning
+-------
+
 .. warning::
     **Do NOT Use**::
     
@@ -26,6 +29,9 @@ Using the --upgrade flag will initiate attempts to upgrade scipy, numpy and matp
 
 On my systems, the rollback of the attempts to upgrade those packages did not work and I was forced to reinstall them.
 
+Repair on Windows
+~~~~~~~~~~~~~~~~~
+
 If using Anaconda_, they can be restored as::
     
     conda install numpy
@@ -34,3 +40,16 @@ If using Anaconda_, they can be restored as::
     conda install matplotlib
     
 If using `Python(x,y)`_, the best approach would be to download install EXE files from `Unofficial Windows Binaries for Python Extension Packages`_
+
+Repair on Linux
+~~~~~~~~~~~~~~~
+
+On Linux try::
+    
+    sudo apt-get install python-matplotlib
+    sudo apt-get install python-numpy
+    sudo apt-get install python-scipy
+    sudo apt-get install python-numexpr
+    sudo apt-get install python-imaging-tk
+    
+
