@@ -41,7 +41,7 @@ class FloatEntry(Entry):
     def set_float_val(self, fval):
         if type(fval) is float:
             self.__strvar.set(fval)
-        elif fval == None:
+        elif fval is None:
             self.__strvar.set('')
         else:
             #print '...converting "%s" to string'%fval
@@ -50,7 +50,7 @@ class FloatEntry(Entry):
 
     def __callback(self, *dummy):
         self.__float_val = self.validate() # can be float or None
-        if self.__float_val == None and self.__strvar.get():
+        if (self.__float_val is None) and self.__strvar.get():
             self.configure(bg="#ff7777") # show red if float is bad.
         else:
             self.configure(bg=self.__mybg)

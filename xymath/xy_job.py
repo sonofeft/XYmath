@@ -45,7 +45,7 @@ class XY_Job(object):
         """Inits XY_Job."""
         self.job_name = job_name
         self.file_prefix = file_prefix
-        if file_prefix==None:
+        if file_prefix is None:
             self.file_name = None
         else:
             self.file_name = file_prefix + '.x_y'
@@ -233,11 +233,11 @@ class XY_Job(object):
         self.linfit = None
         
         # default to a simple search
-        if funcL==None:
+        if funcL is None:
             funcL = ['const','x','x**2']
-        if xtranL==None:
+        if xtranL is None:
             xtranL=['x','(1/x)','exp(x)']
-        if ytranL==None:
+        if ytranL is None:
             ytranL=['y','1/y','y**2']
         
         # build a list of all possible terms

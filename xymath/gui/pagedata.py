@@ -130,7 +130,7 @@ class PageData(object):
                 self.eg.entryL[i][0].set_float_val(XY.dataset.xArr[i])
                 self.eg.entryL[i][1].set_float_val(XY.dataset.yArr[i])
                 
-                if XY.dataset.wtArr==None:
+                if XY.dataset.wtArr is None:
                     #self.eg.entryL[i][2].set_float_val( 1.0 )
                     self.eg.update_num_active_wtfactors(i, 1.0)
                 else:

@@ -68,12 +68,12 @@ class Annotation(BoxMessage):
         
     def place_it(self, ax, dx=None, dy=None):
         
-        if self.xmess==None and dx!=None:
+        if (self.xmess is None) and (not dx is None):
             self.xmess = self.xpt + dx
             self.ymess = self.ypt + dy
         
         # if there are not message coords, just use a box
-        if self.xmess==None:
+        if self.xmess is None:
             ax.text(self.xpt, self.ypt, self.message, va='center', ha='center',
                 bbox={'facecolor':'#ccccff', 'alpha':0.5, 'pad':10})
         else:
@@ -184,7 +184,7 @@ class PlotWindow( Toplevel ):
                 show_line=0, linewidth=2, markersize=markersize, 
                 color=self.plotOptionD['Data Point Color'], marker=marker)
                 
-            if dataset.wtArr != None and showWeights:
+            if (not dataset.wtArr is None) and showWeights:
                 xwL=[]
                 ywL=[]
                 wwL=[]
@@ -311,7 +311,10 @@ class PlotWindow( Toplevel ):
     def start_new_plot(self):
         '''Start a new plot'''
         self.ncolor = nextColor() # make color iterator
-        self.f = figure()# start new figure
+        try:
+            self.f.clf()  # clear the existing figure
+        except:
+            self.f = figure()# start new figure
         self.ax = self.f.add_subplot(111)
         self.has_labels = 0
         self.legend = None
@@ -341,7 +344,7 @@ class PlotWindow( Toplevel ):
     def add_curve(self, xL, yL, label='', show_pts=1, show_line=1, linewidth=2, color=None,
         markersize=10, integFill=None, marker='o', linetype='-', marker_alpha=1.0):
         
-        if color==None:
+        if color is None:
             mfc=next(self.ncolor)
         else:
             mfc = color

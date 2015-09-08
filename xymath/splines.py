@@ -57,10 +57,10 @@ class Spline(object):
 
     def get_x_plot_array(self, Npoints=100, logScale=0, xmin=None, xmax=None):
         
-        if xmin==None:
+        if xmin is None:
             xmin = self.ds.xmin
         
-        if xmax==None:
+        if xmax is None:
             xmax = self.ds.xmax
             
         if logScale:

@@ -37,9 +37,13 @@ class DataSet(object):
 
     def __init__(self, xArr=array([1.,2.]), yArr=array([3.,4.]), wtArr=None, 
         xName='', yName='', xUnits='', yUnits='', timeStamp=None):
-        self.xArr = xArr
-        self.yArr = yArr
-        self.wtArr = wtArr
+        self.xArr = array(xArr, dtype=double)
+        self.yArr = array(yArr, dtype=double)
+        
+        if wtArr is None:
+            self.wtArr = wtArr
+        else:
+            self.wtArr = array(wtArr, dtype=double)
         
         self.xName = xName
         self.yName = yName
@@ -47,7 +51,7 @@ class DataSet(object):
         self.yUnits = yUnits
         
         self.update_internal_vars()
-        if timeStamp==None:
+        if timeStamp is None:
             self.timeStamp = time.time()
         else:
             self.timeStamp = timeStamp
@@ -107,7 +111,7 @@ class DataSet(object):
         #print '---'
         #print 'xArr=',self.xArr
         #print 'yArr=',self.yArr
-        if self.wtArr!=None:
+        if not self.wtArr is None:
             indL = lexsort( (self.wtArr, self.yArr, self.xArr) )# faster/smaller sorting last axis
             self.wtArr = self.wtArr[indL]
         else:
@@ -251,7 +255,7 @@ class DataSet(object):
         '''Return dataset in a format consistent with a comment block'''
         
                 
-        if self.wtArr == None:
+        if self.wtArr is None:
             src = '%s (x,y) Data Pairs from %s Used in Curve Fit '%\
                 (com_char, time.strftime("%m/%d/%Y", time.localtime(self.timeStamp) ))
             

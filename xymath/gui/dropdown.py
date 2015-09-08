@@ -33,7 +33,7 @@ class Dropdown( Frame ):
         self.label_obj.pack(anchor=W, side=LEFT)
         
         self.var = StringVar()
-        if default_val != None:
+        if not default_val is None:
             self.var.set(default_val)
         else:
             self.var.set(choiceL[0])

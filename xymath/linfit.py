@@ -80,7 +80,7 @@ class LinCurveFit(object):
         self.pcent_std = None
         
         # ONLY calc cArr if it is not input
-        if cArrInp==None: # if constants are input, simply use them
+        if cArrInp is None: # if constants are input, simply use them
             # First make good estimate of solution using matrix methods
             try:
                 if self.fit_best_pcent:
@@ -99,10 +99,10 @@ class LinCurveFit(object):
 
             #print 'ds.wtArr=, ytran=',(ds.wtArr, ytran)
             #print "ytran!='y'",ytran!='y'
-            #print "ds.wtArr!=None",ds.wtArr!=None
+            #print "ds.wtArr is None",ds.wtArr is None
             
             # Using good estimate of cArr from above, now use optimize leastsq
-            if ds.wtArr!=None or ytran!='y':
+            if (not ds.wtArr is None) or ytran!='y':
                 # After using matrix methods to estimate constants, use optimize.leastsq
                 X = column_stack([ self.ds.getTransXArr(name) for name in self.xtranL ])
                         
@@ -110,7 +110,7 @@ class LinCurveFit(object):
                     ytranArr = dot( X, cArr )
                     yCalcArr = un_transform_y( ytranArr, self.ytran )
                     
-                    if self.ds.wtArr != None:
+                    if not self.ds.wtArr is None:
                         #print 'Doing Linear fit with wtArr'
                         if  fit_best_pcent:
                             return self.ds.wtArr * (yCalcArr - self.ds.yArr)/self.ds.yPcentDivArr
@@ -168,10 +168,10 @@ class LinCurveFit(object):
 
     def get_x_plot_array(self, Npoints=100, logScale=0, xmin=None, xmax=None):
         
-        if xmin==None:
+        if xmin is None:
             xmin = self.ds.xmin
         
-        if xmax==None:
+        if xmax is None:
             xmax = self.ds.xmax
         
         if logScale:

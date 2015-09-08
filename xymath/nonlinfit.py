@@ -98,7 +98,7 @@ class NonLinCurveFit(object):
         for i,c in enumerate(self.orderedConstL):
             self.constD[c] = cArr[i]
         
-        if self.ds.wtArr != None:
+        if not self.ds.wtArr is None:
             if self.fit_best_pcent:
                 return self.ds.wtArr*(self.ds.yArr - self.eval_xrange( self.ds.xArr )) / self.ds.yPcentDivArr
             else:
@@ -127,10 +127,10 @@ class NonLinCurveFit(object):
 
     def get_x_plot_array(self, Npoints=100, logScale=0, xmin=None, xmax=None):
         
-        if xmin==None:
+        if xmin is None:
             xmin = self.ds.xmin
         
-        if xmax==None:
+        if xmax is None:
             xmax = self.ds.xmax
         
         if logScale:

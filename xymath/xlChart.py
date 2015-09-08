@@ -46,9 +46,9 @@ def squareUpRS( rs, pad='' ):
     
 def addColumnToRS( rs, colName, columnL ):    
     '''add column of data to rs (list of row lists)
-       if rs==None, create an empty rs'''
+       if rs is None, create an empty rs'''
     
-    if rs==None:
+    if rs is None:
         rs = [[colName]]  # empty list with 1st row of labels also empty
         for val in columnL:
             rs.append( [val] )
@@ -85,9 +85,9 @@ def addColumnToRS( rs, colName, columnL ):
 def combineRS( rs1, rs2 ):    
     '''combine two rs lists into one rs list'''
     
-    if rs1==None:
+    if rs1 is None:
         return rs2
-    if rs2==None:
+    if rs2 is None:
         return rs1
         
     def getrowN( n, rsn ):
@@ -148,7 +148,7 @@ class xlChart(object):
     def __del__(self):
         if (__name__ != "__main__") and (not self.leaveOpen):
             # i.e. only close if this is not a Self Test
-            if self.xlApp != None: self.close()
+            if self.xlApp is None: self.close()
             
     def getSheetNumberFromName(self, shtName='Sheet1'):
         '''get workbook sheet number from name'''
@@ -265,12 +265,12 @@ class xlChart(object):
     def addNewSeries(self, NChart=None, NSheet=None, xColumn=1, yColumn=2):
         # use 1-based indeces for NChart and NSheet
 
-        if NChart == None:
+        if NChart is None:
             ch = self.chartList[-1]
         else:
             ch = self.chartList[NChart-1]
         
-        if NSheet == None:
+        if NSheet is None:
             sh = self.sheetList[-1]
         else:
             sh = self.sheetList[NSheet-1]
@@ -490,7 +490,7 @@ class xlChart(object):
             pass
 
     def close(self):
-        if self.xlBook != None:
+        if self.xlBook is None:
             self.xlApp.DisplayAlerts=0 # Allow Quick Close without Save Message
             self.xlBook.Close()
             self.xlBook = None

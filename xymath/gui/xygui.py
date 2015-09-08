@@ -71,7 +71,7 @@ class _Xygui(object):
     #    self.master.geometry( '%dx%d+%i+%i'%(self.master.winfo_width(),self.master.winfo_height(),
     #        self.master.winfo_x(),self.master.winfo_y()))
         
-    def __init__(self, master):
+    def __init__(self, master, XYjob_inp=None):
         self.initComplete = 0
         #frame = Frame(master, width=753, height=536)
         #frame.pack()
@@ -135,12 +135,16 @@ class _Xygui(object):
 
         master.config(menu=self.menuBar)
         
-        self.XYjob = XY_Job() # XYjob may hold nonlinear fit object
+        if XYjob_inp is None:
+            self.XYjob = XY_Job() # XYjob may hold nonlinear fit object
+        else:
+            self.XYjob = XYjob_inp
+            
         self.linear_fitL = [] # list of candidate linear fits
         self.selected_spline_objL = [] # list of candidate spline fits
 
         # check for input file on command line
-        if len( sys.argv ) == 2:
+        if (XYjob_inp is None) and (len( sys.argv ) == 2):
             fName = sys.argv[1]
             if not fName.endswith('.x_y'):
                 fName += '.x_y'
@@ -222,7 +226,7 @@ class _Xygui(object):
                 print('Has Data in Entry Box')
                 got_data = True
         
-        if self.XYjob.dataset!=None or self.XYjob.linfit!=None or self.XYjob.nonlin_fit!=None:
+        if (not self.XYjob.dataset is None) or (not self.XYjob.linfit is None) or (not self.XYjob.nonlin_fit is None):
             print('Has Initialized XYjob')
             got_data = True
             
@@ -395,7 +399,7 @@ class _Xygui(object):
     # return an OPEN file type object OR None (opened using mode, 'r','rb','w','wb')
     # WARNING... opening file with mode 'w' or 'wb' will erase contents
     def AskOpenFile(self, title='Open XYmath File', mode='rb', initialdir='.', filetypes=None):
-        if filetypes==None:
+        if filetypes is None:
             filetypes = [
                 ('XYmath File','*.x_y'),
                 ('Any File','*.*')]
@@ -407,7 +411,7 @@ class _Xygui(object):
         
     # return a string containing file name (the calling routine will need to open the file)
     def AskSaveasFilename(self, title='Save File', filetypes=None, initialfile=''):
-        if filetypes==None:
+        if filetypes is None:
             filetypes = [
                 ('XYmath File','*.x_y'),
                 ('Any File','*.*')]
@@ -446,9 +450,9 @@ class _Xygui(object):
         dialog = _About(self.master, "About XYmath")
             
 
-def main():
+def main(XYjob_inp=None):
     root = Tk()
-    app = _Xygui(root)
+    app = _Xygui(root, XYjob_inp=XYjob_inp)
     root.mainloop()
 
 if __name__ == '__main__':
