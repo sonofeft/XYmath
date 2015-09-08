@@ -3,7 +3,8 @@
 
 .. include:: ../HISTORY.rst
 
-------
+PyHatch
+-------
 
 XYmath Framework Created by: `PyHatch <http://pyhatch.readthedocs.org/en/latest/>`_ on Aug 30, 2015 
 
