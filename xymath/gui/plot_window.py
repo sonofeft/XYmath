@@ -121,16 +121,18 @@ class PlotWindow( Toplevel ):
                 title_str=self.last_title_str, 
                 xaxis_str=self.last_xaxis_str, yaxis_str=self.last_yaxis_str, 
                 annotationL=self.last_annotationL, integFill=self.last_integFill,
-                specialPtL=self.last_specialPtL)
+                specialPtL=self.last_specialPtL, textLabelCurveL=self.last_textLabelCurveL,
+                force_linear_y=self.last_force_linear_y)
     
     def make_new_plot(self, dataset=None, curveL=None, title_str='', 
         xaxis_str='', yaxis_str='', annotationL=None, integFill=None,
-        specialPtL=None):
+        specialPtL=None, dataLabel='Data', textLabelCurveL=None, force_linear_y=False):
         '''Make a new plot.
         
            integFill is a pair of x,y arrays to plot with shaded area to y=0.0
            specialPtL is a list of tuples (xArr, yArr, marker, markersize, label)
            annotationL is a list of BoxMessage and Annotation objects to add.
+           textLabelCurveL is a list of tuples (xArr, yArr, color, linewidth, linetype, label)
         '''
         
         #print 'self.state()=',self.state()
@@ -146,6 +148,11 @@ class PlotWindow( Toplevel ):
         self.last_annotationL = annotationL
         self.last_integFill = integFill
         self.last_specialPtL = specialPtL
+        self.last_textLabelCurveL = textLabelCurveL
+        self.last_force_linear_y = force_linear_y
+        
+        
+        self.force_linear_y = force_linear_y
         
         # get plot attributes from PagePlot
         Npoints = int( self.plotOptionD['# Points in Curves'] )
@@ -154,7 +161,7 @@ class PlotWindow( Toplevel ):
         show_title = self.plotOptionD['ShowTitle'] == 'yes'
         
         self.logx = self.plotOptionD['XAxis'] == 'Log'
-        self.logy = self.plotOptionD['YAxis'] == 'Log'
+        self.logy = (self.plotOptionD['YAxis'] == 'Log') and (not force_linear_y)
         
         showWeights = self.plotOptionD['Weights'] == 'yes'
         markersize = int( self.plotOptionD['Data Point Size'] )
@@ -180,7 +187,7 @@ class PlotWindow( Toplevel ):
         if dataset and dataset.N > 1:
             xaxis_str = dataset.get_x_desc()
             yaxis_str = dataset.get_y_desc()        
-            self.add_curve( dataset.xArr, dataset.yArr, label='Data', show_pts=1,
+            self.add_curve( dataset.xArr, dataset.yArr, label=dataLabel, show_pts=1,
                 show_line=0, linewidth=2, markersize=markersize, 
                 color=self.plotOptionD['Data Point Color'], marker=marker)
                 
@@ -240,6 +247,11 @@ class PlotWindow( Toplevel ):
                 self.add_curve( xArr, yArr, label=label, show_pts=1, 
                     show_line=0, linewidth=2, markersize=markersize, marker=marker)
                 
+        if textLabelCurveL:
+            for xArr, yArr, color, linewidth, linetype, label in textLabelCurveL:
+                self.add_curve( xArr, yArr, label=label, show_pts=0, linetype=linetype,
+                    show_line=1, linewidth=linewidth, color=color)
+        
         
         self.final_touches( title_str=title_str, show_grid=show_grid, 
             show_legend=show_legend, xaxis_str=xaxis_str, yaxis_str=yaxis_str)
@@ -288,6 +300,8 @@ class PlotWindow( Toplevel ):
         self.plotOptionD = guiWin.pageD['Plot'].plotOptionD
         self.pointStyleD = guiWin.pageD['Plot'].pointStyleD
         
+        self.force_linear_y = False
+        
         self.guiWin = guiWin
         self.master = master
 
@@ -324,20 +338,25 @@ class PlotWindow( Toplevel ):
         self.ymin = 1.0E99
         self.ymax = -1.0E99
         
-        self.ax.set_yscale( self.plotOptionD['YAxis'] )
+        if self.force_linear_y:
+            self.ax.set_yscale( 'Linear' )
+        else:
+            self.ax.set_yscale( self.plotOptionD['YAxis'] )
         self.ax.set_xscale( self.plotOptionD['XAxis'] )
+        
+        axisFormatter = FormatStrFormatter('%g')
         
         if  self.plotOptionD['XAxis']=='Log':
             logFormatter = FormatStrFormatter('%g')
             if self.plotOptionD['XMinorTicks']=='yes':
                 self.ax.xaxis.set_minor_formatter(logFormatter)
-            self.ax.xaxis.set_major_formatter(logFormatter)
+        self.ax.xaxis.set_major_formatter(axisFormatter)
         
-        if  self.plotOptionD['YAxis']=='Log':
+        if  (self.plotOptionD['YAxis']=='Log') and (not self.force_linear_y):
             logFormatter = FormatStrFormatter('%g')
             if  self.plotOptionD['YMinorTicks']=='yes':
                 self.ax.yaxis.set_minor_formatter(logFormatter)
-            self.ax.yaxis.set_major_formatter(logFormatter)
+        self.ax.yaxis.set_major_formatter(axisFormatter)
 
 
         
@@ -438,7 +457,7 @@ class PlotWindow( Toplevel ):
             if  self.plotOptionD['XAxis']=='Log':# and self.plotOptionD['XMinorTicks']=='yes':
                 self.ax.xaxis.grid(True, which='minor')
 
-            if  self.plotOptionD['YAxis']=='Log':# and self.plotOptionD['YMinorTicks']=='yes':
+            if  (self.plotOptionD['YAxis']=='Log') and (not self.force_linear_y):# and self.plotOptionD['YMinorTicks']=='yes':
                 self.ax.yaxis.grid(True, which='minor')
 
 

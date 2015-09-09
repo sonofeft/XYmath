@@ -14,3 +14,7 @@ TODO
 
 * Exit message is confusing (Exit vs Saved???)
 
+* Add ERROR PLOT to the "Math" tab
+    - show (Yeqn - Ydata) vs X 
+    - show (Ydata - Yeqn) vs X
+    - include error bands (total and/or percent)

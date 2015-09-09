@@ -13,6 +13,7 @@ from scipy import optimize
 
 from xymath.math_funcs import find_min_max, find_root, find_integral, find_values_at_x
 from xymath.helper_funcs import is_number
+from xymath.dataset import DataSet
         
 def floatCast( val=0.0 ):
     try:
@@ -101,6 +102,7 @@ class MathPage(object):
         self.min_f = Frame(self.right_f)
         self.root_f = Frame(self.right_f)
         self.eval_f = Frame(self.right_f)
+        self.error_f = Frame(self.right_f)
 
         
         # ShowHelp Button
@@ -108,6 +110,13 @@ class MathPage(object):
         self.ShowHelp_Button.bind("<ButtonRelease-1>", self.ShowHelp_Button_Click)
 
         # make buttons
+        self.Error_Button = Button(self.error_f,text="Show Error", width="25")
+        self.Error_Button.pack(anchor=NW, side=LEFT)
+        self.Error_Button.bind("<ButtonRelease-1>", self.Error_Button_Click)
+        self.PcentError_Button = Button(self.error_f,text="Show Percent Error", width="25")
+        self.PcentError_Button.pack(anchor=NW, side=LEFT)
+        self.PcentError_Button.bind("<ButtonRelease-1>", self.PcentError_Button_Click)
+        
         self.Evaluate_Button = Button(self.eval_f,text="Evaluate Y & dY/dX at X=", width="25")
         self.Evaluate_Button.pack(anchor=NW, side=LEFT)
         self.Evaluate_Button.bind("<ButtonRelease-1>", self.Evaluate_Button_Click)
@@ -195,7 +204,7 @@ class MathPage(object):
         self.min_f.pack(anchor=NW, side=TOP)
         self.root_f.pack(anchor=NW, side=TOP)
         self.eval_f.pack(anchor=NW, side=TOP)
-        
+        self.error_f.pack(anchor=NW, side=TOP)
         
         self.select_f.pack(anchor=NW, side=LEFT, expand=True,fill=Y)
         
@@ -434,3 +443,71 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             self.put_equation_on_plot(integFill=(xPlotArr, yPlotArr))
         else:
             self.new_message('No Selection for Integration.\n')
+
+
+    def Error_Button_Click(self, event):
+        self.evaluate_float_entries()
+        if len(self.Listbox_1.curselection()):
+            self.new_message('Showing Error of:\n')
+            
+            i = int(self.Listbox_1.curselection()[0])
+            obj = self.equationL[i]
+
+            self.add_to_messages( obj.get_full_description() )
+
+            XY = self.guiObj.XYjob
+        
+            if XY.dataset:
+                
+                yeqnArr = obj.eval_xrange( XY.dataset.xArr )
+                errArr = yeqnArr - XY.dataset.yArr
+                errDS = DataSet( XY.dataset.xArr, errArr, xName=XY.dataset.xName, 
+                                 yName=XY.dataset.yName+ ' (eqn - data)',
+                                 xUnits=XY.dataset.xUnits, yUnits=XY.dataset.yUnits )
+                
+                xArr = [XY.dataset.xmin, XY.dataset.xmax]
+                yArr = [ obj.std,  obj.std]
+                textLabelCurveL = [(xArr, yArr, 'red', 1, '--', '1 StdDev')]
+                textLabelCurveL.append((xArr, [ -obj.std,  -obj.std], 'red', 1, '--', ''))
+                textLabelCurveL.append((xArr, [ 0., 0.], 'red', 1, '-', ''))
+                
+                self.guiObj.PlotWin.make_new_plot(dataset=errDS, textLabelCurveL=textLabelCurveL, 
+                    title_str=XY.dataset.yName+' Error\n in eqn: '+str(self.equationL[i].name),  
+                    specialPtL=None, dataLabel='Error', force_linear_y=True)
+            
+        else:
+            self.new_message('No Selection for Error.\n')
+
+    def PcentError_Button_Click(self, event):
+        self.evaluate_float_entries()
+        if len(self.Listbox_1.curselection()):
+            self.new_message('Showing Percent Error of:\n')
+            
+            i = int(self.Listbox_1.curselection()[0])
+            obj = self.equationL[i]
+
+            self.add_to_messages( obj.get_full_description() )
+
+            XY = self.guiObj.XYjob
+        
+            if XY.dataset:
+                
+                yeqnArr = obj.eval_xrange( XY.dataset.xArr )
+                pcerrArr = 100.0 * (yeqnArr - XY.dataset.yArr) / numpy.absolute( XY.dataset.yArr )
+                
+                errDS = DataSet( XY.dataset.xArr, pcerrArr, xName=XY.dataset.xName, 
+                                 yName=XY.dataset.yName+ ' [100*(eqn - data)/data]',
+                                 xUnits=XY.dataset.xUnits, yUnits=XY.dataset.yUnits )
+                
+                xArr = [XY.dataset.xmin, XY.dataset.xmax]
+                yArr = [ obj.pcent_std,  obj.pcent_std]
+                textLabelCurveL = [(xArr, yArr, 'red', 1, '--', '1 Percent StdDev')]
+                textLabelCurveL.append((xArr, [ -obj.pcent_std,  -obj.pcent_std], 'red', 1, '--', ''))
+                textLabelCurveL.append((xArr, [ 0., 0.], 'red', 1, '-', ''))
+                
+                self.guiObj.PlotWin.make_new_plot(dataset=errDS, textLabelCurveL=textLabelCurveL, 
+                    title_str=XY.dataset.yName+' Percent Error\n in eqn: '+str(self.equationL[i].name),  
+                    specialPtL=None, dataLabel='Error', force_linear_y=True)
+            
+        else:
+            self.new_message('No Selection for Percent  Error.\n')

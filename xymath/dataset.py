@@ -28,9 +28,11 @@ from past.utils import old_div
 # import statements here. (built-in first, then 3rd party, then yours)
 import sys
 import time
-from numpy import empty, ones, array, double, dot, column_stack, std
+from numpy import empty, ones, array, double, dot, column_stack, std, finfo, float64
 from numpy import sqrt, all, sum, zeros, absolute, nonzero, append, lexsort
 import numexpr
+
+EPS_FLOAT = finfo(float64).eps
 
 class DataSet(object):
     """XYmath fits curves to data sets and evaluates properties of those curves"""
@@ -71,7 +73,10 @@ class DataSet(object):
         self.xmax = self.xArr.max()
         
         # make a yArr divisor for pcent_std in case there is a 0.0 in the yArr
-        self.ymin_abs = absolute( self.yArr[nonzero(self.yArr)] ).min()
+        try:
+            self.ymin_abs = absolute( self.yArr[nonzero(self.yArr)] ).min()
+        except:
+            self.ymin_abs = EPS_FLOAT
         #print 'self.ymin_abs=',self.ymin_abs
         self.yPcentDivArr = array( [v if v!=0.0 else self.ymin_abs for v in self.yArr] )
         #print 'self.yPcentDivArr =',self.yPcentDivArr
