@@ -48,7 +48,7 @@ class _Xygui(object):
     def cleanupOnQuit(self):
         if (not self.has_some_data()) or \
             self.AskYesNo( title='Data Saved Before Quitting?', \
-            message='Do you want to exit XYmath?\nHave you saved your data?'):
+            message='Do you want to exit XYmath?\n(Hit "Yes" ONLY IF your data is saved.)'):
             
             print('Doing final cleanup before quitting')
             
@@ -142,6 +142,10 @@ class _Xygui(object):
             
         self.linear_fitL = [] # list of candidate linear fits
         self.selected_spline_objL = [] # list of candidate spline fits
+        
+        if self.XYjob.nonlin_fit:
+            self.pageD['Non-Linear Fit'].EqnStr_Text.delete(1.0, END)
+            self.pageD['Non-Linear Fit'].EqnStr_Text.insert(END, self.XYjob.nonlin_fit.rhs_eqnStr)
 
         # check for input file on command line
         if (XYjob_inp is None) and (len( sys.argv ) == 2):

@@ -178,12 +178,20 @@ Note that for some equations, divide by zero is allowed if it results in (1/infi
         
         rhs_eqnStr = str( self.EqnStr_Text.get(1.0, END) ).strip()
         XY = self.guiObj.XYjob
+        
+        self.set_nonlin_obj_constants()
+        if XY.nonlin_fit:
+            constDinp = XY.nonlin_fit.constD.copy()
+        else:
+            constDinp = None
+            
+            
         if "PcentStdDev" == self.RadioGroup1_StringVar.get():
             self.new_message('Fitting Non-Linear Equation to dataset with Percent Error.\n\n')
-            XY.fit_dataset_to_nonlinear_eqn( run_best_pcent=1, rhs_eqnStr=rhs_eqnStr)
+            XY.fit_dataset_to_nonlinear_eqn( run_best_pcent=1, rhs_eqnStr=rhs_eqnStr, constDinp=constDinp)
         else:
             self.new_message('Fitting Non-Linear Equation to dataset with Total Error.\n\n')
-            XY.fit_dataset_to_nonlinear_eqn( run_best_pcent=0, rhs_eqnStr=rhs_eqnStr)
+            XY.fit_dataset_to_nonlinear_eqn( run_best_pcent=0, rhs_eqnStr=rhs_eqnStr, constDinp=constDinp)
         
         # remove any constant entry widgets and pack_forget Improve Button
         self.ImproveFit_Button.pack_forget()

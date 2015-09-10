@@ -282,9 +282,12 @@ class XY_Job(object):
 
 
     # make exhaustive search a generator so it can be interupted
-    def fit_dataset_to_nonlinear_eqn(self, run_best_pcent=0, rhs_eqnStr='A*x**b'):
+    def fit_dataset_to_nonlinear_eqn(self, run_best_pcent=0, rhs_eqnStr='A*x**b', 
+                                         constDinp=None):
         
-        self.nonlin_fit =  NonLinCurveFit(self.dataset, rhs_eqnStr=rhs_eqnStr, fit_best_pcent=run_best_pcent)        
+        self.nonlin_fit =  NonLinCurveFit(self.dataset, rhs_eqnStr=rhs_eqnStr, 
+                                          fit_best_pcent=run_best_pcent, 
+                                          constDinp=constDinp)        
 
 
 if __name__=='__main__':

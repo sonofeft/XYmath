@@ -2,6 +2,18 @@
 TODO
 ====
 
+* Compare best total error with best percent error
+
+* Guess generator on non-linear fit page
+
+* Add drop-down of typical non-linear eqns
+    - Gaussien, Weibel, sinusoid, etc.
+
+* Look at Prediction Interval (like matlab uses)
+    - For putting bounds on extrapolation
+
+* Plot option for 1,2,3 sigma ranges
+
 * Plot option for full X Range plot
 
 * Add XYmath to system menu
@@ -12,9 +24,7 @@ TODO
 
 * Code gen option for python 2 & 3
 
-* Exit message is confusing (Exit vs Saved???)
-
 * Add ERROR PLOT to the "Math" tab
     - show (Yeqn - Ydata) vs X 
     - show (Ydata - Yeqn) vs X
-    - include error bands (total and/or percent)
+    - include error bands (total and/or percent) Confidence Intervals
