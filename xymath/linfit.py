@@ -101,6 +101,8 @@ class LinCurveFit(object):
             #print "ytran!='y'",ytran!='y'
             #print "ds.wtArr is None",ds.wtArr is None
             
+            # To stay true to selection of "Total Error" or "Percent Error"
+            #    need to tweek matrix answer via leastsq approach.
             # Using good estimate of cArr from above, now use optimize leastsq
             if (not ds.wtArr is None) or ytran!='y':
                 # After using matrix methods to estimate constants, use optimize.leastsq
@@ -129,7 +131,7 @@ class LinCurveFit(object):
                 
                 self.cArr = minResult[0]
         else:
-            self.cArr = cArrInp
+            self.cArr = array(cArrInp, dtype=double)
 
         self.calc_std_values_from_cArr()
     
@@ -141,6 +143,7 @@ class LinCurveFit(object):
         
         # First set LinCurveFit timeStamp to ds.timeStamp
         self.dsTimeStamp = self.ds.timeStamp
+        self.corrcoef = 0.0 # in case it bombs show zero
         try:
             # if y is transformed, must un_transform_y
             X = column_stack([ self.ds.getTransXArr(name) for name in self.xtranL ])

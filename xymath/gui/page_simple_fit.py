@@ -189,6 +189,12 @@ class SimplePage(object):
         self.Pcentstddev_Listbox.delete(0, END)
         self.Stddev_Listbox.delete(0, END)
         
+        # Also clear Exhaustive search results
+        self.guiObj.pageD['Exhaustive Fit'].Equations_Listbox.delete(0, END)
+        self.guiObj.pageD['Exhaustive Fit'].Pcentstddev_Listbox.delete(0, END)
+        self.guiObj.pageD['Exhaustive Fit'].Stddev_Listbox.delete(0, END)
+        
+        
         XY = self.guiObj.XYjob
         max_terms = int( self.NTermsStringVar.get() )
         

@@ -265,7 +265,14 @@ class ExhaustPage(object):
         self.Pcentstddev_Listbox.delete(0, END)
         self.Stddev_Listbox.delete(0, END)
         self.guiObj.linear_fitL = []
+
         
+        # Also clear Simple search results
+        self.guiObj.pageD['Simple Fit'].Equations_Listbox.delete(0, END)
+        self.guiObj.pageD['Simple Fit'].Pcentstddev_Listbox.delete(0, END)
+        self.guiObj.pageD['Simple Fit'].Stddev_Listbox.delete(0, END)
+
+
         XY = self.guiObj.XYjob
         num_terms = int( self.NTermsStringVar.get() )
         self.calc_possibel_terms_in_eqn() # calcs self.funcL and self.xtranL

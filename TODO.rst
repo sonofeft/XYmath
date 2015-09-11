@@ -2,6 +2,8 @@
 TODO
 ====
 
+* Make up/down arrows work in Equation list boxes
+
 * Compare best total error with best percent error
 
 * Guess generator on non-linear fit page
