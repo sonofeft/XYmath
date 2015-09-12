@@ -460,9 +460,9 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             if XY.dataset:
                 
                 yeqnArr = obj.eval_xrange( XY.dataset.xArr )
-                errArr = yeqnArr - XY.dataset.yArr
+                errArr = XY.dataset.yArr - yeqnArr
                 errDS = DataSet( XY.dataset.xArr, errArr, xName=XY.dataset.xName, 
-                                 yName=XY.dataset.yName+ ' (eqn - data)',
+                                 yName=XY.dataset.yName+ ' (data - eqn)',
                                  xUnits=XY.dataset.xUnits, yUnits=XY.dataset.yUnits )
                 
                 xArr = [XY.dataset.xmin, XY.dataset.xmax]
@@ -493,21 +493,21 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             if XY.dataset:
                 
                 yeqnArr = obj.eval_xrange( XY.dataset.xArr )
-                pcerrArr = 100.0 * (yeqnArr - XY.dataset.yArr) / numpy.absolute( XY.dataset.yArr )
+                pcerrArr = -100.0 * (yeqnArr - XY.dataset.yArr) / numpy.absolute( XY.dataset.yArr )
                 
                 errDS = DataSet( XY.dataset.xArr, pcerrArr, xName=XY.dataset.xName, 
-                                 yName=XY.dataset.yName+ ' [100*(eqn - data)/data]',
+                                 yName=XY.dataset.yName+ ' [100*(data - eqn)/data]',
                                  xUnits=XY.dataset.xUnits, yUnits=XY.dataset.yUnits )
                 
                 xArr = [XY.dataset.xmin, XY.dataset.xmax]
                 yArr = [ obj.pcent_std,  obj.pcent_std]
-                textLabelCurveL = [(xArr, yArr, 'red', 1, '--', '1 Percent StdDev')]
+                textLabelCurveL = [(xArr, yArr, 'red', 1, '--', '1 PcntStdDev')]
                 textLabelCurveL.append((xArr, [ -obj.pcent_std,  -obj.pcent_std], 'red', 1, '--', ''))
                 textLabelCurveL.append((xArr, [ 0., 0.], 'red', 1, '-', ''))
                 
                 self.guiObj.PlotWin.make_new_plot(dataset=errDS, textLabelCurveL=textLabelCurveL, 
                     title_str=XY.dataset.yName+' Percent Error\n in eqn: '+str(self.equationL[i].name),  
-                    specialPtL=None, dataLabel='Error', force_linear_y=True)
+                    specialPtL=None, dataLabel='Percent Error', force_linear_y=True)
             
         else:
             self.new_message('No Selection for Percent  Error.\n')

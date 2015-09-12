@@ -17,6 +17,7 @@ Contents:
    quickstart
    upgrade
    overview
+   examples
    data_entry
    curve_fit
    math_ops

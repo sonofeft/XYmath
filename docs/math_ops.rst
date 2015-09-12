@@ -1,6 +1,8 @@
 
 .. math_ops
 
+.. _internal_math_ops:
+
 Math Operations
 ===============
 

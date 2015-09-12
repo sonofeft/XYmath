@@ -25,13 +25,8 @@ concentration=0.6 would be significantly better... that is also calc'd
 from numpy import array
 from xymath.dataset import DataSet
 from xymath.linfit import LinCurveFit
-
-
 from xymath.xy_job import XY_Job
 from xymath.gui.xygui import main as run_gui
-
-XY = XY_Job()
-
 
 concL = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
 readingL = [1.54,2.03,3.17,3.67,4.89,6.73,6.74,7.87,8.86,10.35]
@@ -40,8 +35,8 @@ DS = DataSet(concL, readingL, xName='Concentration', yName='Instrument Reading')
 print('\n\n')
 print('='*55)
 
+XY = XY_Job()
 XY.define_dataset(concL, readingL, wtArr=None, xName='Concentration', 
                   yName='Instrument Reading', xUnits='', yUnits='')
-
 run_gui( XY )
 

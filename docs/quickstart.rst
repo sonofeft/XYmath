@@ -113,6 +113,17 @@ This will execute the local ``setup.py`` file and insure that the pip-specific c
 Running XYmath
 --------------
 
+There are several ways to run XYmath
+    
+    #. Launch the GUI, enter and fit data and perhaps run some math operations
+    #. Write a script to launch the GUI with data (see :ref:`internal_examples`)
+    #. Run a script that outputs to the console (see :ref:`internal_examples`)
+
+.. _internal_launch_gui:
+
+Launch GUI
+~~~~~~~~~~
+    
 After installing with ``pip``, there will be a launch command line program called **xymath** or, on Windows, **xymath.exe** installed on your system. From a terminal or command prompt window simply type::
 
     xymath

@@ -2,6 +2,9 @@
 TODO
 ====
 
+* Add note to Linear docs about using linear for initial guess
+    and leastsq for final calc of Total Error or Percent Error
+
 * Make up/down arrows work in Equation list boxes
 
 * Compare best total error with best percent error

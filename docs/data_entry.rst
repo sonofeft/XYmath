@@ -1,11 +1,12 @@
 
 .. data_entry
 
+.. _internal_entering_data:
 
 Entering Data
 =============
 
-The form for entering X,Y data is shown below. Enter X,Y data pairs into entry boxes. 
+While the easiest way to get data points into XYmath is to use a script to read or generate points  (see :ref:`internal_examples`) There is also a form for entering X,Y data (shown below). Enter X,Y data pairs into entry boxes. 
 
 The boxes can be navigated with the mouse, the return key or arrow keys.
 
