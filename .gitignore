@@ -55,3 +55,7 @@ docs/_build/
 
 # PyBuilder
 target/
+chk_history_from_github_api.py
+chk_json_hist.py
+commits.json
+HISTORY_v1.rst

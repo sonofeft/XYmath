@@ -2,6 +2,8 @@
 TODO
 ====
 
+* Make links to Examples in General description areas
+
 * Add note to Linear docs about using linear for initial guess
     and leastsq for final calc of Total Error or Percent Error
 
@@ -9,7 +11,7 @@ TODO
 
 * Compare best total error with best percent error
 
-* Guess generator on non-linear fit page
+* Parameter guess-generator on non-linear fit page
 
 * Add drop-down of typical non-linear eqns
     - Gaussien, Weibel, sinusoid, etc.
