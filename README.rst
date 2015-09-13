@@ -16,21 +16,11 @@
 XYmath Creates, Documents And Explores Y=f(X) Curve Fits
 ========================================================
 
-.. warning::
-
-    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
-    that causes XYmath to crash and burn.
-    
-    XYmath python source is configured for python 3.x, but until
-    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7
-
 See the Code at: `<https://github.com/sonofeft/XYmath>`_
 
 See the Docs at: `<http://xymath.readthedocs.org/en/latest/>`_
 
 See PyPI page at:`<https://pypi.python.org/pypi/xymath>`_
-
-
 
 XYmath will find the "best" curve fit using either
 minimum percent error or minimum total error. 
@@ -43,3 +33,12 @@ After fitting, XYmath will find roots, minima, maxima, derivatives or
 integrals of the fitted curve. It will generate source code that documents and
 evaluates the fit in python, FORTRAN or EXCEL. Configurable plots are
 created using matplotlib that are of publication quality.
+
+
+.. note::
+
+    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
+    that causes XYmath to crash and burn.
+    
+    XYmath python source is configured for python 3.x, but until
+    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7

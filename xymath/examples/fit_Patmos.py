@@ -3,7 +3,7 @@ the website
 http://www.engineeringtoolbox.com/air-altitude-pressure-d_462.html
 
 Calculates air pressure above sea level as:
-pressure(Pa)  = 101325 (1 - 2.25577 10-5 h)^5.25588   
+pressure(Pa)  = 101325 * (1 - 2.25577E-5 * h)**5.25588   
 where x=altitude(m)
 
 1) run script and get slightly improved answer from web site
@@ -51,6 +51,12 @@ where x=altitude(m)
         y = 101325*(1 - 2.25577e-05*x)**5.25588
 
 """
+try:
+    from matplotlib import pyplot as plt
+    got_plt = True
+except:
+    got_plt = False
+    
 from numpy import array, double
 from xymath.dataset import DataSet
 from xymath.nonlinfit import NonLinCurveFit
@@ -68,22 +74,36 @@ DS = DataSet(alt_mArr, PaArr, xName='altitude', yName='pressure', xUnits='m', yU
 
 guessD = {'A':101325, 'c':1, 'd':2.25577E-5, 'n':5.25588  }
 print( 'guessD Before',guessD )
-CFit = NonLinCurveFit(DS, rhs_eqnStr='A*(c - d*x)**n', 
+CFit_toterr = NonLinCurveFit(DS, rhs_eqnStr='A*(c - d*x)**n', 
                                 constDinp=guessD, fit_best_pcent=0)   # 0=fit best total error
 print( 'guessD After',guessD )
 
 print('='*55)
 print('..........Total Error............')
-print(CFit.get_full_description())
+print(CFit_toterr.get_full_description())
 print('='*55)
 print('..........Percent Error............')
-CFit = NonLinCurveFit(DS, rhs_eqnStr='A*(c - d*x)**n', 
-                                constDinp=guessD, fit_best_pcent=1)   # 0=fit best total error
-print(CFit.get_full_description())
+CFit_pcterr = NonLinCurveFit(DS, rhs_eqnStr='A*(c - d*x)**n', 
+                                constDinp=guessD, fit_best_pcent=1)   # 1=fit best percent error
+print(CFit_pcterr.get_full_description())
 print('='*55)
 
-# To set parameters to something other than "Best Fit" values do this:
-CFit.constD.update( {'A':101325, 'c':1, 'd':2.25577E-5, 'n':5.25588  } )
-CFit.calc_std_values()
-print(CFit.get_full_description())
+# To set parameters to reference values from www.engineeringtoolbox.com do this:
+print('..........Reference Curve Fit............')
+CFit_ref = NonLinCurveFit(DS, rhs_eqnStr='A*(c - d*x)**n', constDinp=guessD)
+CFit_ref.constD.update( {'A':101325, 'c':1, 'd':2.25577E-5, 'n':5.25588  } )
+CFit_ref.calc_std_values()
+print(CFit_ref.get_full_description())
+
+if got_plt:
+    plt.plot( alt_mArr, PaArr, 'o', markersize=10  )
+    xPlotArr, yPlotArr = CFit_ref.get_xy_plot_arrays( Npoints=100, logScale=False)
+    plt.plot( xPlotArr, yPlotArr, '--', linewidth=5, label='Reference'  )
+    xPlotArr, yPlotArr = CFit_toterr.get_xy_plot_arrays( Npoints=100, logScale=False)
+    plt.plot( xPlotArr, yPlotArr, '-', label='Total Error' , linewidth=3 )
+    xPlotArr, yPlotArr = CFit_pcterr.get_xy_plot_arrays( Npoints=100, logScale=False)
+    plt.plot( xPlotArr, yPlotArr, '-', label='Percent Error'  )
+    plt.title('Atmospheric Pressure')
+    plt.legend()
+    plt.show()
 

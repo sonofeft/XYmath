@@ -20,19 +20,35 @@ with sum of squared residuals = 0.053812696547933969
 
 
 """
+try:
+    from matplotlib import pyplot as plt
+    got_plt = True
+except:
+    got_plt = False
+    
 from numpy import array
 from xymath.dataset import DataSet
 from xymath.nonlinfit import NonLinCurveFit
 
 xdata = array([-2,-1.64,-1.33,-0.7,0,0.45,1.2,1.64,2.32,2.9])
-ydata = array([0.699369,0.700462,0.695354,1.03905,1.97389,2.41143,1.91091,0.919576,-0.730975,-1.42001])
+ydata = array([0.699369,0.700462,0.695354,1.03905,1.97389,2.41143,
+               1.91091,0.919576,-0.730975,-1.42001])
 DS = DataSet(xdata, ydata, xName='x', yName='y')
 
 guessD = {'p1':1.0, 'p2':0.2}
 CFit = NonLinCurveFit(DS, rhs_eqnStr='p1*cos(p2*x) + p2*sin(p1*x)', 
-                                constDinp=guessD, fit_best_pcent=0)   # 0=fit best total error
+                      constDinp=guessD, fit_best_pcent=0)   # 0=fit best total error
 
-print( 'residuals =' , sum( (CFit.eval_xrange( xdata ) - ydata)**2 ) )
-print()
+print( 'residuals from XYmath = %g'%sum( (CFit.eval_xrange( xdata ) - ydata)**2 ) )
+print( 'residuals from author = 0.053812696547933969' )
+print('')
 print(CFit.get_full_description())
+
+if got_plt:
+    plt.plot( xdata, ydata, 'o', markersize=10  )
+    xPlotArr, yPlotArr = CFit.get_xy_plot_arrays( Npoints=100, logScale=False)
+    plt.plot( xPlotArr, yPlotArr )
+    plt.title('Trig Function: p1*cos(p2*x) + p2*sin(p1*x)')
+    plt.show()
+
 

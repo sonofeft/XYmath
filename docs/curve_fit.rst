@@ -6,7 +6,7 @@ Curve Fitting
 
 XYmath will find the "best" curve fit using either minimum percent error or minimum total error. 
 
-It's fitting options are:
+Its fitting options are:
 
     #. Simple Fit
         - common equations
@@ -29,8 +29,6 @@ If fewer than 4 terms are desired, the "Max Terms" can be reduced from 4  to the
 All of the equations are listed in order from best to worst standard deviation or percent standard deviation as appropriate.
 
 Note that for some equations, divide by zero is allowed if it results in (1/infinity) which is equal to 0.0
-
-![Simple Fit Page](https://sourceforge.net/p/xymath/xywiki/Home/attachment/simple_fit.png)
 
 The equations in "Simple Fit" are::
 

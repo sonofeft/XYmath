@@ -1,7 +1,8 @@
 """
 Example from: http://www.walkingrandomly.com/?p=5215
 
-The author (Mike Croucher) makes initial guess of p1=1 and p2=0.2 in eqn:
+The author (Mike Croucher) wants to fit the equation: p1*cos(p2*x) + p2*sin(p1*x)
+He makes an initial guess of p1=1 and p2=0.2 and gets an answer of:
 p1 = 1.88184732
 p2 = 0.70022901
 
