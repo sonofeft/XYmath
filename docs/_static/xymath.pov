@@ -56,11 +56,11 @@ light_source {
 
 #declare Text_Tex = texture {
   pigment { OrangeRed  }
-  finish { specular 0.5 ambient 0.4 + 0.1*clock*(clock-1)  
+  finish { specular 0.8 ambient 0.1
            phong 0.5
            phong_size 6
            metallic
-           irid {.5 thickness .1 turbulence .0}  
+           //irid {.5 thickness .1 turbulence .0}  
            
          }        
 }

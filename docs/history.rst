@@ -2,10 +2,6 @@
 .. history
 
 .. include:: ../HISTORY.rst
-
-* Aug 30, 2015
-    - (by: sonofeft)
-        - First Created XYmath with PyHatch
         
 PyHatch
 -------
