@@ -2,10 +2,13 @@
 TODO
 ====
 
-* Make links to Examples in General description areas
+* ??? Add degrees of freedom to standard deviation calc.???
+    - Data may or may not have error in it that needs DOF correction
+    - for relative fit "goodness", may not want to penalize more terms.
+    - for prediction interval calc, need to use DOF
+    _ MAYBE... give user option for with or w/o DOF 
 
-* Add note to Linear docs about using linear for initial guess
-    and leastsq for final calc of Total Error or Percent Error
+* Make links to Examples in General description areas
 
 * Make up/down arrows work in Equation list boxes
 
@@ -18,6 +21,7 @@ TODO
 
 * Look at Prediction Interval (like matlab uses)
     - For putting bounds on extrapolation
+    - also Confidence Intervals of curve itself
 
 * Plot option for 1,2,3 sigma ranges
 
@@ -25,13 +29,7 @@ TODO
 
 * Add XYmath to system menu
 
-* Make past HISTORY.rst entries hand-editable
-
 * Figure out if mock logic does anything for ReadTheDocs failures
 
 * Code gen option for python 2 & 3
 
-* Add ERROR PLOT to the "Math" tab
-    - show (Yeqn - Ydata) vs X 
-    - show (Ydata - Yeqn) vs X
-    - include error bands (total and/or percent) Confidence Intervals

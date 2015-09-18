@@ -7,6 +7,8 @@ QuickStart
 .. _Python(x,y): http://python-xy.github.io/
 .. _Anaconda: https://store.continuum.io/cshop/anaconda/
 
+.. _Unofficial Windows Binaries for Python Extension Packages: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+
 
 Prerequisites
 -------------
@@ -47,7 +49,11 @@ w/o On Windows
 
 If you insist on "going it alone" without Anaconda_ or `Python(x,y)`_, on Windows, then I can't help you, I don't know how to install XYmath without one or the other of those environments.
 
-I'm a Windows person with years of experience with python on Windows and I still find the process too daunting.
+You can try going to `Unofficial Windows Binaries for Python Extension Packages`_ and for each of the required packages use::
+
+    pip install <name of downloaded wheel(.whl) file>
+
+I'm a Windows person with years of experience with python on Windows and I still find the build process too daunting.
 
 You really can't go wrong with either Anaconda_ or `Python(x,y)`_, I have used them both and think they are both excellent.  
 `Python(x,y)`_ is only on Windows, Anaconda_ supports both Windows and Linux.

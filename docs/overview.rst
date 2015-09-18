@@ -12,6 +12,10 @@ It will generate source code that documents and evaluates the fit in python, FOR
 
 Configurable plots are created using matplotlib that are of publication quality.
 
+.. note:: In order to meet the user's request for minimum total or percent error on calculated ``y value``,
+    sometimes matrix methods are used to obtain a first estimate of equation constants and then followed
+    up with calls to ``scipy.optimize.leastsq`` to finalize the equation constants.
+
 Basic Usage
 -----------
 
