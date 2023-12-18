@@ -74,7 +74,7 @@ class CodeGenPage(object):
         self.Python_Radiobutton.pack(anchor=NW, side=TOP)
         self.RadioGroup1_StringVar = StringVar()
         self.RadioGroup1_StringVar.set("Python")
-        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_variable("w", self.RadioGroup1_StringVar_Callback)
+        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_add("write", self.RadioGroup1_StringVar_Callback)
         self.Python_Radiobutton.configure(variable=self.RadioGroup1_StringVar )
 
         self.FORTRAN_Radiobutton = Radiobutton(self.Language_Labelframe,text="FORTRAN 77", 

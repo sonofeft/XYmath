@@ -51,7 +51,7 @@ class _Wtentry(_Dialog):
         self.Wtvalue_Entry.configure(textvariable=self.Wtvalue_Entry_StringVar)
         self.Wtvalue_Entry_StringVar.set( self.dialogOptions['w'] )
         self.Wtvalue_Entry_StringVar_traceName = \
-            self.Wtvalue_Entry_StringVar.trace_variable("w", self.Wtvalue_Entry_StringVar_Callback)
+            self.Wtvalue_Entry_StringVar.trace_add("write", self.Wtvalue_Entry_StringVar_Callback)
         
         self.e_frame.pack(anchor=NW, side=TOP)
         

@@ -187,6 +187,9 @@ class PlotWindow( Toplevel ):
         if dataset and dataset.N > 1:
             xaxis_str = dataset.get_x_desc()
             yaxis_str = dataset.get_y_desc()        
+
+            # print("make_new_plot dataset.yArr =", dataset.yArr)
+
             self.add_curve( dataset.xArr, dataset.yArr, label=dataLabel, show_pts=1,
                 show_line=0, linewidth=2, markersize=markersize, 
                 color=self.plotOptionD['Data Point Color'], marker=marker)
@@ -207,6 +210,9 @@ class PlotWindow( Toplevel ):
                         xwloL.append( dataset.xArr[i] )
                         ywloL.append( dataset.yArr[i] )
                         wwloL.append( w )
+
+                print( "make_new_plot ywL =", ywL)
+                print( "make_new_plot ywloL =", ywloL)
                         
                 if xwL:
                     print('Adding Weighted Points to Plot.')
@@ -237,17 +243,20 @@ class PlotWindow( Toplevel ):
                     lw = curve_lw + int(old_div((len(curveL) - i),2))
                 else:
                     lw = curve_lw
-                    
+                
+                print( "make_new_plot yPlotArr =", yPlotArr)
                 self.add_curve( xPlotArr, yPlotArr, label=c.name, 
                     show_pts=showCurvePoints, show_line=1, linewidth=lw, markersize=curve_markersize, integFill=integFill)
         
         # add any specialPtL items to plot
         if specialPtL:
+            print( "make_new_plot specialPtL yArr =", yArr)
             for xArr, yArr, marker, markersize, label in specialPtL:
                 self.add_curve( xArr, yArr, label=label, show_pts=1, 
                     show_line=0, linewidth=2, markersize=markersize, marker=marker)
                 
         if textLabelCurveL:
+            print( "make_new_plot textLabelCurveL yArr =", yArr)
             for xArr, yArr, color, linewidth, linetype, label in textLabelCurveL:
                 self.add_curve( xArr, yArr, label=label, show_pts=0, linetype=linetype,
                     show_line=1, linewidth=linewidth, color=color)

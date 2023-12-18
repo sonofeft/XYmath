@@ -212,7 +212,7 @@ class PageData(object):
         self.Xname_Entry.configure(textvariable=self.Xname_Entry_StringVar)
         self.Xname_Entry_StringVar.set("x")
         self.Xname_Entry_StringVar_traceName = \
-            self.Xname_Entry_StringVar.trace_variable("w", self.Xname_Entry_StringVar_Callback)
+            self.Xname_Entry_StringVar.trace_add("write", self.Xname_Entry_StringVar_Callback)
 
         self.Xunits_Entry = Entry(xframe,width="15")
         self.Xunits_Entry.grid(row=2, column=1, sticky=W)
@@ -220,7 +220,7 @@ class PageData(object):
         self.Xunits_Entry.configure(textvariable=self.Xunits_Entry_StringVar)
         self.Xunits_Entry_StringVar.set("")
         self.Xunits_Entry_StringVar_traceName = \
-            self.Xunits_Entry_StringVar.trace_variable("w", self.Xunits_Entry_StringVar_Callback)
+            self.Xunits_Entry_StringVar.trace_add("write", self.Xunits_Entry_StringVar_Callback)
 
         self.Xname_Label = Label(xframe,text="X Name")
         self.Xname_Label.grid(row=1, column=0, sticky=W)
@@ -234,7 +234,7 @@ class PageData(object):
         self.Yname_Entry.configure(textvariable=self.Yname_Entry_StringVar)
         self.Yname_Entry_StringVar.set("y")
         self.Yname_Entry_StringVar_traceName = \
-            self.Yname_Entry_StringVar.trace_variable("w", self.Yname_Entry_StringVar_Callback)
+            self.Yname_Entry_StringVar.trace_add("write", self.Yname_Entry_StringVar_Callback)
 
         self.Yunits_Entry = Entry(yframe,width="15")
         self.Yunits_Entry.grid(row=2, column=1, sticky=W)
@@ -242,7 +242,7 @@ class PageData(object):
         self.Yunits_Entry.configure(textvariable=self.Yunits_Entry_StringVar)
         self.Yunits_Entry_StringVar.set("")
         self.Yunits_Entry_StringVar_traceName = \
-            self.Yunits_Entry_StringVar.trace_variable("w", self.Yunits_Entry_StringVar_Callback)
+            self.Yunits_Entry_StringVar.trace_add("write", self.Yunits_Entry_StringVar_Callback)
 
         self.Yname_Label = Label(yframe,text="Y Name")
         self.Yname_Label.grid(row=1, column=0, sticky=W)

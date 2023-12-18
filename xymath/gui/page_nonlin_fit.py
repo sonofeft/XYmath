@@ -50,7 +50,7 @@ class NonLinFitPage(object):
         self.Pcenterror_Radiobutton.pack(anchor=NW, side=TOP)
         self.RadioGroup1_StringVar = StringVar()
         self.RadioGroup1_StringVar.set("StdDev")
-        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_variable("w", self.RadioGroup1_StringVar_Callback)
+        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_add("write", self.RadioGroup1_StringVar_Callback)
         self.Pcenterror_Radiobutton.configure(variable=self.RadioGroup1_StringVar )
 
         self.Total_Radiobutton = Radiobutton(self.Fitby_Labelframe,text="Total Error", 

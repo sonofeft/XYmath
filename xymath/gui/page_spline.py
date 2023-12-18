@@ -68,7 +68,7 @@ class SplinePage(object):
         self.SmoothValSpinbox = Spinbox(self.top_right_f, from_=0, to=9, increment=0.1, textvariable=self.SmoothValStringVar)
 
         self.SmoothValStringVar_traceName = \
-            self.SmoothValStringVar.trace_variable("w", self.SmoothValStringVar_Callback)
+            self.SmoothValStringVar.trace_add("write", self.SmoothValStringVar_Callback)
 
         self.SmoothValLabel2 = Label(self.top_right_f, text="Must Be >= 0.0", justify=LEFT, anchor=W)
 

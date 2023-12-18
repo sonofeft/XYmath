@@ -40,7 +40,7 @@ class PagePlot(object):
         self.XAxis_Linear_Radiobutton.pack(anchor=NW, side=TOP)
         self.RadioGroup1_StringVar = StringVar()
         self.RadioGroup1_StringVar.set("Linear")
-        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_variable("w", self.RadioGroup1_StringVar_Callback)
+        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_add("write", self.RadioGroup1_StringVar_Callback)
         self.XAxis_Linear_Radiobutton.configure(variable=self.RadioGroup1_StringVar )
 
         self.XAxis_Log_Radiobutton = Radiobutton(self.XAxis_Labelframe,text="Log", 
@@ -52,7 +52,7 @@ class PagePlot(object):
         self.XMinorTicks_CB = Checkbutton(self.XAxis_Labelframe,text="Show logX Minor Ticks")
         self.XMinorTicks_CB_StringVar = StringVar()
         self.XMinorTicks_CB.configure(variable=self.XMinorTicks_CB_StringVar, onvalue="yes", offvalue="no")
-        self.XMinorTicks_CB_StringVar_traceName = self.XMinorTicks_CB_StringVar.trace_variable("w", self.XMinorTicks_CB_StringVar_Callback)
+        self.XMinorTicks_CB_StringVar_traceName = self.XMinorTicks_CB_StringVar.trace_add("write", self.XMinorTicks_CB_StringVar_Callback)
         self.XMinorTicks_CB_StringVar.set('yes')
         self.XMinorTicks_CB.pack(anchor=NW, side=TOP)
 
@@ -64,7 +64,7 @@ class PagePlot(object):
         self.YAxis_Linear_Radiobutton.pack(anchor=NW, side=TOP)
         self.RadioGroup2_StringVar = StringVar()
         self.RadioGroup2_StringVar.set("Linear")
-        self.RadioGroup2_StringVar_traceName = self.RadioGroup2_StringVar.trace_variable("w", self.RadioGroup2_StringVar_Callback)
+        self.RadioGroup2_StringVar_traceName = self.RadioGroup2_StringVar.trace_add("write", self.RadioGroup2_StringVar_Callback)
         self.YAxis_Linear_Radiobutton.configure(variable=self.RadioGroup2_StringVar )
 
         self.YAxis_Log_Radiobutton = Radiobutton(self.YAxis_Labelframe,text="Log", 
@@ -76,7 +76,7 @@ class PagePlot(object):
         self.YMinorTicks_CB = Checkbutton(self.YAxis_Labelframe,text="Show logY Minor Ticks")
         self.YMinorTicks_CB_StringVar = StringVar()
         self.YMinorTicks_CB.configure(variable=self.YMinorTicks_CB_StringVar, onvalue="yes", offvalue="no")
-        self.YMinorTicks_CB_StringVar_traceName = self.YMinorTicks_CB_StringVar.trace_variable("w", self.YMinorTicks_CB_StringVar_Callback)
+        self.YMinorTicks_CB_StringVar_traceName = self.YMinorTicks_CB_StringVar.trace_add("write", self.YMinorTicks_CB_StringVar_Callback)
         self.YMinorTicks_CB_StringVar.set('yes')
         self.YMinorTicks_CB.pack(anchor=NW, side=TOP)
 
@@ -85,21 +85,21 @@ class PagePlot(object):
         self.Title_Checkbutton = Checkbutton(self.a_frame,text="Show Plot Title")
         self.Title_Checkbutton_StringVar = StringVar()
         self.Title_Checkbutton.configure(variable=self.Title_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.Title_Checkbutton_StringVar_traceName = self.Title_Checkbutton_StringVar.trace_variable("w", self.Title_Checkbutton_StringVar_Callback)
+        self.Title_Checkbutton_StringVar_traceName = self.Title_Checkbutton_StringVar.trace_add("write", self.Title_Checkbutton_StringVar_Callback)
         self.Title_Checkbutton_StringVar.set('yes')
         
         # Show Grid
         self.Grid_Checkbutton = Checkbutton(self.a_frame,text="Show Plot Grid")
         self.Grid_Checkbutton_StringVar = StringVar()
         self.Grid_Checkbutton.configure(variable=self.Grid_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.Grid_Checkbutton_StringVar_traceName = self.Grid_Checkbutton_StringVar.trace_variable("w", self.Grid_Checkbutton_StringVar_Callback)
+        self.Grid_Checkbutton_StringVar_traceName = self.Grid_Checkbutton_StringVar.trace_add("write", self.Grid_Checkbutton_StringVar_Callback)
         self.Grid_Checkbutton_StringVar.set('yes')
         
         # Show Legend
         self.Legend_Checkbutton = Checkbutton(self.a_frame,text="Show Legend")
         self.Legend_Checkbutton_StringVar = StringVar()
         self.Legend_Checkbutton.configure(variable=self.Legend_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.Legend_Checkbutton_StringVar_traceName = self.Legend_Checkbutton_StringVar.trace_variable("w", self.Legend_Checkbutton_StringVar_Callback)
+        self.Legend_Checkbutton_StringVar_traceName = self.Legend_Checkbutton_StringVar.trace_add("write", self.Legend_Checkbutton_StringVar_Callback)
         self.Legend_Checkbutton_StringVar.set('yes')
         
         # Legend Location
@@ -128,14 +128,14 @@ class PagePlot(object):
         self.ShowPoints_Checkbutton = Checkbutton(self.b_frame,text="Show Points on Curves")
         self.ShowPoints_Checkbutton_StringVar = StringVar()
         self.ShowPoints_Checkbutton.configure(variable=self.ShowPoints_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.ShowPoints_Checkbutton_StringVar_traceName = self.ShowPoints_Checkbutton_StringVar.trace_variable("w", self.ShowPoints_Checkbutton_StringVar_Callback)
+        self.ShowPoints_Checkbutton_StringVar_traceName = self.ShowPoints_Checkbutton_StringVar.trace_add("write", self.ShowPoints_Checkbutton_StringVar_Callback)
         self.ShowPoints_Checkbutton_StringVar.set('yes')
 
         # Show Fat Lines
         self.Fatlines_Checkbutton = Checkbutton(self.b_frame,text="Fat Line on Extra Curves")
         self.Fatlines_Checkbutton_StringVar = StringVar()
         self.Fatlines_Checkbutton.configure(variable=self.Fatlines_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.Fatlines_Checkbutton_StringVar_traceName = self.Fatlines_Checkbutton_StringVar.trace_variable("w", self.Fatlines_Checkbutton_StringVar_Callback)
+        self.Fatlines_Checkbutton_StringVar_traceName = self.Fatlines_Checkbutton_StringVar.trace_add("write", self.Fatlines_Checkbutton_StringVar_Callback)
         self.Fatlines_Checkbutton_StringVar.set('yes')
 
         # Number of Points on Curves
@@ -161,7 +161,7 @@ class PagePlot(object):
         self.Weights_Checkbutton = Checkbutton(self.c_frame,text="Show Point Weights")
         self.Weights_Checkbutton_StringVar = StringVar()
         self.Weights_Checkbutton.configure(variable=self.Weights_Checkbutton_StringVar, onvalue="yes", offvalue="no")
-        self.Weights_Checkbutton_StringVar_traceName = self.Weights_Checkbutton_StringVar.trace_variable("w", self.Weights_Checkbutton_StringVar_Callback)
+        self.Weights_Checkbutton_StringVar_traceName = self.Weights_Checkbutton_StringVar.trace_add("write", self.Weights_Checkbutton_StringVar_Callback)
         self.Weights_Checkbutton_StringVar.set('yes')
 
 

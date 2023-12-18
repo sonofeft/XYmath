@@ -100,7 +100,7 @@ class ExhaustPage(object):
         self.Pcenterror_Radiobutton.pack(anchor=NW, side=TOP)
         self.RadioGroup1_StringVar = StringVar()
         self.RadioGroup1_StringVar.set("PcentStdDev")
-        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_variable("w", self.RadioGroup1_StringVar_Callback)
+        self.RadioGroup1_StringVar_traceName = self.RadioGroup1_StringVar.trace_add("write", self.RadioGroup1_StringVar_Callback)
         self.Pcenterror_Radiobutton.configure(variable=self.RadioGroup1_StringVar )
 
         self.Total_Radiobutton = Radiobutton(self.Fitby_Labelframe,text="Total Error", 
@@ -112,7 +112,7 @@ class ExhaustPage(object):
         self.NTermsLabel = Label(self.choiceframe, text="Number of Terms")
         self.NTermsStringVar = StringVar(value="3")
         self.NtermsSpinbox = Spinbox(self.choiceframe, from_=1, to=9, textvariable=self.NTermsStringVar)
-        self.NTermsStringVar_traceName = self.NTermsStringVar.trace_variable("w", self.NTermsStringVar_Callback)
+        self.NTermsStringVar_traceName = self.NTermsStringVar.trace_add("write", self.NTermsStringVar_Callback)
 
 
         self.NSavedEqnsLabel_space = Label(self.choiceframe, text=" ")
@@ -120,7 +120,7 @@ class ExhaustPage(object):
         self.NSavedEqnsStringVar = StringVar(value="100")
         self.max_saved_eqns = 100
         self.NSavedEqnsSpinbox = Spinbox(self.choiceframe, from_=10, to=10000, increment=50, textvariable=self.NSavedEqnsStringVar)
-        self.NSavedEqnsStringVar_traceName = self.NSavedEqnsStringVar.trace_variable("w", self.NSavedEqnsStringVar_Callback)
+        self.NSavedEqnsStringVar_traceName = self.NSavedEqnsStringVar.trace_add("write", self.NSavedEqnsStringVar_Callback)
 
         
         self.Btn_Space = Label(self.choiceframe,text=" ")

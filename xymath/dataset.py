@@ -4,7 +4,7 @@
 r"""
 XYmath fits curves to data sets and evaluates properties of those curves
 
-<Paragraph description see docstrings at http://www.python.org/dev/peps/pep-0257/>
+<Paragraph description see doc strings at http://www.python.org/dev/peps/pep-0257/>
 
 XYmath is a recreation of the code I wrote 20 years ago in pascal.
 
@@ -39,8 +39,8 @@ class DataSet(object):
 
     def __init__(self, xArr=array([1.,2.]), yArr=array([3.,4.]), wtArr=None, 
         xName='', yName='', xUnits='', yUnits='', timeStamp=None):
-        self.xArr = array(xArr, dtype=double)
-        self.yArr = array(yArr, dtype=double)
+        self.xArr = array( [float(x) for x in xArr] , dtype=double)
+        self.yArr = array( [float(y) for y in yArr] , dtype=double)
         
         if wtArr is None:
             self.wtArr = wtArr
@@ -139,15 +139,16 @@ class DataSet(object):
         self.update_internal_vars()
 
     def replace_all_xy_data(self, xArr=array([1.,2.]), yArr=array([3.,4.]), wtArr=None):
-        self.xArr = xArr
-        self.yArr = yArr
+        self.xArr = array( [float(x) for x in xArr] , dtype=double)
+        self.yArr = array( [float(y) for y in yArr] , dtype=double)
+
         self.wtArr = wtArr
         self.update_internal_vars()
 
     def set_an_xy_pair(self, i=0, xval=1.0, yval=1.0):
         if i < self.N:
-            self.xArr[i] = xval
-            self.yArr[i] = yval
+            self.xArr[i] = float(xval)
+            self.yArr[i] = float(yval)
             self.update_internal_vars()
     
     def set_all_weights_to_one(self):
@@ -155,16 +156,20 @@ class DataSet(object):
         self.update_internal_vars()
 
     def append_xy(self, xval=1.0, yval=1.0, wt=1.0 ):
-        self.xArr = append( self.xArr, xval )
-        self.yArr = append( self.yArr, yval )
+        self.xArr = append( self.xArr, float(xval) )
+        self.yArr = append( self.yArr, float(yval) )
         #if self.wtArr!=None:
         if not self.wtArr is None:
-            self.wtArr = append( self.wtArr, wt )
+            self.wtArr = append( self.wtArr, float(wt) )
         self.update_internal_vars()
 
     def append_xy_list(self, xvalL, yvalL, wtL=None ):
-        self.xArr = append( self.xArr, xvalL )
-        self.yArr = append( self.yArr, yvalL )
+
+        self.xArr = append( self.xArr, (self.xArr, array( [float(x) for x in xvalL] , dtype=double)) )
+        self.yArr = append( self.yArr, (self.yArr, array( [float(y) for y in yvalL] , dtype=double)) )
+
+        # self.xArr = append( self.xArr, xvalL ) 
+        # self.yArr = append( self.yArr, yvalL )
         #if self.wtArr!=None:
         if not self.wtArr is None:
             if wtL:

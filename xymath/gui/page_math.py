@@ -142,14 +142,14 @@ class MathPage(object):
         self.At_X_Entry_StringVar = StringVar()
         self.At_X_Entry.configure(textvariable=self.At_X_Entry_StringVar)
         self.At_X_Entry_StringVar.set("Xval")
-        self.At_X_Entry_StringVar_traceName = self.At_X_Entry_StringVar.trace_variable("w", self.At_X_Entry_StringVar_Callback)
+        self.At_X_Entry_StringVar_traceName = self.At_X_Entry_StringVar.trace_add("write", self.At_X_Entry_StringVar_Callback)
 
         self.At_Yval_Entry = Entry(self.root_f,width="12")
         self.At_Yval_Entry.pack(anchor=NW, side=LEFT)
         self.At_Yval_Entry_StringVar = StringVar()
         self.At_Yval_Entry.configure(textvariable=self.At_Yval_Entry_StringVar)
         self.At_Yval_Entry_StringVar.set("Yval")
-        self.At_Yval_Entry_StringVar_traceName = self.At_Yval_Entry_StringVar.trace_variable("w", self.At_Yval_Entry_StringVar_Callback)
+        self.At_Yval_Entry_StringVar_traceName = self.At_Yval_Entry_StringVar.trace_add("write", self.At_Yval_Entry_StringVar_Callback)
 
 
         self.Select_Label = Label(self.select_f,text="Select Curve", width="15")
@@ -164,7 +164,7 @@ class MathPage(object):
         self.Xmin_Entry_StringVar = StringVar()
         self.Xmin_Entry.configure(textvariable=self.Xmin_Entry_StringVar)
         self.Xmin_Entry_StringVar.set("Xmin")
-        self.Xmin_Entry_StringVar_traceName = self.Xmin_Entry_StringVar.trace_variable("w", self.Xmin_Entry_StringVar_Callback)
+        self.Xmin_Entry_StringVar_traceName = self.Xmin_Entry_StringVar.trace_add("write", self.Xmin_Entry_StringVar_Callback)
 
         self.To_Label = Label(self.range_f,text="to", justify="center", width="7")
         self.To_Label.pack(anchor=NW, side=LEFT)
@@ -174,7 +174,7 @@ class MathPage(object):
         self.Xmax_Entry_StringVar = StringVar()
         self.Xmax_Entry.configure(textvariable=self.Xmax_Entry_StringVar)
         self.Xmax_Entry_StringVar.set("Xmax")
-        self.Xmax_Entry_StringVar_traceName = self.Xmax_Entry_StringVar.trace_variable("w", self.Xmax_Entry_StringVar_Callback)
+        self.Xmax_Entry_StringVar_traceName = self.Xmax_Entry_StringVar.trace_add("write", self.Xmax_Entry_StringVar_Callback)
 
         
         # make text results area
