@@ -11,9 +11,9 @@ try:
 except:
     print('WARNING... win32com.client.Dispatch did NOT import properly.')
 
-from .excel_const import constants
+from xymath.excel_const import constants
 import string
-from . import xlChFormula
+from xymath import xlChFormula
 import sys, os
 
 

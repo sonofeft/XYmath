@@ -86,7 +86,7 @@ class NonLinCurveFit(object):
             cL.append( self.constD[c] )
         #cArr = array(cL, dtype=double)
         
-        ansArr = leastsq(self.residuals, cL, ftol=self.ftol, xtol=self.xtol)
+        ansArr = leastsq(self.residuals, cL, ftol=self.ftol, xtol=self.xtol, maxfev=10000)
         #print 'ansArr =',ansArr
         for i,c in enumerate(self.orderedConstL):
             self.constD[c] = ansArr[0][i]

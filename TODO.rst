@@ -33,3 +33,11 @@ TODO
 
 * Code gen option for python 2 & 3
 
+* Headers on all source code
+
+* Use aboutequal instead of abs(A-B)
+
+* Remove unused files
+
+* Improve "Import Data" - CSV directly
+

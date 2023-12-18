@@ -13,7 +13,7 @@ import time
 import matplotlib
 matplotlib.use('TkAgg')
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from pylab import *
 
 from PIL import Image
@@ -380,6 +380,11 @@ class PlotWindow( Toplevel ):
                 mfc = 'black'
                 #marker_alpha = marker_alpha / 2.0
                 markersize = old_div(markersize, 2.0)
+                
+            print( "add_curve xL =", xL)
+            print( "add_curve yL =", yL)
+            print( "add_curve markersize =", markersize)
+            
             plot(xL,yL,mfc=mfc,color=mfc, linewidth=0,label=label, markersize=markersize, 
                 alpha=marker_alpha, marker=marker)
         else:
@@ -470,10 +475,10 @@ class PlotWindow( Toplevel ):
         
         self.canvas = FigureCanvasTkAgg(self.f, master=self.frame3)
         self.canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
-        self.canvas.show()
+        #self.canvas.show()
         #self.canvas.draw()
 
-        self.toolbar = NavigationToolbar2TkAgg( self.canvas, self.frame4 )
+        self.toolbar = NavigationToolbar2Tk( self.canvas, self.frame4 )
         self.toolbar.update()
         self.toolbar.pack()#side=TOP, fill=BOTH, expand=1)
         

@@ -35,7 +35,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 #with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f2:
 #    requires = f2.read().strip().splitlines()
     
-requires = ['mock','future','coverage','numpy','numexpr','scipy','matplotlib']
+requires = ['mock','future','coverage','numpy','numexpr','scipy','pillow','matplotlib']
 # -- Special RTD configuration -------------------------------------------------
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:

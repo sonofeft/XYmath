@@ -155,9 +155,9 @@ class CodeGenPage(object):
             obj = self.equationL[i]
             
             language = self.RadioGroup1_StringVar.get()
-            if language.startswith(b'Python'):
+            if language.startswith('Python'):
                 src = xymath.source_python.make_fit_func_src(obj)
-            elif language.startswith(b'FORTRAN'):
+            elif language.startswith('FORTRAN'):
                 src = xymath.source_fortran.make_fit_func_src(obj)
             else:
                 did_good = xymath.source_excel.make_fit_excel(obj)

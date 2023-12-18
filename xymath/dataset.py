@@ -108,8 +108,8 @@ class DataSet(object):
                 xL.append( xD[s][0] )
                 yL.append( yD[s][0] )
             
-        #print 'xL=',xL
-        #print 'yL=',yL
+        print( 'xy_arrays_wo_double_values xL=',xL )
+        print( 'xy_arrays_wo_double_values yL=',yL )
         return array(xL, dtype=double), array(yL, dtype=double)
 
     def sort_by_x(self):

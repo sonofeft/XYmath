@@ -44,9 +44,9 @@ def make_fit_func_src( eqnObj ):
             if c=='pi':
                 funcL.append( 'pi' )
         if funcL:
-            numpy_imp = '\nfrom numpy import ' + ', '.join( funcL ) + '\n'
+            numpy_imp = '\nimport numpy as np\nfrom numpy import ' + ', '.join( funcL ) + '\n'
         else:
-            numpy_imp = ''
+            numpy_imp = '\nimport numpy as np\n'
         
         # setup string substitution dictionary
         substD = {'import':numpy_imp, 'func_name':'curve_fit_func', 'comment':'\n'.join(sL), 
@@ -71,6 +71,7 @@ spline_template = """#!/usr/bin/env python
 
 from scipy.interpolate import UnivariateSpline
 from numpy import array, double
+import numpy as np
 
 # make data arrays for spline to use
 xArr = array( %(xL)s, dtype=double)
@@ -85,19 +86,26 @@ def %(func_name)s( x ):
 
 %(data_comment)s
     '''
-    if x<%(xmin)s or x>%(xmax)s:
-        print 'WARNING... x is outside range in %(func_name)s'
-        print '  x =',x,' x range = (%(xmin)s to %(xmax)s)'
+
+    try:
+        if x<%(xmin)s or x>%(xmax)s:
+            print( 'WARNING... x is outside range in curve_fit_func' )
+            print( '  x =',x,' x range = (%(xmin)s to %(xmax)s)' )
+    except:
+        if np.min(x)<%(xmin)s or np.max(x)>%(xmax)s:
+            print( 'WARNING... x is outside range in curve_fit_func' )
+            print( '  x =',x,' x range = (%(xmin)s to %(xmax)s)' )
+
     
     return s( x )
 
 if __name__=='__main__':
-    print '='*44
+    print( '='*44 )
     y_test = %(func_name)s( %(x_test)s )
-    print 'y_test  =',y_test,'for x_test =',%(x_test)s
-    print 'y_xymath=',%(y_xymath)s
-    print
-    print 'y_test should equal y_xymath above.'
+    print( 'y_test  =',y_test,'for x_test =',%(x_test)s )
+    print( 'y_xymath=',%(y_xymath)s )
+    print( )
+    print( 'y_test should equal y_xymath above.' )
 """
 # ======================================================================
 func_src_template = """#!/usr/bin/env python
@@ -110,19 +118,24 @@ def %(func_name)s( x ):
 
 %(data_comment)s
     '''
-    if x<%(xmin)s or x>%(xmax)s:
-        print 'WARNING... x is outside range in %(func_name)s'
-        print '  x =',x,' x range = (%(xmin)s to %(xmax)s)'
+    try:
+        if x<%(xmin)s or x>%(xmax)s:
+            print( 'WARNING... x is outside range in curve_fit_func' )
+            print( '  x =',x,' x range = (%(xmin)s to %(xmax)s)' )
+    except:
+        if np.min(x)<%(xmin)s or np.max(x)>%(xmax)s:
+            print( 'WARNING... x is outside range in curve_fit_func' )
+            print( '  x =',x,' x range = (%(xmin)s to %(xmax)s)' )
     
     return %(rhs_eqnStr)s
 
 if __name__=='__main__':
-    print '='*44
+    print( '='*44 )
     y_test = %(func_name)s( %(x_test)s )
-    print 'y_test  =',y_test,'for x_test =',%(x_test)s
-    print 'y_xymath=',%(y_xymath)s
-    print
-    print 'y_test should equal y_xymath above.'
+    print( 'y_test  =',y_test,'for x_test =',%(x_test)s )
+    print( 'y_xymath=',%(y_xymath)s )
+    print( )
+    print( 'y_test should equal y_xymath above.' )
 """
 
 if __name__=='__main__':

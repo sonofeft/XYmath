@@ -100,7 +100,7 @@ class XY_Job(object):
         def write_property(obj, header, propL ):
             fOut.write( '[%s]\n'%header )
             for pname in propL:
-                if pname.endswith(b'Arr'):
+                if pname.endswith('Arr'):
                     try:
                         valL = ['%s'%val for val in getattr(obj, pname)]
                         fOut.write( '%s = %s\n'%(pname, ', '.join(valL)) )
@@ -130,7 +130,7 @@ class XY_Job(object):
             fileObj = open( self.file_name, 'r' )
         
         def strip_square_brackets( s ):
-            if s.startswith(b'[') and s.endswith(b']'):
+            if s.startswith('[') and s.endswith(']'):
                 return s[1:-1]
             else:
                 return s
@@ -139,24 +139,28 @@ class XY_Job(object):
             allD = {} # dict of dict.  Each header will have a dict
             header = ''
             for line in fileObj: # Headers look like [HeaderName]
+                if type(line) == bytes:
+                    #print( 'type(line) =',type(line) )
+                    line = line.decode('utf-8')
+                    #print( 'type(line) =',type(line) )
                 line = line.strip()
-                if line.startswith(b'[') and line.endswith(b']'):
+                if line.startswith('[') and line.endswith(']'):
                     header = line[1:-1]
                     allD[header] = {} # dict for header
                 else:
                     # data lines within a Header look like: param = all the param data
                     # split at the 1st equal sign for name/data pairs
-                    sL = line.split(b' = ', 1)
+                    sL = line.split(' = ', 1)
                     if len(sL) == 2:
                         pname = sL[0].strip()
                         # strip any enclosing square brackets from data 
                         val = strip_square_brackets( sL[1].strip() )
                         
                         # Maybe change val for special circumstances
-                        if val!=b'None':
-                            if pname.endswith(b'Arr'):
+                        if val!='None':
+                            if pname.endswith('Arr'):
                                 # arrays should be space delimited numbers
-                                val = val.replace(b',',b' ') # if comma delimited, change
+                                val = val.replace(',',' ') # if comma delimited, change
                                 vL = val.split()
                                 print( '---> %10s'%pname,'val=',val )
                                 val = array( list(map(float, vL)), dtype=double)
@@ -172,6 +176,7 @@ class XY_Job(object):
             return allD
         
         allD = build_header_dicts()
+        print('allD =', allD)
         
         D = allD.get('XY_Job', {'job_name':'XYmath Task'})
         self.job_name = D['job_name']
@@ -288,7 +293,7 @@ class XY_Job(object):
         self.nonlin_fit =  NonLinCurveFit(self.dataset, rhs_eqnStr=rhs_eqnStr, 
                                           fit_best_pcent=run_best_pcent, 
                                           constDinp=constDinp)        
-
+        return self.nonlin_fit
 
 if __name__=='__main__':
     from numpy import array, double

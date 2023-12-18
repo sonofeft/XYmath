@@ -1,44 +1,41 @@
-from __future__ import division
-from builtins import str
-from builtins import object
-from past.utils import old_div
-import string
+
+UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def getNcolFromLetter( colLet ):
     if len(colLet)==2:
-        Ncol = 26*(ord( string.upper(colLet[0]) ) - 64) + ord( string.upper(colLet[1]) ) - 64
+        Ncol = 26*(ord( colLet[0].upper() ) - 64) + ord( colLet[1].upper() ) - 64
     elif len(colLet) ==1:
-        Ncol = ord( string.upper(colLet) ) - 64
+        Ncol = ord( colLet.upper() ) - 64
     else:
         Ncol = 1
     return Ncol
 
-def getNcolNrow( cell="$a$1"):
-    sp = string.split( cell, '$')
+def getNcol_Nrow( cell="$a$1"):
+    sp = cell.split('$')
     Ncol=1
     Nrow=1
     try:
         Ncol = getNcolFromLetter( sp[1] )
-        Nrow = string.atoi( sp[2] )
+        Nrow = int( sp[2] )
     except:
         pass
     return Ncol, Nrow
     
 def getNcolumnsNrowsFromRange( crange="$A$1:$D$8" ):
-    sp = string.split( crange, ':' )
+    sp = crange.split(':' )
     Ncolumns=0
     Nrows=0
     try:
         if len(sp[1])>0:
-            Nc1, Nr1 = getNcolNrow( sp[0] )
-            Nc2, Nr2 = getNcolNrow( sp[1] )
+            Nc1, Nr1 = getNcol_Nrow( sp[0] )
+            Nc2, Nr2 = getNcol_Nrow( sp[1] )
             Ncolumns = Nc2 - Nc1 + 1
             Nrows = Nr2 - Nr1 + 1
     except:
         pass
     return Ncolumns, Nrows  
 
-class xlChFormula(object):
+class xlChFormula:
     '''excel spreadsheet chart formulas for XY Series'''
 
     def setLabel(self, col=1, row=1, Sheet=''):
@@ -55,22 +52,22 @@ class xlChFormula(object):
     
     def splitIntoParts(self):
         '''from self.formula, split into individual parts'''
-        sp = string.split( self.formula, ',')
-        self.labelSht, self.labelLoc = string.split( sp[0], '!')
-        self.labelSht = string.split( self.labelSht, '(')[1]
+        sp = self.formula.split(',')
+        self.labelSht, self.labelLoc = sp[0].split('!')
+        self.labelSht = self.labelSht.split('(')[1]
         
-        self.xcolSht, self.xcolRng = string.split( sp[1], '!')
-        self.valSht, self.valRng = string.split( sp[2], '!')
-        self.seriesNum = string.split( sp[3], ')')[0]
+        self.xcolSht, self.xcolRng = sp[1].split('!')
+        self.valSht, self.valRng = sp[2].split( '!')
+        self.seriesNum = sp[3].split(')')[0]
 
     def excelColLetter(self, NColumn=1):
         '''return the letter representation of excel columns'''
         if NColumn>26:
-            r = (NColumn-1) % 26
-            q = int( old_div((NColumn-1), 26) ) - 1
-            return string.uppercase[q] + string.uppercase[r]
+            r = NColumn % 26 - 1
+            q = NColumn // 26 - 1
+            return UPPERCASE[q] + UPPERCASE[r]
         else:
-            return string.uppercase[NColumn-1]
+            return UPPERCASE[NColumn-1]
 
     def makeColLocation(self, NColumn=1, NRow=1):
         L = self.excelColLetter( NColumn )

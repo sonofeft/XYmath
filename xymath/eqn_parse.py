@@ -6,8 +6,8 @@ Parse the right hand side of a user-defined equation y=f(x)
 """
 from __future__ import print_function
 
+import ast
 
-import parser
 import token
 import traceback
 
@@ -24,24 +24,17 @@ def get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2"):
     functionD = {}
     errorStr = ''
     
-    def search(st):
-        if not isinstance(st, list):
-            return
-        if st[0] in [token.NAME]:
-            #print st[1]
-            if st[1] in legalFuncL:
-                functionD[st[1]] = st[1]
-            else:
-                tokenD[st[1]] = st[1]
-        else:
-            for s in st[1:]:
-                search(s)
-    
     try:
-        ast = parser.expr( rhs_eqnStr )
-        eqnL = parser.ast2list( ast )
-        search( eqnL )
-        #print tokenD    
+        tree = ast.parse( rhs_eqnStr )
+        for node in ast.walk(tree):
+            if 'id' in node.__dict__:
+                id = node.__dict__['id']
+
+                if id in legalFuncL:
+                    functionD[id] = id
+                else:
+                    tokenD[id] = id
+
     except:
         errorStrL = ['ERROR in Equation String']
         
@@ -66,10 +59,12 @@ def get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2"):
 if __name__=='__main__':
     
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*pi*x)*x**2")
+    print('Should Succeed')
     print(list(tokenD.keys()))
     print(list(functionD.keys()))
     print(errorStr)
     print('='*44)
+    print('Should FAIL with ending extra paren')
     tokenD, functionD, errorStr = get_const_list( rhs_eqnStr= "A*sin(B*x)*x**2)")
     print(list(tokenD.keys()))
     print(list(functionD.keys()))
