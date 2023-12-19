@@ -3,7 +3,7 @@
 from distutils.core import setup 
 
 setup(name="XYmath",
-      version='0.1.6',
+      version='0.3.0',
       description = 'A GUI and API that creates, documents and explores y=f(x) curve fits',
       author="Charlie Taylor",
       author_email="charlietaylor@users.sourceforge.net",
@@ -29,7 +29,7 @@ setup(name="XYmath",
           'Intended Audience :: Education',
           'License :: GPLv3+',
           'Operating System :: Microsoft :: Windows',
-          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
           'Topic :: Scientific/Engineering',
           'Topic :: Education',
           ],
