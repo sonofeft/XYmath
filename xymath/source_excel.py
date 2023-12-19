@@ -10,8 +10,8 @@ from builtins import range
 
 import time
 import re
-from .eqn_parse import get_const_list
-from .xlChart import addColumnToRS, xlChart
+from xymath.eqn_parse import get_const_list
+from xymath.xlChart import addColumnToRS, xlChart
 
 def replace_word(eqnStr, s_old, s_new):
     s = ' ' + eqnStr + ' ' # make word boundaries apparent
@@ -90,10 +90,10 @@ def make_fit_excel( eqnObj ):
 
 if __name__=='__main__':
     from numpy import array, double
-    from .dataset import DataSet
-    from .linfit import LinCurveFit
-    from .nonlinfit import NonLinCurveFit
-    from .splines import Spline
+    from xymath.dataset import DataSet
+    from xymath.linfit import LinCurveFit
+    from xymath.nonlinfit import NonLinCurveFit
+    from xymath.splines import Spline
     import sys
     
     xArr = array( [1,2,3,4,5,6], dtype=double)

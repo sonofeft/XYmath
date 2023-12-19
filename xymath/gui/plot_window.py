@@ -14,6 +14,7 @@ import matplotlib
 matplotlib.use('TkAgg')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.path import Path
 from pylab import *
 
 from PIL import Image
@@ -134,6 +135,12 @@ class PlotWindow( Toplevel ):
            annotationL is a list of BoxMessage and Annotation objects to add.
            textLabelCurveL is a list of tuples (xArr, yArr, color, linewidth, linetype, label)
         '''
+
+        if not dataset is None:
+            print( "="*20, " dataset Summary ", "="*20 )
+            dataset.summary_print()
+            print( "="*20, " dataset Summary ", "="*20 )
+        
         
         #print 'self.state()=',self.state()
         if self.state()=='iconic':
@@ -244,22 +251,25 @@ class PlotWindow( Toplevel ):
                 else:
                     lw = curve_lw
                 
-                print( "make_new_plot yPlotArr =", yPlotArr)
+                # print( "make_new_plot yPlotArr =", yPlotArr)
                 self.add_curve( xPlotArr, yPlotArr, label=c.name, 
                     show_pts=showCurvePoints, show_line=1, linewidth=lw, markersize=curve_markersize, integFill=integFill)
         
         # add any specialPtL items to plot
         if specialPtL:
-            print( "make_new_plot specialPtL yArr =", yArr)
             for xArr, yArr, marker, markersize, label in specialPtL:
+                yArr = [float(y) for y in yArr]
+                print( "make_new_plot specialPtL yArr =", yArr)
                 self.add_curve( xArr, yArr, label=label, show_pts=1, 
                     show_line=0, linewidth=2, markersize=markersize, marker=marker)
                 
         if textLabelCurveL:
-            print( "make_new_plot textLabelCurveL yArr =", yArr)
             for xArr, yArr, color, linewidth, linetype, label in textLabelCurveL:
+                yArr = [float(y) for y in yArr]
+                print( "make_new_plot textLabelCurveL yArr =", yArr)
                 self.add_curve( xArr, yArr, label=label, show_pts=0, linetype=linetype,
                     show_line=1, linewidth=linewidth, color=color)
+            
         
         
         self.final_touches( title_str=title_str, show_grid=show_grid, 
@@ -371,12 +381,18 @@ class PlotWindow( Toplevel ):
         
     def add_curve(self, xL, yL, label='', show_pts=1, show_line=1, linewidth=2, color=None,
         markersize=10, integFill=None, marker='o', linetype='-', marker_alpha=1.0):
+
+        yL = [float(y) for y in yL]
         
         if color is None:
             mfc=next(self.ncolor)
         else:
             mfc = color
-            
+        
+        # print( "type(yL[0]) =", type(yL[0]) )
+        # if str(yL[0].__class__).find("numpy") >= 0:
+        #     print( "yL =", yL )
+        #     xxxxx = 1.0 / 0.
             
         if label:
             self.has_labels = 1
@@ -385,7 +401,10 @@ class PlotWindow( Toplevel ):
                 markersize=markersize, alpha=marker_alpha)
         elif show_pts:
             if marker=='|':
-                marker = (list( zip([-.05,.05,.05,-.05,-.05], [-1.,-1.,1.,1.,-1.]) ), 0)
+                # marker = (list( zip([-.05,.05,.05,-.05,-.05], [-1.,-1.,1.,1.,-1.]) ), 0)
+                verts = list( zip([-.05,.05,.05,-.05,-.05], [-1.,-1.,1.,1.,-1.]) )
+                codes = [ Path.MOVETO,Path.MOVETO,Path.MOVETO,Path.MOVETO,Path.MOVETO ]
+                marker = Path(verts,codes)
                 mfc = 'black'
                 #marker_alpha = marker_alpha / 2.0
                 markersize = old_div(markersize, 2.0)

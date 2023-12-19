@@ -8,7 +8,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import time
-from .eqn_parse import get_const_list
+from xymath.eqn_parse import get_const_list
 
 def make_fit_func_src( eqnObj ):
     '''Make python source code for LinCurveFit, NonLinCurveFit and Spline objects.'''
@@ -140,10 +140,10 @@ if __name__=='__main__':
 
 if __name__=='__main__':
     from numpy import array, double
-    from .dataset import DataSet
-    from .linfit import LinCurveFit
-    from .nonlinfit import NonLinCurveFit
-    from .splines import Spline
+    from xymath.dataset import DataSet
+    from xymath.linfit import LinCurveFit
+    from xymath.nonlinfit import NonLinCurveFit
+    from xymath.splines import Spline
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [1.2,3.1,9.2,15.8,24.6,36.5], dtype=double)

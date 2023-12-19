@@ -292,13 +292,16 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             XY = self.guiObj.XYjob
             
             if hasattr(self, 'xlo'):
-                ylo = obj.eval_xrange( self.xlo )
-                yhi = obj.eval_xrange( self.xhi )
+                ylo = float( obj.eval_xrange( self.xlo ) )
+                yhi = float( obj.eval_xrange( self.xhi ) )
                 range_tuple = ([self.xlo, self.xhi], [ylo,yhi], '|', 25, 'X Range=%g to %g'%(self.xlo, self.xhi))
                 if type(self.specialPtL) == type([]):
                     self.specialPtL.append( range_tuple )
                 else:
                     self.specialPtL= [range_tuple]
+
+                # print( "="*66 )
+                # print( "range_tuple =", range_tuple)
             
             curveL = [obj]
             self.guiObj.PlotWin.make_new_plot(dataset=XY.dataset, curveL=curveL, 
@@ -360,6 +363,8 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             
             x_min, y_min, x_max, y_max = \
                 find_min_max(obj, xlo=self.xlo, xhi=self.xhi, xtol=1.0e-12)
+            
+            print("x_min, y_min, x_max, y_max =", x_min, y_min, x_max, y_max)
         
             s = 'of %s \nover range x=%g to %g\n'%(str(self.equationL[i].name),self.xlo, self.xhi)
             self.add_to_messages( s )
@@ -460,6 +465,7 @@ Select the equation of interest in the list box. Equations are generated in "Sim
             if XY.dataset:
                 
                 yeqnArr = obj.eval_xrange( XY.dataset.xArr )
+                # print( "yeqnArr =", yeqnArr )
                 errArr = XY.dataset.yArr - yeqnArr
                 errDS = DataSet( XY.dataset.xArr, errArr, xName=XY.dataset.xName, 
                                  yName=XY.dataset.yName+ ' (data - eqn)',

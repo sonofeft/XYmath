@@ -17,9 +17,9 @@ from numpy import dot, std, array, double, isfinite, corrcoef, ones, linspace, l
 from numpy import absolute, zeros, pi, isnan
 from scipy.optimize import leastsq
 import numexpr
-from .helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
+from xymath.helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
 
-from .eqn_parse import get_const_list
+from xymath.eqn_parse import get_const_list
  
 class NonLinCurveFit(object):
     """NonLinCurveFit fits a DataSet object to a non-linear functions of x."""
@@ -225,7 +225,7 @@ class NonLinCurveFit(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from .dataset import DataSet
+    from xymath.dataset import DataSet
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [5,14.14,25.98,40,55.9,73.485], dtype=double) # 5 * x ** 1.5

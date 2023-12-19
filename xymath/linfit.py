@@ -20,7 +20,7 @@ from scipy import linalg
 from scipy.optimize import leastsq
 import numexpr
 
-from .helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
+from xymath.helper_funcs import bestFloatStr, INFINITY, fortran_doubleStr
 
 inverseD = {'y':'y', '1/y':'1/(y)', 'log(y)':'exp(y)', 'exp(y)':'log(y)', 
     'log(1/y)':'1/exp(y)', 'exp(1/y)':'1/log(y)', 
@@ -281,7 +281,7 @@ class LinCurveFit(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from .dataset import DataSet
+    from xymath.dataset import DataSet
     
     xArr = array( [1,2,3,4,5,6], dtype=double)
     yArr = array( [10,5.49,0.89,-.14,-1.07,0.84], dtype=double)

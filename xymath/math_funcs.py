@@ -56,6 +56,7 @@ def find_root(obj, ygoal=0.0, xlo=0.0, xhi=10.0):
     
     xRootArr = array( xrootL )
     yRootArr = obj.eval_xrange( xRootArr )
+    print( "xRootArr, yRootArr =", xRootArr, yRootArr)
     return xRootArr, yRootArr
 
 def find_min_max(obj, xlo=0.0, xhi=10.0, xtol=1.0e-12):

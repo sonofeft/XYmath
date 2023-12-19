@@ -166,7 +166,7 @@ if __name__ == "__main__": #Self Test
         rs.append( [xval, q(xval), q.deriv(xval), q.deriv2nd(xval)] )
     
 
-    from . import xlChart
+    from xymath import xlChart
     xl = xlChart.xlChart()
 
     xl.xlApp.DisplayAlerts = 0  # Allow Quick Close without Save Message

@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from builtins import zip
-from .helper_funcs import is_number
+from xymath.helper_funcs import is_number
 
 '''Interpret input string as either 2 rows or 2 columns of numbers.'''
 

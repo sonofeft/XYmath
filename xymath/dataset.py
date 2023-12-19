@@ -39,6 +39,7 @@ class DataSet(object):
 
     def __init__(self, xArr=array([1.,2.]), yArr=array([3.,4.]), wtArr=None, 
         xName='', yName='', xUnits='', yUnits='', timeStamp=None):
+
         self.xArr = array( [float(x) for x in xArr] , dtype=double)
         self.yArr = array( [float(y) for y in yArr] , dtype=double)
         
@@ -69,16 +70,16 @@ class DataSet(object):
         
         #self.all_nonzero = all(self.yArr != 0.0)
         
-        self.xmin = self.xArr.min()
-        self.xmax = self.xArr.max()
+        self.xmin = float( self.xArr.min() )
+        self.xmax = float( self.xArr.max() )
         
         # make a yArr divisor for pcent_std in case there is a 0.0 in the yArr
         try:
-            self.ymin_abs = absolute( self.yArr[nonzero(self.yArr)] ).min()
+            self.ymin_abs = float( absolute( self.yArr[nonzero(self.yArr)] ).min() )
         except:
             self.ymin_abs = EPS_FLOAT
         #print 'self.ymin_abs=',self.ymin_abs
-        self.yPcentDivArr = array( [v if v!=0.0 else self.ymin_abs for v in self.yArr] )
+        self.yPcentDivArr = array( [float(v) if v!=0.0 else self.ymin_abs for v in self.yArr] )
         #print 'self.yPcentDivArr =',self.yPcentDivArr
 
     def xy_arrays_wo_double_values(self):
@@ -110,7 +111,7 @@ class DataSet(object):
             
         print( 'xy_arrays_wo_double_values xL=',xL )
         print( 'xy_arrays_wo_double_values yL=',yL )
-        return array(xL, dtype=double), array(yL, dtype=double)
+        return array( [float(x) for x in xL], dtype=double), array( [float(y) for y in yL], dtype=double)
 
     def sort_by_x(self):
         #print '---'
@@ -124,8 +125,8 @@ class DataSet(object):
         #print indL
         self.xArr = self.xArr[indL] # use fancy indexing to reorder data
         self.yArr = self.yArr[indL]
-        #print 'xArr=',self.xArr
-        #print 'yArr=',self.yArr
+        # print( 'xArr=',self.xArr )
+        # print( 'self.yArr[indL]=',self.yArr )
         
         # update_internal_vars, but preserve timeStamp
         ts = self.timeStamp
@@ -165,11 +166,14 @@ class DataSet(object):
 
     def append_xy_list(self, xvalL, yvalL, wtL=None ):
 
-        self.xArr = append( self.xArr, (self.xArr, array( [float(x) for x in xvalL] , dtype=double)) )
-        self.yArr = append( self.yArr, (self.yArr, array( [float(y) for y in yvalL] , dtype=double)) )
+        xvalL = [float(x) for x in xvalL]
+        yvalL = [float(y) for y in yvalL]
 
-        # self.xArr = append( self.xArr, xvalL ) 
-        # self.yArr = append( self.yArr, yvalL )
+        # self.xArr = append( self.xArr, (self.xArr, array( [float(x) for x in xvalL] , dtype=double)) )
+        # self.yArr = append( self.yArr, (self.yArr, array( [float(y) for y in yvalL] , dtype=double)) )
+
+        self.xArr = append( self.xArr, xvalL ) 
+        self.yArr = append( self.yArr, yvalL )
         #if self.wtArr!=None:
         if not self.wtArr is None:
             if wtL:
@@ -229,7 +233,7 @@ class DataSet(object):
             return self.transYArrD[name]            
         
         # At this point, only transformations of y will occur
-        y = self.yArr
+        y = self.yArr # y is needed in local vars for numexpr.evaluate( 'y' )
         self.transYArrD[name] = numexpr.evaluate( name )
         return self.transYArrD[name]
         

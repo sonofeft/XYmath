@@ -15,15 +15,15 @@ from builtins import object
 #
 # import statements here. (built-in first, then 3rd party, then yours)
 from numpy import array, double
-import os
+import os, sys
 from itertools import combinations
 
-from .dataset import DataSet
-from .linfit import LinCurveFit
-from .nonlinfit import NonLinCurveFit
-from .eqn_defs import common_eqn_defL
-from .helper_funcs import INFINITY, is_number
-from .exhaustive import build_xterms
+from xymath.dataset import DataSet
+from xymath.linfit import LinCurveFit
+from xymath.nonlinfit import NonLinCurveFit
+from xymath.eqn_defs import common_eqn_defL
+from xymath.helper_funcs import INFINITY, is_number
+from xymath.exhaustive import build_xterms
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -57,6 +57,11 @@ class XY_Job(object):
     def define_dataset(self, xArr, yArr, wtArr=None, xName='', yName='',
         xUnits='', yUnits='', timeStamp=None):
         """Create DataSet object for XY_Job."""
+
+        # clean up input (just in case)
+        xArr = [float(x) for x in xArr]
+        yArr = [float(y) for y in yArr]
+
         self.dataset = DataSet(xArr, yArr, wtArr=wtArr, xName=xName, yName=yName,
         xUnits=xUnits, yUnits=yUnits, timeStamp=timeStamp)
         
@@ -297,11 +302,11 @@ class XY_Job(object):
 
 if __name__=='__main__':
     from numpy import array, double
-    from .dataset import DataSet
+    from xymath.dataset import DataSet
     from pylab import *
-    from .helper_funcs import nextColor # to make color iterator
+    from xymath.helper_funcs import nextColor # to make color iterator
     
-    XY = XY_Job(file_prefix='tube_socks')
+    XY = XY_Job(file_prefix=r'.\examples\tube_socks')
 
     XY.read_job_from_file()
     
