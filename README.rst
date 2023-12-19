@@ -39,11 +39,3 @@ evaluates the fit in python, FORTRAN or EXCEL. Configurable plots are
 created using matplotlib that are of publication quality, including plots of
 equation residuals.
 
-
-.. note::
-
-    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
-    that causes XYmath to crash and burn.
-    
-    XYmath python source is configured for python 3.x, but until
-    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7
