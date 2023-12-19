@@ -56,6 +56,8 @@ if on_rtd:
 
 
 target_file = os.path.join( here, 'xymath','_version.py')
+
+__version__ = "" # will be initialized by target_file
 exec( open( target_file ).read() )  # creates local __version__ variable
 
 

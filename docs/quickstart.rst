@@ -26,16 +26,6 @@ Or
 
 Anaconda: `<https://store.continuum.io/cshop/anaconda/>`_
 
-and install the python 2.7 package of your choice
-
-.. warning::
-
-    Python 3.x has an error in matplotlib.backends.backend_tkagg.FigureCanvasTkAgg
-    that causes XYmath to crash and burn.
-    
-    XYmath python source is configured for python 3.x, but until
-    the matplotlib folks fix FigureCanvasTkAgg, XYmath only runs on python 2.7
-
 XYmath itself is a pure python package, all modules are written in python with no compiled extension modules of its own.
 
 
