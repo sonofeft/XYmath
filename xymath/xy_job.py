@@ -181,7 +181,7 @@ class XY_Job(object):
             return allD
         
         allD = build_header_dicts()
-        print('allD =', allD)
+        # print('allD =', allD)
         
         D = allD.get('XY_Job', {'job_name':'XYmath Task'})
         self.job_name = D['job_name']
@@ -189,8 +189,8 @@ class XY_Job(object):
         D = allD.get('DataSet', {})
         if D:
             self.define_dataset(**D)
-            print('xArr =',self.dataset.xArr)
-            print('yArr =',self.dataset.yArr)
+            # print('xArr =',self.dataset.xArr)
+            # print('yArr =',self.dataset.yArr)
             
                     
         fileObj.close()

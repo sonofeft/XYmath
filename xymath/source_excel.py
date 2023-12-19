@@ -45,7 +45,7 @@ def make_fit_excel( eqnObj ):
         xl_eqnStr = rhs_eqnStr.replace( '**', '^')
         xl_eqnStr = replace_word(xl_eqnStr, 'pi', 'pi()')   # pi is func in Excel
         xl_eqnStr = "=" + replace_word(xl_eqnStr, 'log', 'ln')   # log is base 10 in Excel
-        print('xl_eqnStr =',xl_eqnStr)
+        # print('xl_eqnStr =',xl_eqnStr)
         
         irow = 2
         eL = []
