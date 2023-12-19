@@ -9,6 +9,7 @@ GitHub Log
 * Dec 19, 2023
     - (by: sonofeft) 
         - Dropped python 2.7, enabled python 3.x
+        - version 0.3.1
 * Sep 13, 2015
     - (by: sonofeft) 
         - Added more examples

@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 setup(name="XYmath",
-      version='0.3.0',
+      version='0.3.1',
       description = 'A GUI and API that creates, documents and explores y=f(x) curve fits',
       author="Charlie Taylor",
       author_email="charlietaylor@users.sourceforge.net",
