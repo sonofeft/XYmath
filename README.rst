@@ -1,16 +1,10 @@
 
 
-.. image:: https://travis-ci.org/sonofeft/XYmath.svg?branch=master
-    :target: https://travis-ci.org/sonofeft/XYmath
-
 .. image:: https://img.shields.io/pypi/v/XYmath.svg
-    :target: https://pypi.python.org/pypi/xymath
         
-.. image:: https://img.shields.io/pypi/pyversions/XYmath.svg
-    :target: https://wiki.python.org/moin/Python2orPython3
+.. image:: https://img.shields.io/badge/python-3.5|3.6|3.7|3.8|3.9|3.10-blue
 
 .. image:: https://img.shields.io/pypi/l/XYmath.svg
-    :target: https://pypi.python.org/pypi/xymath
 
 
 XYmath Creates, Documents And Explores Y=f(X) Curve Fits

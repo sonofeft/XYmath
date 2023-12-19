@@ -29,6 +29,7 @@
         "linewidth",
         "linfit",
         "markersize",
+        "matplotlib",
         "newstate",
         "Nleave",
         "nonlin",

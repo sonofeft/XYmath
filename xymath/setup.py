@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # setup.py 
-from distutils.core import setup 
+# Always prefer setuptools over distutils
+from setuptools import setup, find_packages
 
 setup(name="XYmath",
       version='0.3.0',
